@@ -1,0 +1,67 @@
+package dev.mv.vrender.camera;
+
+import dev.mv.vrender.window.Window;
+import org.joml.Matrix4f;
+import org.joml.Vector2f;
+import org.joml.Vector3f;
+
+public class Camera {
+    private Matrix4f projectionMatrix, viewMatrix, zoomMatrix;
+    public Vector2f position;
+    public boolean isStatic;
+    private Window window;
+    public float zoom = 1.0f;
+    public float moveSpeed = 1.0f;
+
+    public Camera(Vector2f position, Window window){
+        this.position = position;
+        this.window = window;
+        isStatic = false;
+
+        projectionMatrix = new Matrix4f();
+        viewMatrix = new Matrix4f();
+        zoomMatrix = new Matrix4f();
+
+        declareProjection();
+    }
+
+    public Camera(Vector2f position, Window window, boolean isStatic){
+        this.position = position;
+        this.window = window;
+        this.isStatic = isStatic;
+
+        projectionMatrix = new Matrix4f();
+        viewMatrix = new Matrix4f();
+        zoomMatrix = new Matrix4f();
+
+        declareProjection();
+    }
+
+    public void setProjection(){
+        if(isStatic) return;
+        projectionMatrix.identity();
+        projectionMatrix.ortho(0.0f, window.getWidth(), 0.0f, window.getHeight(), 0.0f, 100.0f);
+    }
+
+    private void declareProjection(){
+        projectionMatrix.identity();
+        projectionMatrix.ortho(0.0f, (float)window.getWidth(), 0.0f, (float)window.getHeight(), 0.0f, 100.0f);
+    }
+
+    public Matrix4f getViewMatrix(){
+        Vector3f cameraFront = new Vector3f(0.0f, 0.0f, -1.0f);
+        Vector3f cameraUp = new Vector3f(0.0f, 1.0f, 0.0f);
+        viewMatrix.identity();
+        viewMatrix.lookAt(new Vector3f(position.x, position.y, 20.0f), cameraFront.add(position.x, position.y, 0.0f), cameraUp);
+        return viewMatrix;
+    }
+
+    public Matrix4f getProjectionMatrix() {
+        return projectionMatrix;
+    }
+
+    public Matrix4f getZoomMatrix(){
+        zoomMatrix.set(zoom, 0, 0, 0, 0, zoom, 0, 0, 0, 0, zoom, 0, 0, 0, 0, 1);
+        return zoomMatrix;
+    }
+}

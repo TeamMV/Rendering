@@ -11,10 +11,14 @@ out vec4 fColor;
 out vec2 fTexCoords;
 out float fTexID;
 
+uniform mat4 uProjection;
+uniform mat4 uView;
+uniform mat4 uZoom;
+
 void main() {
     fColor = aColor;
     fTexCoords = aTexCoords;
     fTexID = aTexID;
 
-	gl_Position = vec4(aVertPos, 1.0);
+	gl_Position = uProjection * uView * uZoom * vec4(aVertPos, 1.0);
 }

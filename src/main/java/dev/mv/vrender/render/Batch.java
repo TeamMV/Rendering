@@ -2,22 +2,24 @@ package dev.mv.vrender.render;
 
 import dev.mv.vrender.shader.Shader;
 import dev.mv.vrender.texture.Texture;
+import dev.mv.vrender.window.Window;
 import lombok.Getter;
 import org.lwjgl.BufferUtils;
 
-import java.lang.reflect.Array;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
-import java.util.Arrays;
 
 import static org.lwjgl.opengl.GL15.*;
-import static org.lwjgl.opengl.GL20.*;
+import static org.lwjgl.opengl.GL20.glEnableVertexAttribArray;
+import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
 
 public class Batch {
     private int maxSize;
     private float[] data;
     private int[] indices;
     private Texture[] textures;
+
+    private Window win;
 
     @Getter
     private Shader shader;
@@ -37,6 +39,9 @@ public class Batch {
     private int vertCount = 0;
     private int objCount = 0;
     private int nextFreeTexSlot = 0;
+
+    private boolean isFull = false;
+    private boolean isFullTex = false;
 
     //f, f, f (pos), f, f, f, f (col), f, f (uv), f (texID)
 
@@ -59,8 +64,9 @@ public class Batch {
     private final int VERTEX_SIZE_FLOATS = POSITION_SIZE + COLOR_SIZE + UV_SIZE + TEX_ID_SIZE;
     private final int VERTEX_SIZE_BYTES = VERTEX_SIZE_FLOATS * Float.BYTES;
 
-    public Batch(int maxSize){
+    public Batch(int maxSize, Window win){
         this.maxSize = maxSize;
+        this.win = win;
         initBatch();
     }
 
@@ -81,6 +87,8 @@ public class Batch {
         ibo_id = glGenBuffers();
 
         tex_ids = new int[GL_MAX_TEXTURE_UNITS - 1];
+
+        shader.setUniform1i("MTU", GL_MAX_TEXTURE_UNITS - 1);
     }
 
     /**
@@ -95,6 +103,9 @@ public class Batch {
         vertCount = 0;
         objCount = 0;
         nextFreeTexSlot = 0;
+
+        isFull = false;
+        isFullTex = false;
     }
 
     /**
@@ -105,9 +116,22 @@ public class Batch {
 
     public  void forceClearBatch(){
         data = new float[VERTEX_SIZE_FLOATS * maxSize];
+        tex_ids = new int[GL_MAX_TEXTURE_UNITS - 1];
+        textures = new Texture[GL_MAX_TEXTURE_UNITS - 1];
         vertCount = 0;
         objCount = 0;
         nextFreeTexSlot = 0;
+
+        isFull = false;
+        isFullTex = false;
+    }
+
+    public boolean isFull(){
+        return isFull;
+    }
+
+    public boolean isFullOfTextures(){
+        return isFullTex;
     }
 
     private void addVertex(float[] vertData){
@@ -118,6 +142,9 @@ public class Batch {
     }
 
     public void addVertices(float[][] vertData){
+
+        if(isFull) return;
+
         if(vertData.length == 4){
             indices[objCount * 6 + 0] = 0 + objCount * 4;
             indices[objCount * 6 + 1] = 1 + objCount * 4;
@@ -133,15 +160,26 @@ public class Batch {
 
         for(float[] vertex : vertData){
             addVertex(vertex);
+            if(vertCount >= maxSize){
+                isFull = true;
+                return;
+            }
         }
         if(vertData.length < 4){
             addVertex(vertData[0]);
+            if(vertCount >= maxSize){
+                isFull = true;
+                return;
+            }
         }
 
         objCount++;
     }
 
     public void addTexture(Texture tex){
+
+        if(isFullTex) return;
+
         for(Texture texture : textures){
             if(texture == tex){
                 return;
@@ -150,6 +188,9 @@ public class Batch {
         textures[nextFreeTexSlot] = tex;
         tex_ids[nextFreeTexSlot] = tex.getID();
         nextFreeTexSlot++;
+
+        if(nextFreeTexSlot >= textures.length) isFullTex = true;
+
         tex.bind();
     }
 
@@ -158,7 +199,6 @@ public class Batch {
         ibo.put(indices);
         vbo.flip();
         ibo.flip();
-        clearBatch();
     }
 
     public void render(){
@@ -167,6 +207,11 @@ public class Batch {
 
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo_id);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices, GL_DYNAMIC_DRAW);
+
+        shader.setUniform1iv("TEX_SAMPLER", tex_ids);
+        shader.setMatrix4f("uProjection", win.camera.getProjectionMatrix());
+        shader.setMatrix4f("uView", win.camera.getViewMatrix());
+        shader.setMatrix4f("uZoom", win.camera.getZoomMatrix());
 
         glVertexAttribPointer(0, POSITION_SIZE, GL_FLOAT, false, VERTEX_SIZE_BYTES, POSITION_OFFSET_BYTES);
         glEnableVertexAttribArray(0);
@@ -181,5 +226,7 @@ public class Batch {
 
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+        forceClearBatch();
     }
 }

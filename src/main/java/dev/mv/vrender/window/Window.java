@@ -1,12 +1,16 @@
 package dev.mv.vrender.window;
 
+import dev.mv.vrender.camera.Camera;
+import dev.mv.vrender.input.InputCore;
 import dev.mv.vrender.render.Draw;
+import lombok.Getter;
+import lombok.Setter;
+import org.joml.Vector2f;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
 import org.lwjgl.system.*;
 
 import java.nio.*;
-import java.sql.Time;
 
 import static org.lwjgl.glfw.Callbacks.*;
 import static org.lwjgl.glfw.GLFW.*;
@@ -16,11 +20,19 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 public class Window {
 
+    @Getter @Setter
+    private int UPS = 30, FPS = 60;
+    @Getter
+    private int currentFPS, currentUPS;
+
+    @Getter
     private int width, height;
     private String title;
     private boolean resize;
     private Renderer mainClass;
     public Draw draw;
+    public Camera camera;
+    public InputCore input;
 
     /**
      * Creates a new Window object with
@@ -38,9 +50,12 @@ public class Window {
         this.title = title;
         this.resize = resizeable;
         this.mainClass = mainClass;
+
+        camera = new Camera(new Vector2f(0, 0), this, false);
     }
 
     // The window handle
+    @Getter
     private long window;
 
     /**
@@ -125,7 +140,18 @@ public class Window {
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        draw = new Draw(this.width, this.height);
+        draw = new Draw(this.width, this.height, this);
+        input = new InputCore(this);
+
+        glfwSetWindowSizeCallback(window, new GLFWWindowSizeCallback() {
+            @Override
+            public void invoke(long window, int w, int h) {
+                width = w;
+                height = h;
+                //camera.setProjection();
+                //glViewport(0, 0, w, h);
+            }
+        });
     }
 
     private void loop(){
@@ -138,8 +164,8 @@ public class Window {
         while(!glfwWindowShouldClose(window)){
 
             long initialTime = System.nanoTime();
-            final double timeU = 1000000000 / 20;
-            final double timeF = 1000000000 / 60;
+            final double timeU = 1000000000 / UPS;
+            final double timeF = 1000000000 / FPS;
             double deltaU = 0, deltaF = 0;
             int frames = 0, ticks = 0;
             long timer = System.currentTimeMillis();
@@ -150,18 +176,23 @@ public class Window {
                 deltaU += (currentTime - initialTime) / timeU;
                 deltaF += (currentTime - initialTime) / timeF;
                 initialTime = currentTime;
+                glfwPollEvents();
+
 
                 if (deltaU >= 1) {
+                    mainClass.update(this);
 
                     ticks++;
                     deltaU--;
                 }
 
                 if (deltaF >= 1) {
-                    glfwPollEvents();
                     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
                     mainClass.render(this);
+                    //System.out.println(width + ":" + height);
+
                     draw.draw();
+
                     glfwSwapBuffers(window);
                     frames++;
                     deltaF--;
@@ -169,7 +200,8 @@ public class Window {
 
                 if (System.currentTimeMillis() - timer > 1000) {
                     if (true) {
-                        System.out.println(String.format("UPS: %s, FPS: %s", ticks, frames));
+                        currentUPS = ticks;
+                        currentFPS = frames;
                     }
                     frames = 0;
                     ticks = 0;

@@ -2,11 +2,14 @@ package dev.mv.vrender.shader;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.joml.Matrix4f;
+import org.lwjgl.BufferUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.FloatBuffer;
 
 import static org.lwjgl.opengl.GL20.*;
 
@@ -110,5 +113,12 @@ public class Shader {
         if(location != -1) {
             glUniform1iv(location, value);
         }
+    }
+
+    public void setMatrix4f(String name, Matrix4f value){
+        int location = glGetUniformLocation(this.programID, name);
+        FloatBuffer matBuffer = BufferUtils.createFloatBuffer(16);
+        value.get(matBuffer);
+        glUniformMatrix4fv(location, false, matBuffer);
     }
 }
