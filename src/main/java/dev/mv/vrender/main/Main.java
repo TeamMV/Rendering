@@ -1,20 +1,17 @@
 package dev.mv.vrender.main;
 
-import dev.mv.vgui.elements.listeners.ClickListener;
 import dev.mv.vgui.GUI;
-import dev.mv.vgui.GUIElement;
 import dev.mv.vgui.elements.GUIButton;
 import dev.mv.vrender.texture.Texture;
 import dev.mv.vrender.window.Renderer;
+import dev.mv.vrender.window.TestScreen;
 import dev.mv.vrender.window.Window;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-public class Main implements Renderer {
+public class Main implements Renderer{
 
     Texture max, md, demon, al;
-
-    GUI gui = new GUI("gui");
 
     float rot = 0.0f;
 
@@ -27,27 +24,23 @@ public class Main implements Renderer {
 
         w.camera.moveSpeed = 3.0f;
 
-        gui.attachElement(new GUIButton(100, 200, 100, "print", e -> {
-            System.out.println("clicked");
-        }));
-
-        //gui.open();
+        w.setActiveScreen(new TestScreen());
     }
 
     @Override
     public void render(Window w) {
-        gui.render(w);
+
     }
 
     @Override
     public void update(Window w) {
-        if(w.input.keyDown(GLFW_KEY_W)) w.camera.position.y += w.camera.moveSpeed;
-        if(w.input.keyDown(GLFW_KEY_A)) w.camera.position.x -= w.camera.moveSpeed;
-        if(w.input.keyDown(GLFW_KEY_S)) w.camera.position.y -= w.camera.moveSpeed;
-        if(w.input.keyDown(GLFW_KEY_D)) w.camera.position.x += w.camera.moveSpeed;
+        //if(w.input.keyDown(GLFW_KEY_W)) w.camera.position.y += w.camera.moveSpeed;
+        //if(w.input.keyDown(GLFW_KEY_A)) w.camera.position.x -= w.camera.moveSpeed;
+        //if(w.input.keyDown(GLFW_KEY_S)) w.camera.position.y -= w.camera.moveSpeed;
+        //if(w.input.keyDown(GLFW_KEY_D)) w.camera.position.x += w.camera.moveSpeed;
 
-        if(w.input.scrollUp()) w.camera.zoom += 0.05f;
-        if(w.input.scrollDown()) w.camera.zoom -= 0.05f;
+        //if(w.input.scrollUp()) w.camera.zoom += 0.05f;
+        //if(w.input.scrollDown()) w.camera.zoom -= 0.05f;
     }
 
     public static void main(String[] args) {

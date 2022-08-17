@@ -1,5 +1,6 @@
 package dev.mv.vgui;
 
+import dev.mv.vgui.elements.Scrollable;
 import dev.mv.vrender.window.Window;
 import lombok.Getter;
 
@@ -55,13 +56,13 @@ public class GUI {
         open = false;
     }
 
-    public boolean click(int x, int y, int button) {
+    public boolean click(int x, int y, int button, int mods) {
         if (!open) return false;
         boolean ret = false;
         used = true;
         for (GUIElement element : elements) {
             if (element instanceof Clickable) {
-                ((Clickable) element).click(x, y, button);
+                ((Clickable) element).click(x, y, button, mods);
                 ret = true;
             }
         }
@@ -70,13 +71,13 @@ public class GUI {
         return ret;
     }
 
-    public boolean drag(int x, int y) {
+    public boolean drag(int x, int y, int button, int mods) {
         if (!open) return false;
         boolean ret = false;
         used = true;
         for (GUIElement element : elements) {
             if (element instanceof Draggable) {
-                ((Draggable) element).drag(x, y);
+                ((Draggable) element).drag(x, y, button, mods);
                 ret = true;
             }
         }
@@ -92,6 +93,21 @@ public class GUI {
         for (GUIElement element : elements) {
             if (element instanceof Typeable) {
                 ((Typeable) element).keyTyped(c);
+                ret = true;
+            }
+        }
+        used = false;
+        update();
+        return ret;
+    }
+
+    public boolean scroll(int x, int y) {
+        if (!open) return false;
+        boolean ret = false;
+        used = true;
+        for (GUIElement element : elements) {
+            if (element instanceof Scrollable) {
+                ((Scrollable) element).scroll(x, y);
                 ret = true;
             }
         }

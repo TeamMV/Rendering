@@ -34,6 +34,9 @@ public class Window {
     public Camera camera;
     public InputCore input;
 
+    @Getter
+    private Screen activeScreen;
+
     /**
      * Creates a new Window object with
      * @param width width of the window
@@ -188,6 +191,10 @@ public class Window {
 
                 if (deltaF >= 1) {
                     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+                    if (activeScreen != null) {
+                        activeScreen.render(this);
+                        activeScreen.loop(this);
+                    }
                     mainClass.render(this);
                     //System.out.println(width + ":" + height);
 
@@ -209,5 +216,39 @@ public class Window {
                 }
             }
         }
+    }
+
+    public void onKeyAction(int keyCode, int scanCode,  int action, int mods) {
+        if(activeScreen != null) {
+            activeScreen.onKeyAction(keyCode, scanCode, action, mods);
+        }
+    }
+
+    public void onMouseAction(int button, int action, int mods){
+        if(activeScreen != null) {
+            activeScreen.onMouseAction(button, action, mods);
+        }
+    }
+
+    public void onScroll(int x, int y){
+        if(activeScreen != null) {
+            activeScreen.onScroll(x, y);
+        }
+    }
+
+    public void onMouseMove(int x, int y){
+        if(activeScreen != null) {
+            activeScreen.onMouseMove(x, y);
+        }
+    }
+
+    public void setActiveScreen(Screen screen) {
+        if (screen == null) {
+            System.out.println("WARNING! Setting active screen to null.");
+            activeScreen = null;
+            return;
+        }
+        activeScreen = screen;
+        activeScreen.onActivation(this);
     }
 }

@@ -9,8 +9,8 @@ import lombok.Getter;
 
 public class GUIInputBox extends GUIElement implements Clickable, Typeable {
 
-    private int width, height;
-    private String placeholder, text;
+    private int width, height, textWidth;
+    private String placeholder, text = " d";
     private boolean isSelected, isEmpty, isPlaceholder;
     @Getter
     private boolean hidden;
@@ -29,12 +29,9 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
         this.placeholder = placeholder;
         this.hidden = hidden;
 
+        textWidth = SizeLayout.getWidth(text, height - 20);
+
         label = new GUILabel(x + 10, y + 10, height - 20, placeholder);
-    }
-
-    @Override
-    public void click(int x, int y, int button) {
-
     }
 
     @Override
@@ -52,7 +49,7 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
         label.render(w);
 
         if(isSelected){
-            w.draw.rectangle(xPos + 10 + SizeLayout.getWidth(text, height - 20) + 5, yPos + 10, 3, height - 20);
+            w.draw.rectangle(xPos + 10 + textWidth + 5, yPos + 10, 3, height - 20);
         }
     }
 
@@ -78,11 +75,25 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
                 }
                 label.setText(label.getText() + c);
             }
+
+            textWidth = SizeLayout.getWidth(label.getText());
         }
 
         if(label.getText().equals("")) {
             isPlaceholder = true;
             label.setText(placeholder);
+        }
+    }
+
+    @Override
+    public void click(int x, int y, int button, int mods) {
+        if(x >= xPos && x <= xPos + width && y >= yPos && y <= yPos + height){
+            isSelected = true;
+            label.setText("");
+            System.out.println("sel: " + x + " | " + y);
+        }else{
+            isSelected = false;
+            System.out.println("unsel: " + x + " | " + y);
         }
     }
 
