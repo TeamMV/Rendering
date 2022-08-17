@@ -149,7 +149,7 @@ public class Window {
                 width = w;
                 height = h;
                 //camera.setProjection();
-                //glViewport(0, 0, w, h);
+                glViewport(0, 0, w, h);
             }
         });
     }
@@ -157,7 +157,7 @@ public class Window {
     private void loop(){
 
         // Set the clear color
-        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 
         // Run the rendering loop until the user has attempted to close
         // the window or has pressed the ESCAPE key.

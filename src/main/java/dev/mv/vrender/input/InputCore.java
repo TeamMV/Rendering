@@ -35,7 +35,7 @@ public class InputCore {
     }
 
     public boolean mouseClick(int button){
-        return glfwGetMouseButton(window.getWindow(), button + 1) == GL_TRUE;
+        return glfwGetMouseButton(window.getWindow(), button - 1) == GL_TRUE;
     }
 
     public Vector2i mousePosition(){

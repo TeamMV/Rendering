@@ -2,6 +2,7 @@ package dev.mv.vrender.render;
 
 import dev.mv.vrender.texture.Texture;
 import dev.mv.vrender.window.Window;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ public class BatchController{
 
     private static Window win;
     private static int maxBatchSize;
+    private static int currentBatch;
     private static List<Batch> batches = new ArrayList<>();
 
     public static void init(Window window, int batchLimit){
@@ -20,23 +22,41 @@ public class BatchController{
 
         win = window;
         maxBatchSize = batchLimit;
+        currentBatch = 0;
         batches.add(new Batch(batchLimit, window));
     }
 
-    public static void addVertices(float[][] vertexData){
-        if(batches.get(batches.size() - 1).isFull()){
+    private static void nextBatch() {
+        currentBatch++;
+        try {
+            batches.get(currentBatch);
+        } catch (IndexOutOfBoundsException e) {
             batches.add(new Batch(maxBatchSize, win));
         }
-
-        batches.get(batches.size() - 1).addVertices(vertexData);
     }
 
-    public static void addTexture(Texture tex){
-        if(batches.get(batches.size() - 1).isFullOfTextures()){
-            batches.add(new Batch(maxBatchSize, win));
+    public static void addVertices(float[][] vertexData){
+
+        if(batches.get(currentBatch).isFull(vertexData.length * batches.get(0).VERTEX_SIZE_FLOATS)){
+            nextBatch();
         }
 
-        batches.get(batches.size() - 1).addTexture(tex);
+        batches.get(currentBatch).addVertices(vertexData);
+    }
+
+    public static int addTexture(Texture tex){
+        if(batches.get(currentBatch).isFullOfTextures() || batches.get(currentBatch).isFull(44)){
+            nextBatch();
+        }
+
+        int texID = batches.get(currentBatch).addTexture(tex);
+
+        if (texID == -1) {
+            nextBatch();
+            texID = batches.get(currentBatch).addTexture(tex);
+        }
+
+        return texID;
     }
 
     public static int getNumberOfBatches(){
@@ -44,27 +64,24 @@ public class BatchController{
     }
 
     public static void finish(){
-        for(Batch batch : batches){
-            batch.finish();
+        for (int i = 0; i <= currentBatch; i++) {
+            batches.get(i).finish();
         }
-        batches.clear();
-        batches.add(new Batch(maxBatchSize, win));
+        currentBatch = 0;
     }
 
     public static void render(){
-        for(Batch batch : batches){
-            batch.render();
+        for (int i = 0; i <= currentBatch; i++) {
+            batches.get(i).render();
         }
-        batches.clear();
-        batches.add(new Batch(maxBatchSize, win));
+        currentBatch = 0;
     }
 
     public static void finishAndRender(){
-        for(Batch batch : batches){
-            batch.finish();
-            batch.render();
+        for (int i = 0; i <= currentBatch; i++) {
+            batches.get(i).finish();
+            batches.get(i).render();
         }
-        batches.clear();
-        batches.add(new Batch(maxBatchSize, win));
+        currentBatch = 0;
     }
 }
