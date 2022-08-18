@@ -3,6 +3,7 @@
 in vec4 fColor;
 in vec2 fTexCoords;
 in float fTexID;
+in float fRadius;
 
 uniform sampler2D TEX_SAMPLER[16];
 
@@ -13,6 +14,7 @@ void main(){
         gl_FragColor = vec4(c.x + fColor.x, c.y + fColor.y, c.z + fColor.z, c.w);
     }
     else {
+
         gl_FragColor = fColor;
     }
 }

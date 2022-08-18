@@ -2,6 +2,7 @@ package dev.mv.vrender.main;
 
 import dev.mv.vgui.GUI;
 import dev.mv.vgui.elements.GUIButton;
+import dev.mv.vrender.render.Draw;
 import dev.mv.vrender.texture.Texture;
 import dev.mv.vrender.window.Renderer;
 import dev.mv.vrender.window.TestScreen;
@@ -34,13 +35,13 @@ public class Main implements Renderer{
 
     @Override
     public void update(Window w) {
-        //if(w.input.keyDown(GLFW_KEY_W)) w.camera.position.y += w.camera.moveSpeed;
-        //if(w.input.keyDown(GLFW_KEY_A)) w.camera.position.x -= w.camera.moveSpeed;
-        //if(w.input.keyDown(GLFW_KEY_S)) w.camera.position.y -= w.camera.moveSpeed;
-        //if(w.input.keyDown(GLFW_KEY_D)) w.camera.position.x += w.camera.moveSpeed;
+        if(w.input.keyDown(GLFW_KEY_W)) w.camera.position.y -= w.camera.moveSpeed;
+        if(w.input.keyDown(GLFW_KEY_A)) w.camera.position.x += w.camera.moveSpeed;
+        if(w.input.keyDown(GLFW_KEY_S)) w.camera.position.y += w.camera.moveSpeed;
+        if(w.input.keyDown(GLFW_KEY_D)) w.camera.position.x -= w.camera.moveSpeed;
 
-        //if(w.input.scrollUp()) w.camera.zoom += 0.05f;
-        //if(w.input.scrollDown()) w.camera.zoom -= 0.05f;
+        if(w.input.scrollUp()) w.camera.zoom += 0.05f;
+        if(w.input.scrollDown()) w.camera.zoom -= 0.05f;
     }
 
     public static void main(String[] args) {

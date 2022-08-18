@@ -1,6 +1,7 @@
 package dev.mv.vrender.window;
 
 import dev.mv.vgui.GUI;
+import dev.mv.vrender.render.Draw;
 
 import java.util.ArrayList;
 
@@ -22,11 +23,13 @@ public abstract class Screen {
     }
 
     public void renderGUI(Window w) {
+        w.draw.mode(Draw.CAMERA_STATIC);
         for (GUI gui : guis) {
             if (gui.isOpen()) {
                 gui.render(w);
             }
         }
+        w.draw.mode(Draw.CAMERA_DYNAMIC);
     }
 
     public void addGUI(GUI gui) {

@@ -44,7 +44,7 @@ public class Batch {
     private boolean isFull = false;
     private boolean isFullTex = false;
 
-    //f, f, f (pos), f (rot), f, f, f, f (col), f, f (uv), f (texID)
+    //f, f, f (pos), f (rot), f, f, f, f (col), f, f (uv), f (texID), f (camera mode)
 
     private final int POSITION_SIZE = 3;
     private final int POSITION_OFFSET = 0;
@@ -66,7 +66,11 @@ public class Batch {
     private final int TEX_ID_OFFSET = POSITION_SIZE + ROTATION_SIZE + COLOR_SIZE + UV_SIZE;
     private final int TEX_ID_OFFSET_BYTES = TEX_ID_OFFSET * Float.BYTES;
 
-    public final int VERTEX_SIZE_FLOATS = POSITION_SIZE + ROTATION_SIZE + COLOR_SIZE + UV_SIZE + TEX_ID_SIZE;
+    private final int CAMERA_MODE_SIZE = 1;
+    private final int CAMERA_MODE_OFFSET = POSITION_SIZE + ROTATION_SIZE + COLOR_SIZE + UV_SIZE + TEX_ID_SIZE;
+    private final int CAMERA_MODE_OFFSET_BYTES = CAMERA_MODE_OFFSET * Float.BYTES;
+
+    public final int VERTEX_SIZE_FLOATS = POSITION_SIZE + ROTATION_SIZE + COLOR_SIZE + UV_SIZE + TEX_ID_SIZE + CAMERA_MODE_SIZE;
     private final int VERTEX_SIZE_BYTES = VERTEX_SIZE_FLOATS * Float.BYTES;
 
     public Batch(int maxSize, Window win) {
@@ -239,6 +243,8 @@ public class Batch {
         glEnableVertexAttribArray(3);
         glVertexAttribPointer(4, TEX_ID_SIZE, GL_FLOAT, false, VERTEX_SIZE_BYTES, TEX_ID_OFFSET_BYTES);
         glEnableVertexAttribArray(4);
+        glVertexAttribPointer(5, CAMERA_MODE_SIZE, GL_FLOAT, false, VERTEX_SIZE_BYTES, CAMERA_MODE_OFFSET_BYTES);
+        glEnableVertexAttribArray(5);
 
         glDrawElements(GL_TRIANGLES, indices.length, GL_UNSIGNED_INT, 0);
 

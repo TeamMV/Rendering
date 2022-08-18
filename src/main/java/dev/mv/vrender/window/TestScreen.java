@@ -1,14 +1,30 @@
 package dev.mv.vrender.window;
 
 import dev.mv.vgui.GUI;
+import dev.mv.vgui.GUIElement;
+import dev.mv.vgui.elements.GUIButton;
 import dev.mv.vgui.elements.GUIInputBox;
+import dev.mv.vgui.elements.listeners.ClickListener;
 
 public class TestScreen extends Screen{
 
     GUI gui = new GUI("login");
 
     public TestScreen(){
-        gui.attachElement(new GUIInputBox(100, 100, 400, 100, "name"));
+        GUIInputBox nameBox = new GUIInputBox(100, 100, 400, 100, "name");
+        gui.attachElement(nameBox);
+
+        gui.attachElement(new GUIInputBox(100, 220, 400, 100, "pass"));
+        gui.attachElement(new GUIButton(550, 100, 64, "toggle", new ClickListener() {
+            @Override
+            public void clicked(GUIElement e) {
+                if(nameBox.isHidden()){
+                    nameBox.revealText();
+                }else{
+                    nameBox.hideText();
+                }
+            }
+        }));
         guis.add(gui);
         gui.open();
     }

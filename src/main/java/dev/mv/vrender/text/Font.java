@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class Font {
 
@@ -35,15 +36,25 @@ public class Font {
 
         }
 
-        updateLetters();
+        getLetterTextures();
     }
 
-    private void updateLetters(){
+    private void getLetterTextures(){
         for (int i = 32; i <= 126; i++) {
             letters[i - 32] = getLetter((char) i);
         }
     }
 
+    private void updateLetters(){
+        BufferedImage tempfontImage = new BufferedImage(1,1, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = (Graphics2D) tempfontImage.getGraphics();
+
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        g.setFont(font);
+
+        fm = g.getFontMetrics();
+    }
     private Texture getLetter(char c) {
         BufferedImage tempfontImage = new BufferedImage(1,1, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = (Graphics2D) tempfontImage.getGraphics();

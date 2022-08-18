@@ -7,6 +7,7 @@ layout(location=1) in float aRotation;
 layout(location=2) in vec4 aColor;
 layout(location=3) in vec2 aTexCoords;
 layout(location=4) in float aTexID;
+layout(location=5) in float aCameraMode;
 
 out vec4 fColor;
 out vec2 fTexCoords;
@@ -46,5 +47,12 @@ void main() {
 
     mat4 model = trns;
 
-	gl_Position = uProjection * uView * uZoom * vec4(aVertPos, 1.0);
+    //camMode: 0 = dynamic; 1 = static;
+        if(aCameraMode == 0){
+            gl_Position = uProjection * uView * uZoom * vec4(aVertPos, 1.0);
+        }else{
+            gl_Position = uProjection * uZoom * vec4(aVertPos, 1.0);
+        }
+
+
 }

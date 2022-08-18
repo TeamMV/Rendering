@@ -43,7 +43,7 @@ public class SizeLayout {
     }
 
     public static int getWidth(){
-        return fm.charsWidth(s.toCharArray(), 0, s.length());
+        return fm.charsWidth(s.toCharArray(), 0, s.length()) + (s.length() * f.getSpacing());
     }
 
     public static int getHeight(){
