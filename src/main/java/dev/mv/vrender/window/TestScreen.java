@@ -5,17 +5,20 @@ import dev.mv.vgui.GUIElement;
 import dev.mv.vgui.elements.GUIButton;
 import dev.mv.vgui.elements.GUIInputBox;
 import dev.mv.vgui.elements.listeners.ClickListener;
+import dev.mv.vrender.text.BitmapFont;
 
 public class TestScreen extends Screen{
 
     GUI gui = new GUI("login");
 
+    BitmapFont font = new BitmapFont("src/fonts/Viga.ttf", 32);
+
     public TestScreen(){
-        GUIInputBox nameBox = new GUIInputBox(100, 100, 400, 100, "name");
+        GUIInputBox nameBox = new GUIInputBox(100, 100, 400, 100, "name", font);
         gui.attachElement(nameBox);
 
-        gui.attachElement(new GUIInputBox(100, 220, 400, 100, "pass"));
-        gui.attachElement(new GUIButton(550, 100, 64, "toggle", new ClickListener() {
+        gui.attachElement(new GUIInputBox(100, 220, 400, 100, "pass", font));
+        gui.attachElement(new GUIButton(550, 100, 64, "toggle", font, new ClickListener() {
             @Override
             public void clicked(GUIElement e) {
                 if(nameBox.isHidden()){

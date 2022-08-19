@@ -1,12 +1,9 @@
 package dev.mv.vrender.render;
 
-import dev.mv.vrender.camera.Camera;
-import dev.mv.vrender.text.Font;
-import dev.mv.vrender.text.TextRenderer;
+import dev.mv.vrender.text.BitmapFont;
 import dev.mv.vrender.texture.Texture;
 import dev.mv.vrender.window.Window;
-
-import javax.management.InvalidAttributeValueException;
+import org.joml.Vector2f;
 
 public class Draw {
 
@@ -16,17 +13,10 @@ public class Draw {
     public final static int CAMERA_DYNAMIC = 0, CAMERA_STATIC = 1;
     private float currentCamMode = CAMERA_DYNAMIC;
 
-    private TextRenderer textRenderer;
-
-    public Draw(int w, int h, Window win) {
-        this(w, h, win, new Font("src/fonts/Viga.ttf", 20));
-    }
-
-    public Draw(int w, int h, Window win, Font font){
+    public Draw(int w, int h, Window win){
         BatchController.init(win, 1000);
         this.w = w;
         this.h = h;
-        textRenderer = new TextRenderer(font, this);
     }
 
     public void color(int r, int g, int b, int a){
@@ -99,8 +89,31 @@ public class Draw {
         });
     }
 
-    public void text(int x, int y, int height, String s){
-        textRenderer.draw(x, y, height, s);
+    public void text(int x, int y, int height, String s, BitmapFont font){
+
+        int texID = BatchController.addTexture(font.getBitmap());
+
+        for(int i = 0; i < s.length(); i++){
+            char c = s.charAt(i);
+
+            float ax = x;
+            float ay = y;
+            float ax2 = x + font.getWidth(c);
+            float ay2 = y + height;
+
+            Vector2f[] uvs = font.getUV(c);
+            Vector2f BL = uvs[0];
+            Vector2f TL = uvs[1];
+            Vector2f TR = uvs[2];
+            Vector2f BR = uvs[3];
+
+            BatchController.addVertices(new float[][]{
+                    {ax, ay2, 0.0f,  0.0f, r, g, b, a, BL.x, BL.y, (float)texID, currentCamMode},
+                    {ax, ay, 0.0f,   0.0f, r, g, b, a, TL.x, TL.y, (float)texID, currentCamMode},
+                    {ax2, ay, 0.0f,  0.0f, r, g, b, a, TR.x, TR.y, (float)texID, currentCamMode},
+                    {ax2, ay2, 0.0f, 0.0f, r, g, b, a, BR.x, BR.y, (float)texID, currentCamMode}
+            });
+        }
     }
 
     public void draw(){

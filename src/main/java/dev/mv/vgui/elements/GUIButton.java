@@ -3,6 +3,7 @@ package dev.mv.vgui.elements;
 import dev.mv.vgui.Clickable;
 import dev.mv.vgui.GUIElement;
 import dev.mv.vgui.elements.listeners.ClickListener;
+import dev.mv.vrender.text.BitmapFont;
 import dev.mv.vrender.text.SizeLayout;
 import dev.mv.vrender.window.Window;
 
@@ -13,23 +14,23 @@ public class GUIButton extends GUIElement implements Clickable {
 
     private ClickListener listener;
 
-    public GUIButton(int x, int y, int height, String text, ClickListener listner){
+    public GUIButton(int x, int y, int height, String text, BitmapFont font, ClickListener listner){
         xPos = x;
         yPos = y;
         this.listener = listner;
         this.width = SizeLayout.getWidth(text, height) + 50;
         this.height = height;
-        label = new GUILabel(x + (width / 2) - (SizeLayout.getWidth() / 2), y, height, text);
+        label = new GUILabel(x + (width / 2) - (SizeLayout.getWidth() / 2), y, height, text, font);
     }
 
-    public GUIButton(int x, int y, int width, int height, String text, ClickListener listner){
+    public GUIButton(int x, int y, int width, int height, String text, BitmapFont font, ClickListener listner){
         xPos = x;
         yPos = y;
         this.listener = listner;
         this.width = width;
         this.height = height;
         SizeLayout.setText(text, height);
-        label = new GUILabel(x + (width / 2) - (SizeLayout.getWidth() / 2), y, height, text);
+        label = new GUILabel(x + (width / 2) - (SizeLayout.getWidth() / 2), y, height, text, font);
     }
 
     @Override

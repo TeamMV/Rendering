@@ -3,6 +3,7 @@ package dev.mv.vgui.elements;
 import dev.mv.vgui.Clickable;
 import dev.mv.vgui.GUIElement;
 import dev.mv.vgui.Typeable;
+import dev.mv.vrender.text.BitmapFont;
 import dev.mv.vrender.text.SizeLayout;
 import dev.mv.vrender.window.Window;
 import lombok.Getter;
@@ -17,11 +18,11 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
     @Getter
     private GUILabel label;
 
-    public GUIInputBox(int x, int y, int width, int height, String placeholder) {
-        this(x, y, width, height, placeholder, false);
+    public GUIInputBox(int x, int y, int width, int height, String placeholder, BitmapFont font) {
+        this(x, y, width, height, placeholder, font, false);
     }
 
-    public GUIInputBox(int x, int y, int width, int height, String placeholder, boolean hidden){
+    public GUIInputBox(int x, int y, int width, int height, String placeholder, BitmapFont font, boolean hidden){
         xPos = x;
         yPos = y;
         this.width = width;
@@ -31,7 +32,7 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
 
         textWidth = SizeLayout.getWidth(text, height - 20);
 
-        label = new GUILabel(x + 10, y + 10, height - 20, placeholder);
+        label = new GUILabel(x + 10, y + 10, height - 20, placeholder, font);
     }
 
     @Override
