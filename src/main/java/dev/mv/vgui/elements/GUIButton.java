@@ -13,24 +13,26 @@ public class GUIButton extends GUIElement implements Clickable {
     private GUILabel label;
 
     private ClickListener listener;
+    private SizeLayout layout;
 
     public GUIButton(int x, int y, int height, String text, BitmapFont font, ClickListener listner){
+        layout = new SizeLayout(font, text, height);
         xPos = x;
         yPos = y;
         this.listener = listner;
-        this.width = SizeLayout.getWidth(text, height) + 50;
+        this.width = layout.getWidth() + 50;
         this.height = height;
-        label = new GUILabel(x + (width / 2) - (SizeLayout.getWidth() / 2), y, height, text, font);
+        label = new GUILabel(x + (width / 2) - (layout.getWidth() / 2), y + ((height / 2) - (layout.getHeight() / 2)), height, text, font);
     }
 
     public GUIButton(int x, int y, int width, int height, String text, BitmapFont font, ClickListener listner){
+        layout = new SizeLayout(font, text, height);
         xPos = x;
         yPos = y;
         this.listener = listner;
         this.width = width;
         this.height = height;
-        SizeLayout.setText(text, height);
-        label = new GUILabel(x + (width / 2) - (SizeLayout.getWidth() / 2), y, height, text, font);
+        label = new GUILabel(x + (width / 2) - (layout.getWidth() / 2), y, height, text, font);
     }
 
     @Override

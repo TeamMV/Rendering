@@ -1,6 +1,7 @@
 package dev.mv.vrender.render;
 
 import dev.mv.vrender.text.BitmapFont;
+import dev.mv.vrender.text.SizeLayout;
 import dev.mv.vrender.texture.Texture;
 import dev.mv.vrender.window.Window;
 import org.joml.Vector2f;
@@ -12,6 +13,8 @@ public class Draw {
 
     public final static int CAMERA_DYNAMIC = 0, CAMERA_STATIC = 1;
     private float currentCamMode = CAMERA_DYNAMIC;
+
+    private SizeLayout layout = new SizeLayout();
 
     public Draw(int w, int h, Window win){
         BatchController.init(win, 1000);
@@ -92,26 +95,32 @@ public class Draw {
     public void text(int x, int y, int height, String s, BitmapFont font){
 
         int texID = BatchController.addTexture(font.getBitmap());
+        int charX = 0;
+
+        layout.setFont(font);
+        layout.setHeight(height);
 
         for(int i = 0; i < s.length(); i++){
             char c = s.charAt(i);
 
-            float ax = x;
+            float ax = x + charX;
             float ay = y;
-            float ax2 = x + font.getWidth(c);
-            float ay2 = y + height;
+            float ax2 = x + layout.getWidth(c + "") + charX;
+            float ay2 = y + height * 1.4f;
+
+            charX += font.getSpacing() + layout.getWidth(c + "");
 
             Vector2f[] uvs = font.getUV(c);
-            Vector2f BL = uvs[0];
-            Vector2f TL = uvs[1];
-            Vector2f TR = uvs[2];
-            Vector2f BR = uvs[3];
+            float ux0 = uvs[0].x;
+            float ux1 = uvs[1].x;
+            float uy1 = uvs[0].y;
+            float uy0 = uvs[1].y;
 
             BatchController.addVertices(new float[][]{
-                    {ax, ay2, 0.0f,  0.0f, r, g, b, a, BL.x, BL.y, (float)texID, currentCamMode},
-                    {ax, ay, 0.0f,   0.0f, r, g, b, a, TL.x, TL.y, (float)texID, currentCamMode},
-                    {ax2, ay, 0.0f,  0.0f, r, g, b, a, TR.x, TR.y, (float)texID, currentCamMode},
-                    {ax2, ay2, 0.0f, 0.0f, r, g, b, a, BR.x, BR.y, (float)texID, currentCamMode}
+                    {ax, ay2, 0.0f,  0.0f, r, g, b, a, ux0, uy0, (float)texID, currentCamMode},
+                    {ax, ay, 0.0f,   0.0f, r, g, b, a, ux0, uy1, (float)texID, currentCamMode},
+                    {ax2, ay, 0.0f,  0.0f, r, g, b, a, ux1, uy1, (float)texID, currentCamMode},
+                    {ax2, ay2, 0.0f, 0.0f, r, g, b, a, ux1, uy0, (float)texID, currentCamMode}
             });
         }
     }

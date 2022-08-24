@@ -4,21 +4,35 @@ import dev.mv.vgui.GUI;
 import dev.mv.vgui.GUIElement;
 import dev.mv.vgui.elements.GUIButton;
 import dev.mv.vgui.elements.GUIInputBox;
+import dev.mv.vgui.elements.GUILabel;
 import dev.mv.vgui.elements.listeners.ClickListener;
 import dev.mv.vrender.text.BitmapFont;
+
+import java.awt.*;
+import java.io.IOException;
 
 public class TestScreen extends Screen{
 
     GUI gui = new GUI("login");
 
-    BitmapFont font = new BitmapFont("src/fonts/Viga.ttf", 32);
+    public static BitmapFont font;
+
+    {
+        try {
+            font = new BitmapFont("src/fonts/Viga.ttf", 32);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (FontFormatException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public TestScreen(){
-        GUIInputBox nameBox = new GUIInputBox(100, 100, 400, 100, "name", font);
+        GUIInputBox nameBox = new GUIInputBox(100, 100, 400, 100, "pass", font);
         gui.attachElement(nameBox);
 
-        gui.attachElement(new GUIInputBox(100, 220, 400, 100, "pass", font));
-        gui.attachElement(new GUIButton(550, 100, 64, "toggle", font, new ClickListener() {
+        gui.attachElement(new GUIInputBox(100, 220, 400, 100, "name", font));
+        gui.attachElement(new GUIButton(550, 100, 64, "view", font, new ClickListener() {
             @Override
             public void clicked(GUIElement e) {
                 if(nameBox.isHidden()){
@@ -28,6 +42,7 @@ public class TestScreen extends Screen{
                 }
             }
         }));
+
         guis.add(gui);
         gui.open();
     }

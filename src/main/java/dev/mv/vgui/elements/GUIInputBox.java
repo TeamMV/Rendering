@@ -18,25 +18,31 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
     @Getter
     private GUILabel label;
 
+    private SizeLayout layout;
+    private BitmapFont font;
+
     public GUIInputBox(int x, int y, int width, int height, String placeholder, BitmapFont font) {
         this(x, y, width, height, placeholder, font, false);
     }
 
     public GUIInputBox(int x, int y, int width, int height, String placeholder, BitmapFont font, boolean hidden){
+        layout = new SizeLayout(font, text, height - 20);
         xPos = x;
         yPos = y;
         this.width = width;
         this.height = height;
         this.placeholder = placeholder;
         this.hidden = hidden;
+        this.font = font;
 
-        textWidth = SizeLayout.getWidth(text, height - 20);
+        textWidth = layout.getWidth();
 
-        label = new GUILabel(x + 10, y + 10, height - 20, placeholder, font);
+        label = new GUILabel(x + 10, y + ((height / 2) - (layout.getHeight() / 2)), height - 20, placeholder, font);
     }
 
     @Override
     public void render(Window w) {
+        System.out.println(xPos);
         w.draw.color(0, 0, 0, 255);
         w.draw.rectangle(xPos, yPos, width, height);
         w.draw.color(117, 117, 117, 255);
@@ -50,7 +56,7 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
         label.render(w);
 
         if(isSelected){
-            w.draw.rectangle(xPos + 10 + textWidth + 5, yPos + 10, 3, height - 20);
+            w.draw.rectangle(xPos + 10 + textWidth + font.getSpacing() + 5, yPos + 10, 3, height - 20);
         }
     }
 
@@ -85,7 +91,7 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
                 }
             }
 
-            textWidth = SizeLayout.getWidth(label.getText());
+            textWidth = layout.getWidth(label.getText());
         }
     }
 
@@ -117,13 +123,13 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
             return;
         }
         label.setText("*".repeat(text.length()));
-        textWidth = SizeLayout.getWidth(label.getText());
+        textWidth = layout.getWidth(label.getText());
     }
 
     public void revealText() {
         hidden = false;
         label.setText(text);
-        textWidth = SizeLayout.getWidth(label.getText());
+        textWidth = layout.getWidth(label.getText());
         if(isPlaceholder) label.setText(placeholder);
     }
 

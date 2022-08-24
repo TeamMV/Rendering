@@ -3,8 +3,11 @@ package dev.mv.vrender.text;
 import dev.mv.vrender.texture.Texture;
 import org.joml.Vector2f;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,15 +20,15 @@ public class BitmapFont {
     private Map<Integer, CharInfo> characterMap = new HashMap<>();
     private Texture bitmap;
 
-    public BitmapFont(String path, int size) {
+    public BitmapFont(String path, int size) throws IOException, FontFormatException {
         this.size = size;
         this.path = path;
 
         create();
     }
 
-    private void create() {
-        Font font = new Font(path, Font.PLAIN, size);
+    private void create() throws IOException, FontFormatException {
+        Font font = Font.createFont(Font.TRUETYPE_FONT, new File(path)).deriveFont((float)size);
 
         // Create fake image to get font information
         BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
@@ -82,6 +85,10 @@ public class BitmapFont {
 
     public int getWidth(char c){
         return characterMap.get((int) c).width;
+    }
+
+    public int getDefaultHeight(){
+        return lineHeight;
     }
 
     public Texture getBitmap(){

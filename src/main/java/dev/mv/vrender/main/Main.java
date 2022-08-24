@@ -1,8 +1,5 @@
 package dev.mv.vrender.main;
 
-import dev.mv.vgui.GUI;
-import dev.mv.vgui.elements.GUIButton;
-import dev.mv.vrender.render.Draw;
 import dev.mv.vrender.texture.Texture;
 import dev.mv.vrender.window.Renderer;
 import dev.mv.vrender.window.TestScreen;
