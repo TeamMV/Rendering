@@ -106,7 +106,7 @@ public class Draw {
             float ax = x + charX;
             float ay = y;
             float ax2 = x + layout.getWidth(c + "") + charX;
-            float ay2 = y + height * 1.4f;
+            float ay2 = y + height;
 
             charX += font.getSpacing() + layout.getWidth(c + "");
 

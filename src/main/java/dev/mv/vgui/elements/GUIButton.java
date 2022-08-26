@@ -22,7 +22,7 @@ public class GUIButton extends GUIElement implements Clickable {
         this.listener = listner;
         this.width = layout.getWidth() + 50;
         this.height = height;
-        label = new GUILabel(x + (width / 2) - (layout.getWidth() / 2), y + ((height / 2) - (layout.getHeight() / 2)), height, text, font);
+        label = new GUILabel(x + (width / 2) - (layout.getWidth() / 2), y + height / 10, height - height / 5, text, font);
     }
 
     public GUIButton(int x, int y, int width, int height, String text, BitmapFont font, ClickListener listner){

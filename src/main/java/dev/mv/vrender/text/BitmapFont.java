@@ -1,100 +1,125 @@
 package dev.mv.vrender.text;
 
 import dev.mv.vrender.texture.Texture;
+import lombok.Getter;
 import org.joml.Vector2f;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class BitmapFont {
-
-    private int width, height, lineHeight;
-    private int size;
-    private String path;
-    private Color color = new Color(0, 0, 0, 255);
-    private Map<Integer, CharInfo> characterMap = new HashMap<>();
+    private Map<Integer, Glyph> chars;
+    @Getter
     private Texture bitmap;
 
-    public BitmapFont(String path, int size) throws IOException, FontFormatException {
-        this.size = size;
-        this.path = path;
+    private int maxWidth = 0, maxHeight = 0;
 
-        create();
+    public BitmapFont(String pngFile, String fntFile){
+
+        bitmap = loadTexture(pngFile);
+
+        try {
+            chars = createCharacters(fntFile);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    private void create() throws IOException, FontFormatException {
-        Font font = Font.createFont(Font.TRUETYPE_FONT, new File(path)).deriveFont((float)size);
+    private Texture loadTexture(String pngFile){
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(new File(pngFile));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
-        // Create fake image to get font information
-        BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2d = img.createGraphics();
-        g2d.setFont(font);
-        FontMetrics fontMetrics = g2d.getFontMetrics();
+        if(img == null){
+            return null;
+        }
+        return new Texture(img);
+    }
+    private Map<Integer, Glyph> createCharacters(String fntFile) throws IOException {
+        BufferedReader reader = null;
+        Map<Integer, Glyph> map = new HashMap<>();
+        try {
+            reader = new BufferedReader(new FileReader(fntFile));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
-        int estimatedWidth = (int)Math.sqrt(font.getNumGlyphs()) * font.getSize() + 1;
-        width = 0;
-        height = fontMetrics.getHeight();
-        lineHeight = fontMetrics.getHeight();
-        int x = 0;
-        int y = (int)(fontMetrics.getHeight() * 1.4f);
+        if(reader == null){
+            return null;
+        }
 
-        for (int i=0; i < font.getNumGlyphs(); i++) {
-            if (font.canDisplay(i)) {
-                // Get the sizes for each codepoint glyph, and update the actual image width and height
-                CharInfo charInfo = new CharInfo(x, y, fontMetrics.charWidth(i), fontMetrics.getHeight());
-                characterMap.put(i, charInfo);
-                width = Math.max(x + fontMetrics.charWidth(i), width);
+        int totalChars = -1;
+        int lineHeight = -1;
+        int atlasWidth = 1;
+        int atlasHeight = 1;
 
-                x += charInfo.width;
-                if (x > estimatedWidth) {
-                    x = 0;
-                    y += fontMetrics.getHeight() * 1.4f;
-                    height += fontMetrics.getHeight() * 1.4f;
-                }
+        while(totalChars == -1){
+            String line = reader.readLine();
+            if(line.contains("common ")){
+                lineHeight = Integer.parseInt(getCharAttrib(line, "lineHeight"));
+                atlasWidth = Integer.parseInt(getCharAttrib(line, "scaleW"));
+                atlasHeight = Integer.parseInt(getCharAttrib(line, "scaleH"));
+            }
+            if(line.contains("chars ")){
+                totalChars = Integer.parseInt(getCharAttrib(line, "count"));
             }
         }
-        height += fontMetrics.getHeight() * 1.4f;
-        g2d.dispose();
 
-        // Create the real texture
-        img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        g2d = img.createGraphics();
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2d.setFont(font);
-        g2d.setColor(Color.WHITE);
-        for (int i=0; i < font.getNumGlyphs(); i++) {
-            if (font.canDisplay(i)) {
-                CharInfo info = characterMap.get(i);
-                info.calculateTextureCoordinates(width, height);
-                g2d.drawString("" + (char)i, info.sourceX, info.sourceY);
+        for(int i = 0; i < totalChars; i++){
+            String line = reader.readLine();
+            maxWidth = Math.max(maxWidth, Integer.parseInt(getCharAttrib(line, "width")));
+            maxHeight = Math.max(maxHeight, Integer.parseInt(getCharAttrib(line, "height")));
+            map.put(Integer.parseInt(getCharAttrib(line, "id")), new Glyph(
+                    Integer.parseInt(getCharAttrib(line, "x")),
+                    Integer.parseInt(getCharAttrib(line, "y")),
+                    Integer.parseInt(getCharAttrib(line, "width")),
+                    Integer.parseInt(getCharAttrib(line, "height")),
+                    Integer.parseInt(getCharAttrib(line, "xoffset")),
+                    Integer.parseInt(getCharAttrib(line, "yoffset")),
+                    Integer.parseInt(getCharAttrib(line, "xadvance"))
+            ).makeTexCoords(atlasWidth, atlasHeight));
+        }
+
+        return map;
+    }
+
+    private String getCharAttrib(String line, String name){
+        Pattern pattern = Pattern.compile("\s+");
+        Matcher matcher = pattern.matcher(line);
+        line = matcher.replaceAll(" ");
+        String[] attribs = line.split(" ");
+
+        for(String s : attribs){
+            if(s.contains(name)){
+                return s.split("=")[1];
             }
         }
-        g2d.dispose();
 
-        bitmap = new Texture(img);
+        return "";
     }
 
-    public Vector2f[] getUV(char c) {
-        return characterMap.get((int) c).getTextureCoordinates();
+    public int getSpacing(){
+        return (int) (maxWidth / 10f);
     }
 
-    public int getWidth(char c){
-        return characterMap.get((int) c).width;
+    public Vector2f[] getUV(char c){
+        return chars.get(c + 0).getTexCoords();
     }
 
     public int getDefaultHeight(){
-        return lineHeight;
+        return maxHeight;
     }
 
-    public Texture getBitmap(){
-        return bitmap;
-    }
-    public int getSpacing(){
-        return 2;
+    public int getWidth(char c){
+        return chars.get(c + 0).getWidth();
     }
 }

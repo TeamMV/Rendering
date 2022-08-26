@@ -18,13 +18,7 @@ public class TestScreen extends Screen{
     public static BitmapFont font;
 
     {
-        try {
-            font = new BitmapFont("src/fonts/Viga.ttf", 32);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (FontFormatException e) {
-            throw new RuntimeException(e);
-        }
+        font = new BitmapFont("src/fonts/Viga/viga.png", "src/fonts/Viga/viga.fnt");
     }
 
     public TestScreen(){

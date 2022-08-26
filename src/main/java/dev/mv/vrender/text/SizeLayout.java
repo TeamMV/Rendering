@@ -34,7 +34,7 @@ public class SizeLayout {
             res += font.getSpacing();
         }
 
-        return (int)(res * 1.4f);
+        return (int)(res);
     }
 
     public int getHeight(){
