@@ -6,13 +6,13 @@ import dev.mv.vrender.window.Window;
 import lombok.Getter;
 import org.lwjgl.BufferUtils;
 
-import java.lang.reflect.Array;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.Arrays;
 
 import static org.lwjgl.opengl.GL15.*;
-import static org.lwjgl.opengl.GL20.*;
+import static org.lwjgl.opengl.GL20.glEnableVertexAttribArray;
+import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
 
 public class Batch {
     private int maxSize;
@@ -70,7 +70,11 @@ public class Batch {
     private final int CAMERA_MODE_OFFSET = POSITION_SIZE + ROTATION_SIZE + COLOR_SIZE + UV_SIZE + TEX_ID_SIZE;
     private final int CAMERA_MODE_OFFSET_BYTES = CAMERA_MODE_OFFSET * Float.BYTES;
 
-    public final int VERTEX_SIZE_FLOATS = POSITION_SIZE + ROTATION_SIZE + COLOR_SIZE + UV_SIZE + TEX_ID_SIZE + CAMERA_MODE_SIZE;
+    private final int ROTATION_ORIGIN_SIZE = 2;
+    private final int ROTATION_ORIGIN_OFFSET = POSITION_SIZE + ROTATION_SIZE + COLOR_SIZE + UV_SIZE + TEX_ID_SIZE + CAMERA_MODE_SIZE;
+    private final int ROTATION_ORIGIN_OFFSET_BYTES = ROTATION_ORIGIN_OFFSET * Float.BYTES;
+
+    public final int VERTEX_SIZE_FLOATS = POSITION_SIZE + ROTATION_SIZE + COLOR_SIZE + UV_SIZE + TEX_ID_SIZE + CAMERA_MODE_SIZE + ROTATION_ORIGIN_SIZE;
     private final int VERTEX_SIZE_BYTES = VERTEX_SIZE_FLOATS * Float.BYTES;
 
     public Batch(int maxSize, Window win) {
@@ -83,7 +87,7 @@ public class Batch {
         data = new float[VERTEX_SIZE_FLOATS * maxSize];
         indices = new int[maxSize * 6];
 
-        shader = new Shader("src/shaders/default.vert", "src/shaders/default.frag");
+        shader = new Shader(this.getClass().getResource("/shaders/default.vert").getPath(), this.getClass().getResource("/shaders/default.frag").getPath());
 
         shader.make();
         shader.use();
@@ -190,7 +194,7 @@ public class Batch {
         if (isFullTex) return -1;
 
         for (int i = 0; i < textures.length; i++) {
-            if (textures[i] == null) break;
+            if (textures[i] == null) continue;
             if (textures[i].getID() == tex.getID()) {
                 return i;
             }
@@ -245,6 +249,8 @@ public class Batch {
         glEnableVertexAttribArray(4);
         glVertexAttribPointer(5, CAMERA_MODE_SIZE, GL_FLOAT, false, VERTEX_SIZE_BYTES, CAMERA_MODE_OFFSET_BYTES);
         glEnableVertexAttribArray(5);
+        glVertexAttribPointer(6, ROTATION_ORIGIN_SIZE, GL_FLOAT, false, VERTEX_SIZE_BYTES, ROTATION_ORIGIN_OFFSET_BYTES);
+        glEnableVertexAttribArray(6);
 
         glDrawElements(GL_TRIANGLES, indices.length, GL_UNSIGNED_INT, 0);
 

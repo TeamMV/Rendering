@@ -1,7 +1,6 @@
 package dev.mv.vgui;
 
 import dev.mv.vrender.window.Window;
-import lombok.Getter;
 
 public abstract class GUIElement {
 

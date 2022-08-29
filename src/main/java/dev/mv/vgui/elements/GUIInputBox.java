@@ -25,7 +25,7 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
         this(x, y, width, height, placeholder, font, false);
     }
 
-    public GUIInputBox(int x, int y, int width, int height, String placeholder, BitmapFont font, boolean hidden){
+    public GUIInputBox(int x, int y, int width, int height, String placeholder, BitmapFont font, boolean hidden) {
         layout = new SizeLayout(font, text, height - 20);
         xPos = x;
         yPos = y;
@@ -46,15 +46,15 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
         w.draw.rectangle(xPos, yPos, width, height);
         w.draw.color(117, 117, 117, 255);
 
-        if(w.input.mouseInside(xPos, yPos, xPos + width, yPos + height)){
+        if (w.input.mouseInside(xPos, yPos, xPos + width, yPos + height)) {
             w.draw.color(140, 140, 140, 255);
         }
 
-        w.draw.rectangle(xPos + 3, yPos + 3, width - 6, height- 6);
+        w.draw.rectangle(xPos + 3, yPos + 3, width - 6, height - 6);
         w.draw.color(255, 255, 255, 255);
         label.render(w);
 
-        if(isSelected){
+        if (isSelected) {
             w.draw.rectangle(xPos + textWidth + 5, yPos + 10, 3, height - 20);
         }
     }
@@ -69,31 +69,29 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
         if (isSelected) {
             if (c == 259) {
                 if (isPlaceholder) return;
-                if(text.length() == 0) return;
+                if (text.length() == 0) return;
                 text = label.getText().substring(0, text.length() - 1);
                 label.setText(text);
-            }
-            else if (c == 257) {
+            } else if (c == 257) {
                 return;
-            }
-            else if(c > 31 && c < 128){
+            } else if (c > 31 && c < 128) {
                 if (isPlaceholder) {
                     label.setText("");
                     isPlaceholder = false;
                 }
 
-                if(textWidth >= width - 20){
+                if (textWidth >= width - 20) {
                     return;
                 }
 
-                if(layout.getWidth(text + c) >= width - 20){
+                if (layout.getWidth(text + c) >= width - 20) {
                     return;
                 }
 
                 text += c;
                 label.setText(text);
 
-                if(hidden){
+                if (hidden) {
                     label.setText("*".repeat(label.getText().length()));
                 }
             }
@@ -105,15 +103,15 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
 
     @Override
     public void click(int x, int y, int button, int mods) {
-        if(x >= xPos && x <= xPos + width && y >= yPos && y <= yPos + height){
-            if(isSelected) return;
+        if (x >= xPos && x <= xPos + width && y >= yPos && y <= yPos + height) {
+            if (isSelected) return;
             isSelected = true;
-            if(!isPlaceholder) return;
+            if (!isPlaceholder) return;
             label.setText("");
             isPlaceholder = false;
-        }else{
+        } else {
             isSelected = false;
-            if(!text.equals("")) return;
+            if (!text.equals("")) return;
             label.setText(placeholder);
             isPlaceholder = true;
         }
@@ -126,8 +124,8 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
 
     public void hideText() {
         hidden = true;
-        if(text.length() == 0){
-            if(isPlaceholder) label.setText("");
+        if (text.length() == 0) {
+            if (isPlaceholder) label.setText("");
             return;
         }
         label.setText("*".repeat(text.length()));
@@ -138,7 +136,7 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
         hidden = false;
         label.setText(text);
         textWidth = layout.getWidth(label.getText());
-        if(isPlaceholder) label.setText(placeholder);
+        if (isPlaceholder) label.setText(placeholder);
     }
 
 }

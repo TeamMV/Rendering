@@ -6,6 +6,7 @@ import dev.mv.vgui.elements.GUIButton;
 import dev.mv.vgui.elements.listeners.ClickListener;
 import dev.mv.vrender.render.Draw;
 import dev.mv.vrender.texture.Texture;
+import dev.mv.vrender.text.FontHolder;
 import dev.mv.vrender.window.Screen;
 import dev.mv.vrender.window.Window;
 
@@ -16,9 +17,11 @@ public class MainMenu extends Screen {
 
     private GUI main = new GUI("main_menu");
 
-    public MainMenu(Window w){
-        main_bg = new Texture("src/textures/main_bg.png");
-        main_logo = new Texture("src/textures/main_logo.png");
+    private int r = 0;
+
+    public MainMenu(Window w) {
+        main_bg = new Texture(this.getClass().getResource("/textures/main_bg.png").getPath());
+        main_logo = new Texture(this.getClass().getResource("/textures/main_logo.png").getPath());
 
         logoWidth = (int) (w.getWidth() - w.getWidth() / 5f);
         logoHeight = 64 * (logoWidth / 128);
@@ -26,14 +29,14 @@ public class MainMenu extends Screen {
 
         int button_width = 400;
 
-        main.attachElement(new GUIButton((int) ((w.getWidth() / 2) - (button_width / 2) - button_width / 1.7f), w.getHeight() - (w.getHeight() / 20) - logoHeight - 200, button_width, 50, "load game", Screen.font, new ClickListener() {
+        main.attachElement(new GUIButton((int) ((w.getWidth() / 2) - (button_width / 2) - button_width / 1.7f), w.getHeight() - (w.getHeight() / 20) - logoHeight - 200, button_width, 50, "load game", FontHolder.font, new ClickListener() {
             @Override
             public void clicked(GUIElement e) {
 
             }
         }));
 
-        main.attachElement(new GUIButton((int) ((w.getWidth() / 2) - (button_width / 2) + button_width / 1.7f), w.getHeight() - (w.getHeight() / 20) - logoHeight - 200, button_width, 50, "new game", Screen.font, new ClickListener() {
+        main.attachElement(new GUIButton((int) ((w.getWidth() / 2) - (button_width / 2) + button_width / 1.7f), w.getHeight() - (w.getHeight() / 20) - logoHeight - 200, button_width, 50, "new game", FontHolder.font, new ClickListener() {
             @Override
             public void clicked(GUIElement e) {
 
@@ -48,8 +51,9 @@ public class MainMenu extends Screen {
     public void render(Window w) {
 
         w.draw.mode(Draw.CAMERA_STATIC);
-        //w.draw.image(0, 0, w.getWidth(), w.getHeight(), main_bg);
-        //w.draw.image(logoX, w.getHeight() - (w.getHeight() / 20) - logoHeight, logoWidth, logoHeight, main_logo);
+        w.draw.color(0, 0, 0, 255);
+        w.draw.image(0, 0, w.getWidth(), w.getHeight(), main_bg);
+        w.draw.image(logoX, w.getHeight() - (w.getHeight() / 20) - logoHeight, logoWidth, logoHeight, main_logo);
 
         renderGUI(w);
     }

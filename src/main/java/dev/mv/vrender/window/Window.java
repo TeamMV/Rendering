@@ -3,24 +3,28 @@ package dev.mv.vrender.window;
 import dev.mv.vrender.camera.Camera;
 import dev.mv.vrender.input.InputCore;
 import dev.mv.vrender.render.Draw;
+import dev.mv.vrender.text.FontHolder;
 import lombok.Getter;
 import lombok.Setter;
 import org.joml.Vector2f;
-import org.lwjgl.glfw.*;
-import org.lwjgl.opengl.*;
-import org.lwjgl.system.*;
+import org.lwjgl.glfw.GLFWErrorCallback;
+import org.lwjgl.glfw.GLFWVidMode;
+import org.lwjgl.glfw.GLFWWindowSizeCallback;
+import org.lwjgl.opengl.GL;
+import org.lwjgl.system.MemoryStack;
 
-import java.nio.*;
+import java.nio.IntBuffer;
 
-import static org.lwjgl.glfw.Callbacks.*;
+import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.system.MemoryStack.*;
-import static org.lwjgl.system.MemoryUtil.*;
+import static org.lwjgl.system.MemoryStack.stackPush;
+import static org.lwjgl.system.MemoryUtil.NULL;
 
 public class Window {
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private int UPS = 30, FPS = 60;
     @Getter
     private int currentFPS, currentUPS;
@@ -39,12 +43,13 @@ public class Window {
 
     /**
      * Creates a new Window object with
-     * @param width width of the window
-     * @param height height of the window
-     * @param title title of the window
+     *
+     * @param width      width of the window
+     * @param height     height of the window
+     * @param title      title of the window
      * @param resizeable if the window is resizeable
-     * @param mainClass the main class of the game
-     * as the parameters.
+     * @param mainClass  the main class of the game
+     *                   as the parameters.
      */
 
     public Window(int width, int height, String title, boolean resizeable, Renderer mainClass) {
@@ -68,6 +73,7 @@ public class Window {
     public void run() {
 
         init();
+        FontHolder.onStart();
         mainClass.start(this);
         loop();
 
@@ -86,7 +92,7 @@ public class Window {
         GLFWErrorCallback.createPrint(System.err).set();
 
         // Initialize GLFW. Most GLFW functions will not work before doing this.
-        if ( !glfwInit() )
+        if (!glfwInit())
             throw new IllegalStateException("Unable to initialize GLFW");
 
         // Configure GLFW
@@ -96,17 +102,17 @@ public class Window {
 
         // Create the window
         window = glfwCreateWindow(width, height, title, NULL, NULL);
-        if ( window == NULL )
+        if (window == NULL)
             throw new RuntimeException("Failed to create the GLFW window");
 
         // Setup a key callback. It will be called every time a key is pressed, repeated or released.
         glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
-            if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE )
+            if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE)
                 glfwSetWindowShouldClose(window, true); // We will detect this in the rendering loop
         });
 
         // Get the thread stack and push a new frame
-        try ( MemoryStack stack = stackPush() ) {
+        try (MemoryStack stack = stackPush()) {
             IntBuffer pWidth = stack.mallocInt(1); // int*
             IntBuffer pHeight = stack.mallocInt(1); // int*
 
@@ -152,19 +158,19 @@ public class Window {
                 width = w;
                 height = h;
                 camera.declareProjection();
-                //glViewport(0, 0, w, h);
+                glViewport(0, 0, w, h);
             }
         });
     }
 
-    private void loop(){
+    private void loop() {
 
         // Set the clear color
         glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 
         // Run the rendering loop until the user has attempted to close
         // the window or has pressed the ESCAPE key.
-        while(!glfwWindowShouldClose(window)){
+        while (!glfwWindowShouldClose(window)) {
 
             long initialTime = System.nanoTime();
             final double timeU = 1000000000 / UPS;
@@ -218,26 +224,26 @@ public class Window {
         }
     }
 
-    public void onKeyAction(int keyCode, int scanCode,  int action, int mods) {
-        if(activeScreen != null) {
+    public void onKeyAction(int keyCode, int scanCode, int action, int mods) {
+        if (activeScreen != null) {
             activeScreen.onKeyAction(keyCode, scanCode, action, mods);
         }
     }
 
-    public void onMouseAction(int button, int action, int mods){
-        if(activeScreen != null) {
+    public void onMouseAction(int button, int action, int mods) {
+        if (activeScreen != null) {
             activeScreen.onMouseAction(button, action, mods);
         }
     }
 
-    public void onScroll(int x, int y){
-        if(activeScreen != null) {
+    public void onScroll(int x, int y) {
+        if (activeScreen != null) {
             activeScreen.onScroll(x, y);
         }
     }
 
-    public void onMouseMove(int x, int y){
-        if(activeScreen != null) {
+    public void onMouseMove(int x, int y) {
+        if (activeScreen != null) {
             activeScreen.onMouseMove(x, y);
         }
     }

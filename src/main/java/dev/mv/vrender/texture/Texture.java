@@ -19,7 +19,7 @@ public class Texture {
     int[] pixels;
 
     public Texture(String filename) {
-        if(filename != null) {
+        if (filename != null) {
             BufferedImage img;
             try {
                 img = ImageIO.read(new File(filename));
@@ -31,12 +31,12 @@ public class Texture {
 
                 ByteBuffer pixelBuffer = BufferUtils.createByteBuffer(this.width * this.height * 4);
 
-                for(int i=0;i<this.width*this.height;i++) {
+                for (int i = 0; i < this.width * this.height; i++) {
                     int pixel = pixels[i];
-                    pixelBuffer.put((byte)((pixel >> 16) & 0xFF)); //r
-                    pixelBuffer.put((byte)((pixel >> 8) & 0xFF));  //g
-                    pixelBuffer.put((byte)(pixel & 0xFF));		   //b
-                    pixelBuffer.put((byte)((pixel >> 24) & 0xFF)); //a
+                    pixelBuffer.put((byte) ((pixel >> 16) & 0xFF)); //r
+                    pixelBuffer.put((byte) ((pixel >> 8) & 0xFF));  //g
+                    pixelBuffer.put((byte) (pixel & 0xFF));           //b
+                    pixelBuffer.put((byte) ((pixel >> 24) & 0xFF)); //a
                 }
                 pixelBuffer.flip();
                 this.id = glGenTextures();
@@ -53,18 +53,18 @@ public class Texture {
         }
     }
 
-    public Texture(BufferedImage img){
+    public Texture(BufferedImage img) {
         this.width = img.getWidth();
         this.height = img.getHeight();
         this.pixels = new int[this.width * this.height];
         this.pixels = img.getRGB(0, 0, this.width, this.height, null, 0, this.width);
         ByteBuffer pixelBuffer = BufferUtils.createByteBuffer(this.width * this.height * 4);
-        for(int i=0;i<this.width*this.height;i++) {
+        for (int i = 0; i < this.width * this.height; i++) {
             int pixel = pixels[i];
-            pixelBuffer.put((byte)((pixel >> 16) & 0xFF)); //r
-            pixelBuffer.put((byte)((pixel >> 8) & 0xFF));  //g
-            pixelBuffer.put((byte)(pixel & 0xFF));		   //b
-            pixelBuffer.put((byte)((pixel >> 24) & 0xFF)); //a
+            pixelBuffer.put((byte) ((pixel >> 16) & 0xFF)); //r
+            pixelBuffer.put((byte) ((pixel >> 8) & 0xFF));  //g
+            pixelBuffer.put((byte) (pixel & 0xFF));           //b
+            pixelBuffer.put((byte) ((pixel >> 24) & 0xFF)); //a
         }
         pixelBuffer.flip();
         this.id = glGenTextures();
@@ -81,7 +81,7 @@ public class Texture {
         glBindTexture(GL_TEXTURE_2D, this.id);
     }
 
-    public int getID(){
+    public int getID() {
         return this.id;
     }
 

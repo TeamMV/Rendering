@@ -10,46 +10,66 @@ public class SizeLayout {
     private String text = "";
     @Setter
     private int height = 0;
+    @Getter
+    private float multiplier = 0f;
 
-    public SizeLayout(BitmapFont font, String text, int height){
+    public SizeLayout(BitmapFont font, String text, int height) {
         this.font = font;
         this.height = height;
         this.text = text;
+        this.multiplier = (float) height / (float) font.getDefaultHeight();
     }
 
-    public SizeLayout(){
+    public SizeLayout() {
 
     }
 
-    public int getWidth(){
+    public int getWidth() {
         return getWidth(text);
     }
-    public int getWidth(String s){
+
+    public int getWidth(String s) {
         int res = 0;
-
-        float multiplier = (float)height / (float)font.getDefaultHeight();
-
-        for(int i = 0; i < s.length(); i++){
+        for (int i = 0; i < s.length(); i++) {
             res += font.getWidth(s.charAt(i)) * multiplier;
             res += font.getSpacing();
-            if(s.charAt(i) == ' ') res += font.getWidth('i') * multiplier;
+            if (s.charAt(i) == ' ') res += font.getWidth('i') * multiplier;
         }
-
         return res;
     }
 
-    public int getHeight(){
-        return font.getDefaultHeight();
+    public int getWidth(char c) {
+        if (c == ' ') return (int) (font.getWidth('i') * multiplier) + font.getSpacing();
+        return (int) (font.getWidth(c) * multiplier) + font.getSpacing();
     }
 
-    public void set(BitmapFont font, String text, int height){
+    public int getHeight() {
+        return (int) (font.getDefaultHeight() * multiplier);
+    }
+
+    public int getHeight(char c) {
+        return (int) (font.getHeight(c) * multiplier);
+    }
+
+    public float getXOffset(char c) {
+        return font.getGlyph(c).getxOff() * multiplier;
+    }
+
+    public float getYOffset(char c) {
+        return font.getGlyph(c).getyOff() * multiplier;
+    }
+
+    public void set(BitmapFont font, String text, int height) {
         this.font = font;
         this.height = height;
         this.text = text;
+        this.multiplier = (float) height / (float) font.getDefaultHeight();
     }
 
-    public void set(BitmapFont font, String text){
+    public void set(BitmapFont font, String text) {
         this.font = font;
         this.text = text;
+        this.height = font.getDefaultHeight();
+        this.multiplier = (float) height / (float) font.getDefaultHeight();
     }
 }

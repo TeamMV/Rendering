@@ -10,7 +10,7 @@ public class GUILabel extends GUIElement {
     private String text;
     private BitmapFont font;
 
-    public GUILabel(int x, int y, int lineHeight, String text, BitmapFont font){
+    public GUILabel(int x, int y, int lineHeight, String text, BitmapFont font) {
         xPos = x;
         yPos = y;
         this.lineHeight = lineHeight;
@@ -18,11 +18,11 @@ public class GUILabel extends GUIElement {
         this.font = font;
     }
 
-    public void setText(String s){
+    public void setText(String s) {
         text = s;
     }
 
-    public String getText(){
+    public String getText() {
         return text;
     }
 

@@ -2,7 +2,6 @@ package dev.mv.vrender.window;
 
 import dev.mv.vgui.GUI;
 import dev.mv.vrender.render.Draw;
-import dev.mv.vrender.text.BitmapFont;
 
 import java.util.ArrayList;
 
@@ -17,11 +16,9 @@ public abstract class Screen {
     private boolean mouseDown = false, keyHeld = false;
     private int mouseX = 0, mouseY = 0;
 
-    public static BitmapFont font = new BitmapFont("src/fonts/Viga/viga.png", "src/fonts/Viga/viga.fnt");
-
     public abstract void render(Window w);
 
-    public void loop(Window w){
+    public void loop(Window w) {
 
     }
 
@@ -46,7 +43,7 @@ public abstract class Screen {
     }
 
     public void onKeyAction(int keyCode, int scanCode, int action, int mods) {
-        if(action == 1){
+        if (action == 1) {
             for (GUI gui : guis) {
                 if (gui.isOpen()) {
                     gui.keyTyped((char) keyCode);
@@ -55,12 +52,12 @@ public abstract class Screen {
             keyTyped((char) keyCode, mods);
         }
         lastKey = keyCode;
-        if(action == 2) {
+        if (action == 2) {
             keyHeld((char) keyCode, mods);
             keyHeld = true;
         }
 
-        if(action == 0){
+        if (action == 0) {
             lastKey = 256;
             keyUp((char) keyCode, mods);
             keyHeld = false;
@@ -68,24 +65,24 @@ public abstract class Screen {
     }
 
     public void onMouseAction(int button, int action, int mods) {
-        if(action == 1){
+        if (action == 1) {
             mouseDown = true;
             onMouseDown(button, mods);
-        }else if(action == 0){
+        } else if (action == 0) {
             mouseDown = false;
             onMouseUp(button, mods);
             lastButton = -1;
         }
 
-        if(lastButton != button || lastMods != mods){
-            if(action == 1) {
+        if (lastButton != button || lastMods != mods) {
+            if (action == 1) {
                 for (GUI gui : guis) {
                     if (gui.isOpen()) {
                         gui.click(mouseX, mouseY, button, mods);
                     }
                 }
                 onMouseClick(mouseX, mouseY, button, mods);
-            }else if(action == 0){
+            } else if (action == 0) {
                 onMouseRelease(mouseX, mouseY, button, mods);
             }
         }

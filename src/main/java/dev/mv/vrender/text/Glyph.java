@@ -48,11 +48,11 @@ public class Glyph {
         return texCoords;
     }
 
-    public Glyph makeTexCoords(int mw, int mh){         //0,0   1,0
-        float x0 = (float)x / (float)mw;                //
-        float x1 = (float)(x + width) / (float)mw;      //
-        float y0 = (float)(y + height) / (float)mh;     //0,1   1,1
-        float y1 = (float)(y) / (float)mh;
+    public Glyph makeTexCoords(int mw, int mh) {         //0,0   1,0
+        float x0 = (float) x / (float) mw;                //
+        float x1 = (float) (x + width) / (float) mw;      //
+        float y0 = (float) (y + height) / (float) mh;     //0,1   1,1
+        float y1 = (float) (y) / (float) mh;
 
         texCoords[0] = new Vector2f(x0, y0);
         texCoords[1] = new Vector2f(x1, y1);

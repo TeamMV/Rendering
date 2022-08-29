@@ -17,11 +17,14 @@ public class Shader {
 
     private String vertexCode;
     private String fragmentCode;
-    @Getter @Setter
+    @Getter
+    @Setter
     private int vertexShader;
-    @Getter @Setter
+    @Getter
+    @Setter
     private int fragmentShader;
-    @Getter @Setter
+    @Getter
+    @Setter
     private int programID;
 
     public Shader(String vertexShader, String fragmentShader) {
@@ -31,7 +34,7 @@ public class Shader {
 
     private static String loadShaderFile(String file) {
         if (!(new File(file).exists())) {
-            System.out.println("Could not load file: \"" + file  + "\"!");
+            System.out.println("Could not load file: \"" + file + "\"!");
             return null;
         }
         StringBuilder string = new StringBuilder();
@@ -39,25 +42,25 @@ public class Shader {
         try {
             reader = new BufferedReader(new FileReader(file));
             String line;
-            while((line = reader.readLine()) != null) {
+            while ((line = reader.readLine()) != null) {
                 string.append(line);
                 string.append("\n");
             }
             reader.close();
-        }catch(IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         //System.out.println(string.toString());
         return string.toString();
     }
 
-    public void make(){
+    public void make() {
         this.programID = glCreateProgram();
 
         vertexShader = glCreateShader(GL_VERTEX_SHADER);
         glShaderSource(vertexShader, this.vertexCode);
         glCompileShader(vertexShader);
-        if(glGetShaderi(vertexShader, GL_COMPILE_STATUS) != 1) {
+        if (glGetShaderi(vertexShader, GL_COMPILE_STATUS) != 1) {
             System.out.println("vertex shader error: " + glGetShaderInfoLog(vertexShader));
             return;
         }
@@ -65,24 +68,24 @@ public class Shader {
         fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
         glShaderSource(fragmentShader, this.fragmentCode);
         glCompileShader(fragmentShader);
-        if(glGetShaderi(fragmentShader, GL_COMPILE_STATUS) != 1) {
+        if (glGetShaderi(fragmentShader, GL_COMPILE_STATUS) != 1) {
             System.out.println("fragment shader error: " + glGetShaderInfoLog(fragmentShader));
             return;
         }
     }
 
-    public void use(){
+    public void use() {
         glAttachShader(this.programID, vertexShader);
         glAttachShader(this.programID, fragmentShader);
 
-        glBindAttribLocation(this.programID,0 , "vertices");
+        glBindAttribLocation(this.programID, 0, "vertices");
         glLinkProgram(this.programID);
-        if((glGetProgrami(this.programID, GL_LINK_STATUS)) != 1) {
+        if ((glGetProgrami(this.programID, GL_LINK_STATUS)) != 1) {
             System.out.println("link program error: " + glGetProgramInfoLog(this.programID));
             return;
         }
         glValidateProgram(this.programID);
-        if((glGetProgrami(this.programID, GL_VALIDATE_STATUS)) != 1) {
+        if ((glGetProgrami(this.programID, GL_VALIDATE_STATUS)) != 1) {
             System.out.println("link program error: " + glGetProgramInfoLog(this.programID));
             return;
         }
@@ -96,26 +99,26 @@ public class Shader {
 
     public void setUniform1f(String name, float value) {
         int location = glGetUniformLocation(this.programID, name);
-        if(location != -1) {
+        if (location != -1) {
             glUniform1f(location, value);
         }
     }
 
     public void setUniform1i(String name, int value) {
         int location = glGetUniformLocation(this.programID, name);
-        if(location != -1) {
+        if (location != -1) {
             glUniform1f(location, value);
         }
     }
 
     public void setUniform1iv(String name, int[] value) {
         int location = glGetUniformLocation(this.programID, name);
-        if(location != -1) {
+        if (location != -1) {
             glUniform1iv(location, value);
         }
     }
 
-    public void setMatrix4f(String name, Matrix4f value){
+    public void setMatrix4f(String name, Matrix4f value) {
         int location = glGetUniformLocation(this.programID, name);
         FloatBuffer matBuffer = BufferUtils.createFloatBuffer(16);
         value.get(matBuffer);

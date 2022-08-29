@@ -13,7 +13,7 @@ public class Camera {
     public float zoom = 1.0f;
     public float moveSpeed = 1.0f;
 
-    public Camera(Vector2f position, Window window){
+    public Camera(Vector2f position, Window window) {
         this.position = position;
         this.window = window;
         isStatic = false;
@@ -25,7 +25,7 @@ public class Camera {
         declareProjection();
     }
 
-    public Camera(Vector2f position, Window window, boolean isStatic){
+    public Camera(Vector2f position, Window window, boolean isStatic) {
         this.position = position;
         this.window = window;
         this.isStatic = isStatic;
@@ -37,12 +37,12 @@ public class Camera {
         declareProjection();
     }
 
-    public void declareProjection(){
+    public void declareProjection() {
         projectionMatrix.identity();
-        projectionMatrix.ortho(0.0f, (float)window.getWidth(), 0.0f, (float)window.getHeight(), 0.0f, 100.0f);
+        projectionMatrix.ortho(0.0f, (float) window.getWidth(), 0.0f, (float) window.getHeight(), 0.0f, 100.0f);
     }
 
-    public Matrix4f getViewMatrix(){
+    public Matrix4f getViewMatrix() {
         Vector3f cameraFront = new Vector3f(0.0f, 0.0f, -1.0f);
         Vector3f cameraUp = new Vector3f(0.0f, 1.0f, 0.0f);
         viewMatrix.identity();
@@ -54,7 +54,7 @@ public class Camera {
         return projectionMatrix;
     }
 
-    public Matrix4f getZoomMatrix(){
+    public Matrix4f getZoomMatrix() {
         zoomMatrix.set(zoom, 0, 0, 0, 0, zoom, 0, 0, 0, 0, zoom, 0, 0, 0, 0, 1);
 
         return zoomMatrix;
