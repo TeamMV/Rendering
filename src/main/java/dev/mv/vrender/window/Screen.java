@@ -2,6 +2,7 @@ package dev.mv.vrender.window;
 
 import dev.mv.vgui.GUI;
 import dev.mv.vrender.render.Draw;
+import dev.mv.vrender.text.BitmapFont;
 
 import java.util.ArrayList;
 
@@ -15,6 +16,8 @@ public abstract class Screen {
     private int lastKey = 256;
     private boolean mouseDown = false, keyHeld = false;
     private int mouseX = 0, mouseY = 0;
+
+    public static BitmapFont font = new BitmapFont("src/fonts/Viga/viga.png", "src/fonts/Viga/viga.fnt");
 
     public abstract void render(Window w);
 

@@ -151,8 +151,8 @@ public class Window {
             public void invoke(long window, int w, int h) {
                 width = w;
                 height = h;
-                //camera.setProjection();
-                glViewport(0, 0, w, h);
+                camera.declareProjection();
+                //glViewport(0, 0, w, h);
             }
         });
     }

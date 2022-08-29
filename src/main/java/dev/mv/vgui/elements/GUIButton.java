@@ -5,6 +5,7 @@ import dev.mv.vgui.GUIElement;
 import dev.mv.vgui.elements.listeners.ClickListener;
 import dev.mv.vrender.text.BitmapFont;
 import dev.mv.vrender.text.SizeLayout;
+import dev.mv.vrender.window.Screen;
 import dev.mv.vrender.window.Window;
 
 public class GUIButton extends GUIElement implements Clickable {
@@ -22,7 +23,7 @@ public class GUIButton extends GUIElement implements Clickable {
         this.listener = listner;
         this.width = layout.getWidth() + 50;
         this.height = height;
-        label = new GUILabel(x + (width / 2) - (layout.getWidth() / 2), y + height / 10, height - height / 5, text, font);
+        label = new GUILabel(x + (width / 2) - (layout.getWidth() / 2), y + (height / 2 - Screen.font.getDefaultHeight() / 2), height - height / 5, text, font);
     }
 
     public GUIButton(int x, int y, int width, int height, String text, BitmapFont font, ClickListener listner){
@@ -32,7 +33,7 @@ public class GUIButton extends GUIElement implements Clickable {
         this.listener = listner;
         this.width = width;
         this.height = height;
-        label = new GUILabel(x + (width / 2) - (layout.getWidth() / 2), y, height, text, font);
+        label = new GUILabel(x + (width / 2) - (layout.getWidth() / 2), y + (height / 2 - Screen.font.getDefaultHeight() / 2), height, text, font);
     }
 
     @Override

@@ -7,7 +7,6 @@ import org.joml.Vector2f;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -119,7 +118,15 @@ public class BitmapFont {
         return maxHeight;
     }
 
+    public int getHeight(char c){
+        return chars.get(c + 0).getHeight();
+    }
+
     public int getWidth(char c){
         return chars.get(c + 0).getWidth();
+    }
+
+    public Glyph getGlyph(char c){
+        return chars.get(c + 0);
     }
 }

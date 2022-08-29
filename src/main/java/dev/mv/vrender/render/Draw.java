@@ -106,9 +106,9 @@ public class Draw {
             float ax = x + charX;
             float ay = y;
             float ax2 = x + layout.getWidth(c + "") + charX;
-            float ay2 = y + height;
+            float ay2 = y + font.getHeight(c);
 
-            charX += font.getSpacing() + layout.getWidth(c + "");
+            charX += layout.getWidth(c + "");
 
             Vector2f[] uvs = font.getUV(c);
             float ux0 = uvs[0].x;

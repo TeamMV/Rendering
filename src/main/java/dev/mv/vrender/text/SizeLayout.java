@@ -32,9 +32,10 @@ public class SizeLayout {
         for(int i = 0; i < s.length(); i++){
             res += font.getWidth(s.charAt(i)) * multiplier;
             res += font.getSpacing();
+            if(s.charAt(i) == ' ') res += font.getWidth('i') * multiplier;
         }
 
-        return (int)(res);
+        return res;
     }
 
     public int getHeight(){

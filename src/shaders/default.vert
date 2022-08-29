@@ -51,7 +51,7 @@ void main() {
         if(aCameraMode == 0){
             gl_Position = uProjection * uView * uZoom * vec4(aVertPos, 1.0);
         }else{
-            gl_Position = uProjection * uZoom * vec4(aVertPos, 1.0);
+            gl_Position = uProjection * vec4(aVertPos, 1.0);
         }
 
 

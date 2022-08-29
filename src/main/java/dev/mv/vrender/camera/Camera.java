@@ -37,7 +37,7 @@ public class Camera {
         declareProjection();
     }
 
-    private void declareProjection(){
+    public void declareProjection(){
         projectionMatrix.identity();
         projectionMatrix.ortho(0.0f, (float)window.getWidth(), 0.0f, (float)window.getHeight(), 0.0f, 100.0f);
     }

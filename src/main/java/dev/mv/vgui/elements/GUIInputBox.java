@@ -82,6 +82,14 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
                     isPlaceholder = false;
                 }
 
+                if(textWidth >= width - 20){
+                    return;
+                }
+
+                if(layout.getWidth(text + c) >= width - 20){
+                    return;
+                }
+
                 text += c;
                 label.setText(text);
 
@@ -89,10 +97,10 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
                     label.setText("*".repeat(label.getText().length()));
                 }
             }
-
-            layout.setHeight(height);
-            textWidth = layout.getWidth(label.getText());
         }
+
+        layout.setHeight(height);
+        textWidth = layout.getWidth(label.getText());
     }
 
     @Override

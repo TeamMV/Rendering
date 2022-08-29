@@ -1,33 +1,31 @@
 package dev.mv.vrender.main;
 
+import dev.mv.vrender.text.SizeLayout;
 import dev.mv.vrender.texture.Texture;
 import dev.mv.vrender.window.Renderer;
-import dev.mv.vrender.window.TestScreen;
 import dev.mv.vrender.window.Window;
+import dev.mv.vrender.window.screens.MainMenu;
 
 import static org.lwjgl.glfw.GLFW.*;
 
 public class Main implements Renderer{
-
-    Texture max, md, demon, al;
-
     float rot = 0.0f;
+
+    Texture tex;
 
     @Override
     public void start(Window w) {
-        max = new Texture("src/textures/max.png");
-        md = new Texture("src/textures/maxDesc.png");
-        demon = new Texture("src/textures/demon.png");
-        al = new Texture("src/textures/alpha.png");
 
         w.camera.moveSpeed = 3.0f;
 
-        w.setActiveScreen(new TestScreen());
+        w.setActiveScreen(new MainMenu(w));
+
+        tex = new Texture("src/textures/main_bg.png");
     }
 
     @Override
     public void render(Window w) {
-
+        //w.draw.image(0, 0, 100, 100, tex);
     }
 
     @Override
@@ -42,7 +40,7 @@ public class Main implements Renderer{
     }
 
     public static void main(String[] args) {
-        Window win = new Window(800, 600, "myGame", true, new Main());
+        Window win = new Window(1200, 900, "myGame", true, new Main());
         win.run();
     }
 }
