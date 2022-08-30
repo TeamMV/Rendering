@@ -2,6 +2,7 @@ package dev.mv.vrender.window.screens;
 
 import dev.mv.vgui.GUI;
 import dev.mv.vgui.elements.GUIButton;
+import dev.mv.vgui.elements.GUIInputBox;
 import dev.mv.vrender.render.Draw;
 import dev.mv.vrender.text.FontHolder;
 import dev.mv.vrender.texture.Texture;
@@ -36,11 +37,13 @@ public class MainMenu extends Screen {
 
         }));
 
-        main.attachElement(new GUIButton(new VariablePosition(w.getWidth(), w.getHeight(), (width, height) ->
-            new int[] {w.getWidth() / 2 - 50, w.getHeight() / 2 - 20, 100, 40}
-        ), "hello", FontHolder.font, e -> {
+        main.attachElement(new GUIInputBox(100, 10, 400, 50, "smth", FontHolder.font));
 
-        }));
+        main.attachElement(new GUIButton(new VariablePosition(w.getWidth(), w.getHeight(), (width, height) ->
+                new int[] {width / 2 - 80, height / 2 - 40, 160, 80}
+        ), "hellg", FontHolder.font, e -> {
+
+        }, false));
 
         main.open();
         guis.add(main);

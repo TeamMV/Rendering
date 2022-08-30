@@ -1,6 +1,10 @@
 package dev.mv.vrender.input;
 
 import dev.mv.vrender.window.Window;
+import org.jnativehook.GlobalScreen;
+import org.jnativehook.NativeHookException;
+import org.jnativehook.keyboard.NativeKeyEvent;
+import org.jnativehook.keyboard.NativeKeyListener;
 import org.joml.Vector2i;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFWCursorPosCallback;
@@ -9,11 +13,14 @@ import org.lwjgl.glfw.GLFWMouseButtonCallback;
 import org.lwjgl.glfw.GLFWScrollCallbackI;
 
 import java.nio.DoubleBuffer;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.GL_TRUE;
 
-public class InputCore {
+public class InputCore implements NativeKeyListener {
 
     private Window window;
 
@@ -52,6 +59,22 @@ public class InputCore {
                 window.onKeyAction(key, scanCode, action, mods);
             }
         });
+
+        try {
+            GlobalScreen.registerNativeHook();
+        } catch (NativeHookException ex) {
+            System.err.println("There was a problem registering the native hook.");
+            System.err.println(ex.getMessage());
+
+            System.exit(1);
+        }
+
+        LogManager.getLogManager().reset();
+
+        Logger logger = Logger.getLogger(GlobalScreen.class.getPackage().getName());
+        logger.setLevel(Level.OFF);
+
+        GlobalScreen.addNativeKeyListener(this);
     }
 
     public boolean keyDown(int key) {
@@ -88,5 +111,20 @@ public class InputCore {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void nativeKeyPressed(NativeKeyEvent nativeKeyEvent) {
+
+    }
+
+    @Override
+    public void nativeKeyReleased(NativeKeyEvent nativeKeyEvent) {
+
+    }
+
+    @Override
+    public void nativeKeyTyped(NativeKeyEvent nativeKeyEvent) {
+        System.out.println((char) nativeKeyEvent.getRawCode());
     }
 }

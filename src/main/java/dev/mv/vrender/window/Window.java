@@ -80,6 +80,8 @@ public class Window {
         // Terminate GLFW and free the error callback
         glfwTerminate();
         glfwSetErrorCallback(null).free();
+
+        System.exit(0);
     }
 
     private void init() {

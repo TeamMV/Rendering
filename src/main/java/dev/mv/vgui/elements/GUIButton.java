@@ -17,35 +17,46 @@ public class GUIButton extends GUIElement implements Clickable {
     private ClickListener listener;
     private SizeLayout layout;
 
+    private boolean textWidth = false;
+
     public GUIButton(int x, int y, int height, String text, BitmapFont font, ClickListener listner) {
-        layout = new SizeLayout(font, text, height);
+        layout = new SizeLayout(font, text, height - height / 5);
         xPos = x;
         yPos = y;
         this.listener = listner;
         this.width = layout.getWidth() + 50;
         this.height = height;
-        label = new GUILabel(x + (width / 2) - (layout.getWidth() / 2), y + (height / 2 - FontHolder.font.getDefaultHeight() / 2), height - height / 5, text, font);
+        label = new GUILabel(x + (width / 2) - (layout.getWidth() / 2), y + (height / 2 - layout.getHeight('e') / 2), height - height / 5, text, font);
     }
 
     public GUIButton(int x, int y, int width, int height, String text, BitmapFont font, ClickListener listner) {
-        layout = new SizeLayout(font, text, height);
+        layout = new SizeLayout(font, text, height - height / 5);
         xPos = x;
         yPos = y;
         this.listener = listner;
         this.width = width;
         this.height = height;
-        label = new GUILabel(x + (width / 2) - (layout.getWidth() / 2), y + (height / 2 - FontHolder.font.getDefaultHeight() / 2), height, text, font);
+        label = new GUILabel(x + (width / 2) - (layout.getWidth() / 2), y + (height / 2 - layout.getHeight('e') / 2), height - height / 5, text, font);
     }
 
     public GUIButton(VariablePosition position, String text, BitmapFont font, ClickListener listner) {
+        this(position, text, font, listner, false);
+    }
+
+    public GUIButton(VariablePosition position, String text, BitmapFont font, ClickListener listner, boolean textWidth) {
+        this.textWidth = textWidth;
         xPos = position.getX();
         yPos = position.getY();
-        width = position.getWidth();
         height = position.getHeight();
-        layout = new SizeLayout(font, text, height);
+        layout = new SizeLayout(font, text, height - height / 5);
+        if (textWidth) {
+            this.width = layout.getWidth() + 50;
+        } else {
+            width = position.getWidth();
+        }
         this.positionCalculator = position;
         this.listener = listner;
-        label = new GUILabel(xPos + (width / 2) - (layout.getWidth() / 2), yPos + (height / 2 - FontHolder.font.getDefaultHeight() / 2), height, text, font);
+        label = new GUILabel(xPos + (width / 2) - (layout.getWidth() / 2), yPos + (height / 2 - layout.getHeight('e') / 2), height - height / 5, text, font);
     }
 
     @Override
@@ -69,12 +80,16 @@ public class GUIButton extends GUIElement implements Clickable {
             positionCalculator.resize(width, height);
             xPos = positionCalculator.getX();
             yPos = positionCalculator.getY();
-            this.width = positionCalculator.getWidth();
             this.height = positionCalculator.getHeight();
-            layout.setHeight(this.height);
+            layout.setHeight(this.height - this.height / 5);
+            if (textWidth) {
+                this.width = layout.getWidth() + 50;
+            } else {
+                this.width = positionCalculator.getWidth();
+            }
             label.setX(xPos + (this.width / 2) - (layout.getWidth() / 2));
-            label.setY(yPos + (this.height / 2 - FontHolder.font.getDefaultHeight() / 2));
-            label.setHeight(this.height);
+            label.setY(yPos + (this.height / 2 - layout.getHeight('e') / 2));
+            label.setHeight(this.height - this.height / 5);
         }
     }
 

@@ -46,7 +46,7 @@ public abstract class Screen {
         if (action == 1) {
             for (GUI gui : guis) {
                 if (gui.isOpen()) {
-                    gui.keyTyped((char) keyCode);
+                    gui.keyTyped((char) keyCode, mods);
                 }
             }
             keyTyped((char) keyCode, mods);

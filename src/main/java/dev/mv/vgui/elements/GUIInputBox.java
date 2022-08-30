@@ -7,6 +7,7 @@ import dev.mv.vrender.text.BitmapFont;
 import dev.mv.vrender.text.SizeLayout;
 import dev.mv.vrender.window.Window;
 import lombok.Getter;
+import org.lwjgl.system.windows.KEYBDINPUT;
 
 public class GUIInputBox extends GUIElement implements Clickable, Typeable {
 
@@ -26,7 +27,7 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
     }
 
     public GUIInputBox(int x, int y, int width, int height, String placeholder, BitmapFont font, boolean hidden) {
-        layout = new SizeLayout(font, text, height - 20);
+        layout = new SizeLayout(font, text, height - height / 5);
         xPos = x;
         yPos = y;
         this.width = width;
@@ -37,7 +38,7 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
 
         textWidth = layout.getWidth();
 
-        label = new GUILabel(x + 10, y + height / 10, height - height / 5, placeholder, font);
+        label = new GUILabel(x + 10, y + (height / 2) - (layout.getHeight('d') / 2), height - height / 5, placeholder, font);
     }
 
     @Override
@@ -65,7 +66,7 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
     }
 
     @Override
-    public void keyTyped(char c) {
+    public void keyTyped(char c, int mods) {
         if (isSelected) {
             if (c == 259) {
                 if (isPlaceholder) return;
@@ -88,7 +89,14 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
                     return;
                 }
 
-                text += c;
+                if(textWidth >= width) return;
+
+                if(mods == 0){
+                    text += (c + "").toLowerCase();
+                }else if(mods == 1){
+                    text += (c + "").toUpperCase();
+                }
+
                 label.setText(text);
 
                 if (hidden) {

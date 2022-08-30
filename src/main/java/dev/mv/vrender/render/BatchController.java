@@ -37,7 +37,6 @@ public class BatchController {
     public static void addVertices(float[][] vertexData) {
 
         if (batches.get(currentBatch).isFull(vertexData.length * batches.get(0).VERTEX_SIZE_FLOATS)) {
-            System.out.println("vert full");
             nextBatch();
         }
 
