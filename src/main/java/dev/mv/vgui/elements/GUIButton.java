@@ -4,8 +4,9 @@ import dev.mv.vgui.Clickable;
 import dev.mv.vgui.GUIElement;
 import dev.mv.vgui.elements.listeners.ClickListener;
 import dev.mv.vrender.text.BitmapFont;
-import dev.mv.vrender.text.SizeLayout;
 import dev.mv.vrender.text.FontHolder;
+import dev.mv.vrender.text.SizeLayout;
+import dev.mv.vrender.utils.VariablePosition;
 import dev.mv.vrender.window.Window;
 
 public class GUIButton extends GUIElement implements Clickable {
@@ -36,6 +37,17 @@ public class GUIButton extends GUIElement implements Clickable {
         label = new GUILabel(x + (width / 2) - (layout.getWidth() / 2), y + (height / 2 - FontHolder.font.getDefaultHeight() / 2), height, text, font);
     }
 
+    public GUIButton(VariablePosition position, String text, BitmapFont font, ClickListener listner) {
+        xPos = position.getX();
+        yPos = position.getY();
+        width = position.getWidth();
+        height = position.getHeight();
+        layout = new SizeLayout(font, text, height);
+        this.positionCalculator = position;
+        this.listener = listner;
+        label = new GUILabel(xPos + (width / 2) - (layout.getWidth() / 2), yPos + (height / 2 - FontHolder.font.getDefaultHeight() / 2), height, text, font);
+    }
+
     @Override
     public void render(Window w) {
         w.draw.color(0, 0, 0, 255);
@@ -53,7 +65,17 @@ public class GUIButton extends GUIElement implements Clickable {
 
     @Override
     public void resize(int width, int height) {
-
+        if (positionCalculator != null) {
+            positionCalculator.resize(width, height);
+            xPos = positionCalculator.getX();
+            yPos = positionCalculator.getY();
+            this.width = positionCalculator.getWidth();
+            this.height = positionCalculator.getHeight();
+            layout.setHeight(this.height);
+            label.setX(xPos + (this.width / 2) - (layout.getWidth() / 2));
+            label.setY(yPos + (this.height / 2 - FontHolder.font.getDefaultHeight() / 2));
+            label.setHeight(this.height);
+        }
     }
 
     @Override

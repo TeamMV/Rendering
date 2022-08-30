@@ -12,6 +12,11 @@ public class Main implements Renderer {
 
     Texture tex;
 
+    public static void main(String[] args) {
+        Window win = new Window(1200, 900, "myGame", true, new Main());
+        win.run();
+    }
+
     @Override
     public void start(Window w) {
 
@@ -38,8 +43,8 @@ public class Main implements Renderer {
         if (w.input.scrollDown()) w.camera.zoom -= 0.05f;
     }
 
-    public static void main(String[] args) {
-        Window win = new Window(1200, 900, "myGame", true, new Main());
-        win.run();
+    @Override
+    public void resize(Window w, int width, int height) {
+        w.getActiveScreen().resize(width, height);
     }
 }

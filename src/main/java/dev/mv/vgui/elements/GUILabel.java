@@ -18,12 +18,12 @@ public class GUILabel extends GUIElement {
         this.font = font;
     }
 
-    public void setText(String s) {
-        text = s;
-    }
-
     public String getText() {
         return text;
+    }
+
+    public void setText(String s) {
+        text = s;
     }
 
     @Override
@@ -34,5 +34,17 @@ public class GUILabel extends GUIElement {
     @Override
     public void resize(int width, int height) {
 
+    }
+
+    public void setHeight(int height) {
+        lineHeight = height;
+    }
+
+    public void setY(int y) {
+        yPos = y;
+    }
+
+    public void setX(int x) {
+        xPos = x;
     }
 }

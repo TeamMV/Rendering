@@ -116,6 +116,14 @@ public abstract class Screen {
         }
     }
 
+    public void resizeGUI(int width, int height) {
+        for (GUI gui : guis) {
+            gui.resize(width, height);
+        }
+    }
+
+    public abstract void resize(int width, int height);
+
     public abstract void keyHeld(char c, int mods);
 
     public abstract void keyUp(char c, int mods);

@@ -12,4 +12,6 @@ public interface Renderer {
     void render(Window w);
 
     void update(Window w);
+
+    void resize(Window w, int width, int height);
 }

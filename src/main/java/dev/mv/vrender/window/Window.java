@@ -9,7 +9,6 @@ import lombok.Setter;
 import org.joml.Vector2f;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
-import org.lwjgl.glfw.GLFWWindowSizeCallback;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryStack;
 
@@ -23,23 +22,24 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 
 public class Window {
 
+    public Draw draw;
+    public Camera camera;
+    public InputCore input;
     @Getter
     @Setter
     private int UPS = 30, FPS = 60;
     @Getter
     private int currentFPS, currentUPS;
-
     @Getter
     private int width, height;
     private String title;
     private boolean resize;
     private Renderer mainClass;
-    public Draw draw;
-    public Camera camera;
-    public InputCore input;
-
     @Getter
     private Screen activeScreen;
+    // The window handle
+    @Getter
+    private long window;
 
     /**
      * Creates a new Window object with
@@ -61,10 +61,6 @@ public class Window {
 
         camera = new Camera(new Vector2f(0, 0), this, false);
     }
-
-    // The window handle
-    @Getter
-    private long window;
 
     /**
      * Opens the window and calls the start() method of the interface Renderer.
@@ -152,14 +148,12 @@ public class Window {
         draw = new Draw(this.width, this.height, this);
         input = new InputCore(this);
 
-        glfwSetWindowSizeCallback(window, new GLFWWindowSizeCallback() {
-            @Override
-            public void invoke(long window, int w, int h) {
-                width = w;
-                height = h;
-                camera.declareProjection();
-                glViewport(0, 0, w, h);
-            }
+        glfwSetWindowSizeCallback(window, (window, w, h) -> {
+            width = w;
+            height = h;
+            camera.declareProjection();
+            glViewport(0, 0, w, h);
+            mainClass.resize(this, w, h);
         });
     }
 

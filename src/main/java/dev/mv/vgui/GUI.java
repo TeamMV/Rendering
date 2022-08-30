@@ -8,19 +8,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GUI {
-    private boolean open;
     @Getter
     private final String name;
-
     private final List<GUIElement> elements;
-
-    private boolean used = false;
     private final List<GUIElement> toAdd = new ArrayList<GUIElement>();
     private final List<GUIElement> toRemove = new ArrayList<GUIElement>();
+    private boolean open;
+    private boolean used = false;
 
 
     public GUI(String name) {
-        this(name, new GUIElement[]{});
+        this(name, new GUIElement[] {});
     }
 
     public GUI(String name, GUIElement... elements) {

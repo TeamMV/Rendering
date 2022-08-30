@@ -20,28 +20,28 @@ public class UVCoordinates {
         return coords[0];
     }
 
-    public Vector2f getTL() {
-        return coords[1];
-    }
-
-    public Vector2f getTR() {
-        return coords[2];
-    }
-
-    public Vector2f getBR() {
-        return coords[3];
-    }
-
     public void setBL(Vector2f uv) {
         coords[0] = uv;
+    }
+
+    public Vector2f getTL() {
+        return coords[1];
     }
 
     public void setTL(Vector2f uv) {
         coords[1] = uv;
     }
 
+    public Vector2f getTR() {
+        return coords[2];
+    }
+
     public void setTR(Vector2f uv) {
         coords[2] = uv;
+    }
+
+    public Vector2f getBR() {
+        return coords[3];
     }
 
     public void setBR(Vector2f uv) {

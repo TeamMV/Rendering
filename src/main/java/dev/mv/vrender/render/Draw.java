@@ -8,10 +8,9 @@ import org.joml.Vector2f;
 
 public class Draw {
 
+    public final static int CAMERA_DYNAMIC = 0, CAMERA_STATIC = 1;
     private float r = 0.0f, g = 0.0f, b = 0.0f, a = 1.0f;
     private int w, h;
-
-    public final static int CAMERA_DYNAMIC = 0, CAMERA_STATIC = 1;
     private float currentCamMode = CAMERA_DYNAMIC;
 
     private SizeLayout layout = new SizeLayout();
@@ -122,7 +121,7 @@ public class Draw {
 
             int texID = BatchController.addTexture(font.getBitmap());
 
-            BatchController.addVertices(new float[][]{
+            BatchController.addVertices(new float[][] {
                     {ax, ay2, 0.0f, 0.0f, r, g, b, a, ux0, uy0, (float) texID, currentCamMode, 0.0f, 0.0f},
                     {ax, ay, 0.0f, 0.0f, r, g, b, a, ux0, uy1, (float) texID, currentCamMode, 0.0f, 0.0f},
                     {ax2, ay, 0.0f, 0.0f, r, g, b, a, ux1, uy1, (float) texID, currentCamMode, 0.0f, 0.0f},

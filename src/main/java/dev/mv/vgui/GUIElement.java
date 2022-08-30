@@ -1,12 +1,13 @@
 package dev.mv.vgui;
 
+import dev.mv.vrender.utils.VariablePosition;
 import dev.mv.vrender.window.Window;
 
 public abstract class GUIElement {
 
-    private boolean visible = true;
     protected int xPos = -1, yPos = -1;
-    protected GUIPosition positionCalculator;
+    protected VariablePosition positionCalculator;
+    private boolean visible = true;
 
     public boolean isVisible() {
         return visible;
@@ -24,7 +25,7 @@ public abstract class GUIElement {
         return yPos;
     }
 
-    public void setPositionCalculator(GUIPosition positionCalculator) {
+    public void setPositionCalculator(VariablePosition positionCalculator) {
         this.positionCalculator = positionCalculator;
     }
 

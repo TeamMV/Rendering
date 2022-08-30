@@ -1,4 +1,5 @@
 package dev.mv.vrender.text;
+
 public class FontHolder {
 
     public static BitmapFont font;

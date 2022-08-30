@@ -13,10 +13,10 @@ import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
 import static org.lwjgl.opengl.GL13.glActiveTexture;
 
 public class Texture {
+    int[] pixels;
     private int id;
     private int width;
     private int height;
-    int[] pixels;
 
     public Texture(String filename) {
         if (filename != null) {

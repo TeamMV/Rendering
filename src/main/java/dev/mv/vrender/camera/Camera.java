@@ -6,12 +6,12 @@ import org.joml.Vector2f;
 import org.joml.Vector3f;
 
 public class Camera {
-    private Matrix4f projectionMatrix, viewMatrix, zoomMatrix;
     public Vector2f position;
     public boolean isStatic;
-    private Window window;
     public float zoom = 1.0f;
     public float moveSpeed = 1.0f;
+    private Matrix4f projectionMatrix, viewMatrix, zoomMatrix;
+    private Window window;
 
     public Camera(Vector2f position, Window window) {
         this.position = position;
