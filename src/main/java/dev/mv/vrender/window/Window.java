@@ -220,9 +220,21 @@ public class Window {
         }
     }
 
-    public void onKeyAction(int keyCode, int scanCode, int action, int mods) {
-        if (activeScreen != null) {
-            activeScreen.onKeyAction(keyCode, scanCode, action, mods);
+    public void onKeyDown(int c) {
+        if(activeScreen != null) {
+            activeScreen.keyDown(c);
+        }
+    }
+
+    public void onKeyUp(int c) {
+        if(activeScreen != null) {
+            activeScreen.keyUp(c);
+        }
+    }
+
+    public void onKeyTyped(char c) {
+        if(activeScreen != null) {
+            activeScreen.keyTyped(c);
         }
     }
 

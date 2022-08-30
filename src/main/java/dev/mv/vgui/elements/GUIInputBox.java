@@ -56,7 +56,7 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
         label.render(w);
 
         if (isSelected) {
-            w.draw.rectangle(xPos + textWidth + 5, yPos + 10, 3, height - 20);
+            w.draw.rectangle(xPos + textWidth + 10, yPos + 10, 3, height - 20);
         }
     }
 
@@ -66,16 +66,15 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
     }
 
     @Override
-    public void keyTyped(char c, int mods) {
+    public void keyTyped(char c) {
         if (isSelected) {
-            if (c == 259) {
+            if (c == 259 || c == '\b') {
                 if (isPlaceholder) return;
                 if (text.length() == 0) return;
                 text = label.getText().substring(0, text.length() - 1);
                 label.setText(text);
-            } else if (c == 257) {
-                return;
-            } else if (c > 31 && c < 128) {
+            }
+            else if (c > 31 && c < 128) {
                 if (isPlaceholder) {
                     label.setText("");
                     isPlaceholder = false;
@@ -89,13 +88,9 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
                     return;
                 }
 
-                if(textWidth >= width) return;
+                text += c;
 
-                if(mods == 0){
-                    text += (c + "").toLowerCase();
-                }else if(mods == 1){
-                    text += (c + "").toUpperCase();
-                }
+                if(textWidth >= width) return;
 
                 label.setText(text);
 

@@ -42,28 +42,6 @@ public abstract class Screen {
         guis.remove(i);
     }
 
-    public void onKeyAction(int keyCode, int scanCode, int action, int mods) {
-        if (action == 1) {
-            for (GUI gui : guis) {
-                if (gui.isOpen()) {
-                    gui.keyTyped((char) keyCode, mods);
-                }
-            }
-            keyTyped((char) keyCode, mods);
-        }
-        lastKey = keyCode;
-        if (action == 2) {
-            keyHeld((char) keyCode, mods);
-            keyHeld = true;
-        }
-
-        if (action == 0) {
-            lastKey = 256;
-            keyUp((char) keyCode, mods);
-            keyHeld = false;
-        }
-    }
-
     public void onMouseAction(int button, int action, int mods) {
         if (action == 1) {
             mouseDown = true;
@@ -102,7 +80,6 @@ public abstract class Screen {
     }
 
     public void onMouseMove(int x, int y) {
-
         mouseX = x;
         mouseY = y;
 
@@ -116,19 +93,25 @@ public abstract class Screen {
         }
     }
 
-    public void resizeGUI(int width, int height) {
+    protected void resizeGUI(int width, int height) {
         for (GUI gui : guis) {
             gui.resize(width, height);
         }
     }
 
+    protected void guiKeyTyped(char c) {
+        for (GUI gui : guis) {
+            gui.keyTyped(c);
+        }
+    }
+
     public abstract void resize(int width, int height);
 
-    public abstract void keyHeld(char c, int mods);
+    public abstract void keyDown(int c);
 
-    public abstract void keyUp(char c, int mods);
+    public abstract void keyUp(int c);
 
-    public abstract void keyTyped(char c, int mods);
+    public abstract void keyTyped(char c);
 
     public abstract void onMouseDown(int button, int mods);
 

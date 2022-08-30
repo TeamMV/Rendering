@@ -53,13 +53,6 @@ public class InputCore implements NativeKeyListener {
             }
         });
 
-        glfwSetKeyCallback(window.getWindow(), new GLFWKeyCallbackI() {
-            @Override
-            public void invoke(long win, int key, int scanCode, int action, int mods) {
-                window.onKeyAction(key, scanCode, action, mods);
-            }
-        });
-
         try {
             GlobalScreen.registerNativeHook();
         } catch (NativeHookException ex) {
@@ -115,16 +108,19 @@ public class InputCore implements NativeKeyListener {
 
     @Override
     public void nativeKeyPressed(NativeKeyEvent nativeKeyEvent) {
-
+        if (nativeKeyEvent.getRawCode() == 65288) {
+            window.onKeyTyped('\b');
+        }
+        window.onKeyDown(nativeKeyEvent.getRawCode());
     }
 
     @Override
     public void nativeKeyReleased(NativeKeyEvent nativeKeyEvent) {
-
+        window.onKeyUp(nativeKeyEvent.getRawCode());
     }
 
     @Override
     public void nativeKeyTyped(NativeKeyEvent nativeKeyEvent) {
-        System.out.println((char) nativeKeyEvent.getRawCode());
+        window.onKeyTyped((char) nativeKeyEvent.getRawCode());
     }
 }

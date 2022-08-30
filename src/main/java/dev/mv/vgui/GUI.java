@@ -84,13 +84,13 @@ public class GUI {
         return ret;
     }
 
-    public boolean keyTyped(char c, int mods) {
+    public boolean keyTyped(char c) {
         if (!open) return false;
         boolean ret = false;
         used = true;
         for (GUIElement element : elements) {
             if (element instanceof Typeable) {
-                ((Typeable) element).keyTyped(c, mods);
+                ((Typeable) element).keyTyped(c);
                 ret = true;
             }
         }
