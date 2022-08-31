@@ -19,21 +19,21 @@ public class BitmapFont {
 
     private int maxWidth = 0, maxHeight = 0;
 
-    public BitmapFont(String pngFile, String fntFile) {
+    public BitmapFont(String pngFileStream, String fntFileStream) {
 
-        bitmap = loadTexture(pngFile);
+        bitmap = loadTexture(pngFileStream);
 
         try {
-            chars = createCharacters(fntFile);
+            chars = createCharacters(fntFileStream);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private Texture loadTexture(String pngFile) {
-        BufferedImage img = null;
+    private Texture loadTexture(String pngFileStream) {
+        BufferedImage img;
         try {
-            img = ImageIO.read(new File(pngFile));
+            img = ImageIO.read(this.getClass().getResourceAsStream(pngFileStream));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -44,14 +44,10 @@ public class BitmapFont {
         return new Texture(img);
     }
 
-    private Map<Integer, Glyph> createCharacters(String fntFile) throws IOException {
+    private Map<Integer, Glyph> createCharacters(String fntFileStream) throws IOException {
         BufferedReader reader = null;
         Map<Integer, Glyph> map = new HashMap<>();
-        try {
-            reader = new BufferedReader(new FileReader(fntFile));
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        reader = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream(fntFileStream)));
 
         if (reader == null) {
             return null;

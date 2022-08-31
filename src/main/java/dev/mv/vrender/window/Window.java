@@ -41,6 +41,9 @@ public class Window {
     @Getter
     private long window;
 
+    @Getter
+    private boolean fullscreen = false;
+
     /**
      * Creates a new Window object with
      *
@@ -265,4 +268,30 @@ public class Window {
         activeScreen = screen;
         activeScreen.onActivation(this);
     }
+
+    public void changeCurrentContext(long windowId) {
+        glfwMakeContextCurrent(windowId);
+        window = windowId;
+    }
+
+    private int oW, oH;
+
+    public void setFullscreen(boolean fullscreen) {
+        this.fullscreen = fullscreen;
+        if (fullscreen) {
+            oW = width;
+            oH = height;
+            long monitor = glfwGetPrimaryMonitor();
+            GLFWVidMode mode = glfwGetVideoMode(monitor);
+            glfwSetWindowMonitor(window, monitor, 0, 0, mode.width(), mode.height(), mode.refreshRate());
+            width = mode.width();
+            height = mode.height();
+        }
+        else {
+            long monitor = glfwGetPrimaryMonitor();
+            GLFWVidMode mode = glfwGetVideoMode(monitor);
+            glfwSetWindowMonitor(window, 0, 0, 0, oW, oH, mode.refreshRate());
+        }
+    }
+
 }

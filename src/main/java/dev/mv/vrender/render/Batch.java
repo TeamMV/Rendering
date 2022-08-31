@@ -6,6 +6,9 @@ import dev.mv.vrender.window.Window;
 import lombok.Getter;
 import org.lwjgl.BufferUtils;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.Arrays;
@@ -74,7 +77,7 @@ public class Batch {
         data = new float[VERTEX_SIZE_FLOATS * maxSize];
         indices = new int[maxSize * 6];
 
-        shader = new Shader(this.getClass().getResource("/shaders/default.vert").getPath(), this.getClass().getResource("/shaders/default.frag").getPath());
+        shader = new Shader("/shaders/default.vert", "/shaders/default.frag");
 
         shader.make();
         shader.use();

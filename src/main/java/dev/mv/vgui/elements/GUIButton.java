@@ -8,12 +8,14 @@ import dev.mv.vrender.text.FontHolder;
 import dev.mv.vrender.text.SizeLayout;
 import dev.mv.vrender.utils.VariablePosition;
 import dev.mv.vrender.window.Window;
+import lombok.Setter;
 
 public class GUIButton extends GUIElement implements Clickable {
 
     private int width, height;
     private GUILabel label;
 
+    @Setter
     private ClickListener listener;
     private SizeLayout layout;
 

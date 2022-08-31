@@ -32,7 +32,13 @@ public class Shader {
         this.fragmentCode = loadShaderFile(fragmentShader);
     }
 
-    private static String loadShaderFile(String file) {
+    private static String loadShaderFile(String fileStream) {
+        try {
+            return new String(Shader.class.getResourceAsStream(fileStream).readAllBytes());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        /*
         if (!(new File(file).exists())) {
             System.out.println("Could not load file: \"" + file + "\"!");
             return null;
@@ -52,6 +58,7 @@ public class Shader {
         }
         //System.out.println(string.toString());
         return string.toString();
+        */
     }
 
     public void make() {
