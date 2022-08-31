@@ -105,6 +105,12 @@ public abstract class Screen {
         }
     }
 
+    public void closeAllGUIs() {
+        for (GUI gui : guis) {
+            gui.close();
+        }
+    }
+
     public abstract void resize(int width, int height);
 
     public abstract void keyDown(int c);

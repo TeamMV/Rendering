@@ -96,5 +96,10 @@ public class Texture {
     public int getHeight() {
         return this.height;
     }
+
+    public TextureRegion getRegion(int x, int y, int width, int height){
+        return new TextureRegion(this, x, y, width, height);
+    }
+
 }
 

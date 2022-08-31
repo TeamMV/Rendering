@@ -3,6 +3,7 @@ package dev.mv.vrender.render;
 import dev.mv.vrender.text.BitmapFont;
 import dev.mv.vrender.text.SizeLayout;
 import dev.mv.vrender.texture.Texture;
+import dev.mv.vrender.texture.TextureRegion;
 import dev.mv.vrender.window.Window;
 import org.joml.Vector2f;
 
@@ -94,6 +95,37 @@ public class Draw {
                 {ax, ay, 0.0f, radRotation, r, g, b, a, 0.0f, 1.0f, (float) texID, currentCamMode, (float) originX, (float) originY},
                 {ax2, ay, 0.0f, radRotation, r, g, b, a, 1.0f, 1.0f, (float) texID, currentCamMode, (float) originX, (float) originY},
                 {ax2, ay2, 0.0f, radRotation, r, g, b, a, 1.0f, 0.0f, (float) texID, currentCamMode, (float) originX, (float) originY}
+        });
+    }
+
+    public void image(int x, int y, int width, int height, TextureRegion tex){
+        image(x, y, width, height, tex, 0.0f, 0, 0);
+    }
+
+    public void image(int x, int y, int width, int height, TextureRegion tex, float rotation){
+        image(x, y, width, height, tex, rotation, x + width / 2, y + height / 2);
+    }
+
+    public void image(int x, int y, int width, int height, TextureRegion tex, float rotation, int originX, int originY){
+        float ax = x;
+        float ay = y;
+        float ax2 = x + width;
+        float ay2 = y + height;
+
+        float ux0 = tex.getUV()[0];
+        float ux1 = tex.getUV()[1];
+        float uy1 = tex.getUV()[2];
+        float uy0 = tex.getUV()[3];
+
+        float radRotation = (float) (rotation * (Math.PI / 180));
+
+        int texID = BatchController.addTexture(tex.getTexture());
+
+        BatchController.addVertices(new float[][] {
+                {ax, ay2, 0.0f, radRotation, r, g, b, a, ux0, uy0, (float) texID, currentCamMode, (float) originX, (float) originY},
+                {ax, ay, 0.0f, radRotation, r, g, b, a, ux0, uy1, (float) texID, currentCamMode, (float) originX, (float) originY},
+                {ax2, ay, 0.0f, radRotation, r, g, b, a, ux1, uy1, (float) texID, currentCamMode, (float) originX, (float) originY},
+                {ax2, ay2, 0.0f, radRotation, r, g, b, a, ux1, uy0, (float) texID, currentCamMode, (float) originX, (float) originY}
         });
     }
 

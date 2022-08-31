@@ -7,6 +7,7 @@ import dev.mv.vrender.text.FontHolder;
 import lombok.Getter;
 import lombok.Setter;
 import org.joml.Vector2f;
+import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
@@ -275,12 +276,17 @@ public class Window {
     }
 
     private int oW, oH;
+    private int oX, oY;
 
     public void setFullscreen(boolean fullscreen) {
         this.fullscreen = fullscreen;
         if (fullscreen) {
+            IntBuffer oXb = BufferUtils.createIntBuffer(1), oYb = BufferUtils.createIntBuffer(1);
+            glfwGetWindowPos(window, oXb, oYb);
             oW = width;
             oH = height;
+            oX = oXb.get(0);
+            oY = oYb.get(0);
             long monitor = glfwGetPrimaryMonitor();
             GLFWVidMode mode = glfwGetVideoMode(monitor);
             glfwSetWindowMonitor(window, monitor, 0, 0, mode.width(), mode.height(), mode.refreshRate());
@@ -290,7 +296,7 @@ public class Window {
         else {
             long monitor = glfwGetPrimaryMonitor();
             GLFWVidMode mode = glfwGetVideoMode(monitor);
-            glfwSetWindowMonitor(window, 0, 0, 0, oW, oH, mode.refreshRate());
+            glfwSetWindowMonitor(window, 0, oX, oY, oW, oH, mode.refreshRate());
         }
     }
 
