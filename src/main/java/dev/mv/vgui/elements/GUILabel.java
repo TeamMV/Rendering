@@ -2,9 +2,12 @@ package dev.mv.vgui.elements;
 
 import dev.mv.vgui.GUIElement;
 import dev.mv.vrender.text.BitmapFont;
+import dev.mv.vrender.text.SizeLayout;
 import dev.mv.vrender.window.Window;
 
 public class GUILabel extends GUIElement {
+
+    SizeLayout layout = new SizeLayout();
 
     private int lineHeight;
     private String text;
@@ -16,6 +19,8 @@ public class GUILabel extends GUIElement {
         this.lineHeight = lineHeight;
         this.text = text;
         this.font = font;
+
+        layout.set(font, text, lineHeight);
     }
 
     public String getText() {
@@ -24,6 +29,7 @@ public class GUILabel extends GUIElement {
 
     public void setText(String s) {
         text = s;
+        layout.setText(s);
     }
 
     @Override
@@ -34,6 +40,16 @@ public class GUILabel extends GUIElement {
     @Override
     public void resize(int width, int height) {
 
+    }
+
+    @Override
+    public int getHeight() {
+        return lineHeight;
+    }
+
+    @Override
+    public int getWidth() {
+        return layout.getWidth();
     }
 
     public void setHeight(int height) {

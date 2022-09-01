@@ -67,7 +67,6 @@ public abstract class Screen {
 
         lastAction = action;
         lastMods = mods;
-
     }
 
     public void onScroll(int x, int y) {
@@ -103,6 +102,11 @@ public abstract class Screen {
         for (GUI gui : guis) {
             gui.keyTyped(c);
         }
+    }
+
+    protected void typed(char c){
+        keyTyped(c);
+        guiKeyTyped(c);
     }
 
     public void closeAllGUIs() {

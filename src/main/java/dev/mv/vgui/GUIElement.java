@@ -25,6 +25,18 @@ public abstract class GUIElement {
         return yPos;
     }
 
+    public void setXPos(int x){
+        xPos = x;
+        if(positionCalculator == null) return;
+        positionCalculator.setX(x);
+    }
+
+    public void setYPos(int y){
+        yPos = y;
+        if(positionCalculator == null) return;
+        positionCalculator.setY(y);
+    }
+
     public void setPositionCalculator(VariablePosition positionCalculator) {
         this.positionCalculator = positionCalculator;
     }
@@ -33,4 +45,7 @@ public abstract class GUIElement {
 
     public abstract void resize(int width, int height);
 
+    public abstract int getHeight();
+
+    public abstract int getWidth();
 }

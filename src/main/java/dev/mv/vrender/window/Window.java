@@ -238,7 +238,7 @@ public class Window {
 
     public void onKeyTyped(char c) {
         if(activeScreen != null) {
-            activeScreen.keyTyped(c);
+            activeScreen.typed(c);
         }
     }
 

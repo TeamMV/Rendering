@@ -1,6 +1,7 @@
 package dev.mv.vgui;
 
 import dev.mv.vgui.elements.Scrollable;
+import dev.mv.vgui.elements.window.GUIWindow;
 import dev.mv.vrender.window.Window;
 import lombok.Getter;
 
@@ -15,6 +16,8 @@ public class GUI {
     private final List<GUIElement> toRemove = new ArrayList<GUIElement>();
     private boolean open;
     private boolean used = false;
+    @Getter
+    private GUIWindow guiWindow = null;
 
 
     public GUI(String name) {
@@ -33,6 +36,9 @@ public class GUI {
     public void render(Window w) {
         if (!open) return;
         used = true;
+        if(guiWindow != null){
+            guiWindow.render(w);
+        }
         for (GUIElement element : elements) {
             if (element.isVisible()) {
                 element.render(w);
@@ -128,6 +134,10 @@ public class GUI {
             return;
         }
         elements.remove(e);
+    }
+
+    public void setWindow(GUIWindow window){
+        guiWindow = window;
     }
 
     public List<GUIElement> getElements() {

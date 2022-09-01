@@ -4,7 +4,6 @@ import dev.mv.vgui.Clickable;
 import dev.mv.vgui.GUIElement;
 import dev.mv.vgui.elements.listeners.ClickListener;
 import dev.mv.vrender.text.BitmapFont;
-import dev.mv.vrender.text.FontHolder;
 import dev.mv.vrender.text.SizeLayout;
 import dev.mv.vrender.utils.VariablePosition;
 import dev.mv.vrender.window.Window;
@@ -21,19 +20,25 @@ public class GUIButton extends GUIElement implements Clickable {
 
     private boolean textWidth = false;
 
-    public GUIButton(int x, int y, int height, String text, BitmapFont font, ClickListener listner) {
+    public GUIButton(int x, int y, boolean centerX, int height, String text, BitmapFont font, ClickListener listner) {
         layout = new SizeLayout(font, text, height - height / 5);
         xPos = x;
         yPos = y;
         this.listener = listner;
         this.width = layout.getWidth() + 50;
+        if(centerX){
+            xPos = x - width / 2;
+        }
         this.height = height;
-        label = new GUILabel(x + (width / 2) - (layout.getWidth() / 2), y + (height / 2 - layout.getHeight('e') / 2), height - height / 5, text, font);
+        label = new GUILabel(xPos + (width / 2) - (layout.getWidth() / 2), yPos + (height / 2 - layout.getHeight('e') / 2), height - height / 5, text, font);
     }
 
-    public GUIButton(int x, int y, int width, int height, String text, BitmapFont font, ClickListener listner) {
+    public GUIButton(int x, int y, boolean centerX, int width, int height, String text, BitmapFont font, ClickListener listner) {
         layout = new SizeLayout(font, text, height - height / 5);
         xPos = x;
+        if(centerX){
+            xPos = x + width / 2;
+        }
         yPos = y;
         this.listener = listner;
         this.width = width;
@@ -41,11 +46,11 @@ public class GUIButton extends GUIElement implements Clickable {
         label = new GUILabel(x + (width / 2) - (layout.getWidth() / 2), y + (height / 2 - layout.getHeight('e') / 2), height - height / 5, text, font);
     }
 
-    public GUIButton(VariablePosition position, String text, BitmapFont font, ClickListener listner) {
-        this(position, text, font, listner, false);
+    public GUIButton(VariablePosition position, boolean centerX, String text, BitmapFont font, ClickListener listner) {
+        this(position, centerX, text, font, listner, false);
     }
 
-    public GUIButton(VariablePosition position, String text, BitmapFont font, ClickListener listner, boolean textWidth) {
+    public GUIButton(VariablePosition position, boolean centerX, String text, BitmapFont font, ClickListener listner, boolean textWidth) {
         this.textWidth = textWidth;
         xPos = position.getX();
         yPos = position.getY();
@@ -56,6 +61,9 @@ public class GUIButton extends GUIElement implements Clickable {
         } else {
             width = position.getWidth();
         }
+        if(centerX){
+            xPos = position.getX() + width / 2;
+        }
         this.positionCalculator = position;
         this.listener = listner;
         label = new GUILabel(xPos + (width / 2) - (layout.getWidth() / 2), yPos + (height / 2 - layout.getHeight('e') / 2), height - height / 5, text, font);
@@ -63,17 +71,48 @@ public class GUIButton extends GUIElement implements Clickable {
 
     @Override
     public void render(Window w) {
-        w.draw.color(0, 0, 0, 255);
-        w.draw.rectangle(xPos, yPos, width, height);
-        w.draw.color(117, 117, 117, 255);
 
         if (w.input.mouseInside(xPos, yPos, xPos + width, yPos + height)) {
-            w.draw.color(140, 140, 140, 255);
+            w.draw.color(186, 247, 32, 255);
+        } else {
+            w.draw.color(255, 255, 255, 255);
         }
 
-        w.draw.rectangle(xPos + 3, yPos + 3, width - 6, height - 6);
-        w.draw.color(255, 255, 255, 255);
+        w.draw.rectangle(xPos + 10, yPos, width - 20, height);
+        w.draw.triangle(xPos, yPos + height / 2, xPos + 10, yPos + height, xPos + 10, yPos);
+        w.draw.triangle(xPos + width, yPos + height / 2, xPos + width - 10, yPos + height, xPos + width - 10, yPos);
+
+        w.draw.color(40, 40, 40, 255);
+
+        w.draw.rectangle(xPos + 13, yPos + 5, width - 26, height - 10);
+        w.draw.triangle(xPos + 5, yPos + height / 2, xPos + 13, yPos + height - 5, xPos + 13, yPos + 5);
+        w.draw.triangle(xPos + width - 5, yPos + height / 2, xPos + width - 13, yPos + height - 5, xPos + width - 13, yPos + 5);
+
+        if (w.input.mouseInside(xPos, yPos, xPos + width, yPos + height)) {
+            w.draw.color(186, 247, 32, 255);
+        } else {
+            w.draw.color(255, 255, 255, 255);
+        }
+
         label.render(w);
+
+        w.draw.color(0, 0, 0, 255);
+    }
+
+    @Override
+    public void setXPos(int x){
+        xPos = x;
+        label.setXPos(xPos + (width / 2) - (layout.getWidth() / 2));
+        if(positionCalculator == null) return;
+        positionCalculator.setX(x);
+    }
+
+    @Override
+    public void setYPos(int y){
+        yPos = y;
+        label.setYPos( y + (height / 2) - (layout.getHeight('e') / 2));
+        if(positionCalculator == null) return;
+        positionCalculator.setY(y);
     }
 
     @Override
@@ -93,6 +132,16 @@ public class GUIButton extends GUIElement implements Clickable {
             label.setY(yPos + (this.height / 2 - layout.getHeight('e') / 2));
             label.setHeight(this.height - this.height / 5);
         }
+    }
+
+    @Override
+    public int getHeight() {
+        return height;
+    }
+
+    @Override
+    public int getWidth() {
+        return width;
     }
 
     @Override
