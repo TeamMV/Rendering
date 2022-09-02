@@ -77,7 +77,7 @@ public class Batch {
         data = new float[VERTEX_SIZE_FLOATS * maxSize];
         indices = new int[maxSize * 6];
 
-        shader = new Shader("/shaders/default.vert", "/shaders/default.frag");
+        shader = new Shader(File.separator + "shaders" + File.separator + "default.vert", File.separator + "shaders" + File.separator + "default.frag");
 
         shader.make();
         shader.use();

@@ -125,12 +125,12 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
                 text = text.substring(0, text.length() - 1);
                 label.setText(text);
 
-                if (hidden) {
-                    label.setText("*".repeat(label.getText().length()));
-                }
-
                 if (charOverflow > 0) {
                     label.setText(text.substring(--charOverflow));
+                }
+
+                if (hidden) {
+                    label.setText("*".repeat(label.getText().length()));
                 }
             }
             else if (c > 31 && c < 128) {
@@ -178,6 +178,11 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
     }
 
     @Override
+    public void release(int x, int y, int mods) {
+
+    }
+
+    @Override
     public boolean isSelected() {
         return isSelected;
     }
@@ -185,7 +190,7 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
     public void hideText() {
         hidden = true;
         if (text.length() == 0) {
-            if (isPlaceholder) label.setText("");
+            if (isPlaceholder) label.setText(placeholder);
             return;
         }
         label.setText("*".repeat(text.substring(charOverflow).length()));

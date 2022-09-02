@@ -151,6 +151,15 @@ public class VerticalGUILayout extends GUIElement implements Clickable, Typeable
     }
 
     @Override
+    public void release(int x, int y, int mods) {
+        for(GUIElement e : items){
+            if(e instanceof Clickable instance){
+                instance.release(x, y, mods);
+            }
+        }
+    }
+
+    @Override
     public void drag(int x, int y, int button, int mods) {
         for(GUIElement e : items){
             if(e instanceof Draggable instance){

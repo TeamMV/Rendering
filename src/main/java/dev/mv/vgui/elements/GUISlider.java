@@ -124,6 +124,11 @@ public class GUISlider extends GUIElement implements Clickable, Draggable {
     }
 
     @Override
+    public void release(int x, int y, int mods) {
+        startDrag = false;
+    }
+
+    @Override
     public void drag(int x, int y, int button, int mods) {
         if (startDrag) {
             if (!(button == 0)) {

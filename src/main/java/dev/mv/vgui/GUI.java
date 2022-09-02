@@ -64,9 +64,25 @@ public class GUI {
         if (!open) return false;
         boolean ret = false;
         used = true;
+        if(guiWindow != null) guiWindow.click(x, y, button, mods);
         for (GUIElement element : elements) {
             if (element instanceof Clickable) {
                 ((Clickable) element).click(x, y, button, mods);
+                ret = true;
+            }
+        }
+        used = false;
+        update();
+        return ret;
+    }
+
+    public boolean release(int x, int y, int mods){
+        if (!open) return false;
+        boolean ret = false;
+        used = true;
+        for (GUIElement element : elements) {
+            if (element instanceof Clickable) {
+                ((Clickable) element).release(x, y, mods);
                 ret = true;
             }
         }

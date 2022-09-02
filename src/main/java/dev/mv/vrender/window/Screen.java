@@ -43,6 +43,7 @@ public abstract class Screen {
     }
 
     public void onMouseAction(int button, int action, int mods) {
+        lastButton = button;
         if (action == 1) {
             mouseDown = true;
             onMouseDown(button, mods);
@@ -52,17 +53,20 @@ public abstract class Screen {
             lastButton = -1;
         }
 
-        if (lastButton != button || lastMods != mods) {
-            if (action == 1) {
-                for (GUI gui : guis) {
-                    if (gui.isOpen()) {
-                        gui.click(mouseX, mouseY, button, mods);
-                    }
+        if (action == 1) {
+            for (GUI gui : guis) {
+                if (gui.isOpen()) {
+                    gui.click(mouseX, mouseY, button, mods);
                 }
-                onMouseClick(mouseX, mouseY, button, mods);
-            } else if (action == 0) {
-                onMouseRelease(mouseX, mouseY, button, mods);
             }
+            onMouseClick(mouseX, mouseY, button, mods);
+        } else if (action == 0) {
+            for (GUI gui : guis) {
+                if (gui.isOpen()) {
+                    gui.release(mouseX, mouseY, mods);
+                }
+            }
+            onMouseRelease(mouseX, mouseY, button, mods);
         }
 
         lastAction = action;

@@ -150,4 +150,9 @@ public class GUIButton extends GUIElement implements Clickable {
             listener.clicked(this);
         }
     }
+
+    @Override
+    public void release(int x, int y, int mods) {
+
+    }
 }

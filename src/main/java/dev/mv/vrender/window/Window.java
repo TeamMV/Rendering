@@ -4,6 +4,7 @@ import dev.mv.vrender.camera.Camera;
 import dev.mv.vrender.input.InputCore;
 import dev.mv.vrender.render.Draw;
 import dev.mv.vrender.text.FontHolder;
+import dev.mv.vrender.utils.DefaultTextures;
 import lombok.Getter;
 import lombok.Setter;
 import org.joml.Vector2f;
@@ -153,6 +154,8 @@ public class Window {
 
         draw = new Draw(this.width, this.height, this);
         input = new InputCore(this);
+        FontHolder.onStart();
+        DefaultTextures.onStart();
 
         glfwSetWindowSizeCallback(window, (window, w, h) -> {
             width = w;

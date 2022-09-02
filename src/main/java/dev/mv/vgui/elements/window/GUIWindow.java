@@ -1,5 +1,7 @@
 package dev.mv.vgui.elements.window;
 
+import dev.mv.vgui.GUI;
+import dev.mv.vgui.elements.GUICloseButton;
 import dev.mv.vrender.utils.VariablePosition;
 import dev.mv.vrender.window.Window;
 import lombok.Getter;
@@ -9,15 +11,23 @@ public class GUIWindow {
     @Getter
     private int x, y, width, height;
 
-    public GUIWindow(VariablePosition position){
-        this(position.getX(), position.getY(), position.getWidth(), position.getHeight());
+    @Getter
+    private GUICloseButton button;
+
+    private GUI gui;
+
+    public GUIWindow(VariablePosition position, GUI gui){
+        this(position.getX(), position.getY(), position.getWidth(), position.getHeight(), gui);
     }
 
-    public GUIWindow(int x, int y, int width, int height) {
+    public GUIWindow(int x, int y, int width, int height, GUI gui) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+        this.gui = gui;
+
+        button = new GUICloseButton(x + width - 64 - 42, y + height - 64 - 10, 64, 64, gui);
     }
 
     public void render(Window w){
@@ -38,5 +48,11 @@ public class GUIWindow {
         w.draw.triangle(x + width - 50, y + height - 5, x + width - 50, y + height - 50, x + width - 5, y + height - 50);
         w.draw.triangle(x + width - 5, y + 50, x + width - 50, y + 50, x + width - 50, y + 5);
         w.draw.triangle(x + 5, y + 50, x + 50, y + 50, x + 50, y + 5);
+
+        button.render(w);
+    }
+
+    public void click(int x, int y, int b, int mods){
+        button.click(x, y, b, mods);
     }
 }
