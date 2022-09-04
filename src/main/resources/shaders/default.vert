@@ -29,6 +29,7 @@ void main() {
     fTexID = aTexID;
 
     vec2 acRotationOrigin = vec2(aRotationOrigin.x / uResX * 2.0 - 1.0, aRotationOrigin.y / uResY * 2.0 - 1.0);
+    //vec4 acRotationOrigin = uProjection * vec4(aRotationOrigin, 1.0, 1.0);
 
     mat4 rot;
     rot[0] = vec4(cos(aRotation), sin(aRotation), 0.0, 0.0);
@@ -39,7 +40,7 @@ void main() {
     mat4 trns;
     trns[0] = vec4(1.0, 0.0, 0.0, -acRotationOrigin.x);
     trns[1] = vec4(0.0, 1.0, 0.0, -acRotationOrigin.y);
-    trns[2] = vec4(0.0, 0.0, 1.0, 1.0);
+    trns[2] = vec4(0.0, 0.0, 1.0, -1.0);
     trns[3] = vec4(0.0, 0.0, 0.0, 1.0);
 
     mat4 trns2;
@@ -51,15 +52,15 @@ void main() {
     mat4 model = mat4(1.0);
 
     if (aRotation != 0) {
-        model = trns * rot *  trns2;
+        model = trns * rot * trns2;
     }
 
     //camMode: 0 = dynamic; 1 = static;
     if (aCameraMode == 0) {
         gl_Position = uProjection * uView * uZoom * model * vec4(aVertPos, 1.0);
     } else {
-        gl_Position = vec4(aVertPos, 1.0) * uProjection * model;
-        gl_Position += vec4(-1.0, -1.0, -1.0, aVertPos.x + aVertPos.y + aVertPos.z);
-        gl_Position.xyz /= gl_Position.w;
+        gl_Position = uProjection * vec4(aVertPos, 1.0);
+        gl_Position *= model;
+        //gl_Position += vec4(-1.0, -1.0, -1.0, aVertPos.x + aVertPos.y + aVertPos.z);
     }
 }

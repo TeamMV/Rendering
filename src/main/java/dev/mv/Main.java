@@ -73,12 +73,13 @@ public class Main extends Screen implements Renderer {
         guis.add(gui);
     }
 
+    int i = 0;
     @Override
     public void render(Window w) {
-        //renderGUI(w);
+        renderGUI(w);
         w.draw.mode(Draw.CAMERA_STATIC);
         w.draw.color(255, 255, 0, 255);
-        w.draw.rectangle(740, 390, 20, 20);
+        w.draw.rectangle(740, 390, 20, 20, i++);
     }
 
     @Override

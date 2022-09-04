@@ -51,6 +51,26 @@ public class Draw {
         });
     }
 
+    public void rectangle(int x, int y, int width, int height, float rotation) {
+        rectangle(x, y, width, height, rotation, x + width / 2, y + height / 2);
+    }
+
+    public void rectangle(int x, int y, int width, int height, float rotation, int originX, int originY) {
+        float ax = x;
+        float ay = y;
+        float ax2 = x + width;
+        float ay2 = y + height;
+
+        float radRotation = (float) (rotation * (Math.PI / 180));
+
+        BatchController.addVertices(new float[][] {
+                {ax, ay2, 0.0f, radRotation, r, g, b, a, 0.0f, 0.0f, 0.0f, currentCamMode, (float) originX, (float) originY},
+                {ax, ay, 0.0f, radRotation, r, g, b, a, 0.0f, 0.0f, 0.0f, currentCamMode,(float) originX, (float) originY},
+                {ax2, ay, 0.0f, radRotation, r, g, b, a, 0.0f, 0.0f, 0.0f, currentCamMode, (float) originX, (float) originY},
+                {ax2, ay2, 0.0f, radRotation, r, g, b, a, 0.0f, 0.0f, 0.0f, currentCamMode, (float) originX, (float) originY}
+        });
+    }
+
     public void triangle(int x1, int y1, int x2, int y2, int x3, int y3) {
 
         BatchController.addVertices(new float[][] {

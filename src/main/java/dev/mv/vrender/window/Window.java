@@ -161,7 +161,7 @@ public class Window {
             width = w;
             height = h;
 
-            //glViewport(0, 0, w, h);
+            glViewport(0, 0, w, h);
             camera.declareProjection();
 
             mainClass.resize(this, w, h);
