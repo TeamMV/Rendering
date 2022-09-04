@@ -7,6 +7,7 @@ import dev.mv.vgui.elements.listeners.ClickListener;
 import dev.mv.vgui.elements.window.GUIWindow;
 import dev.mv.vgui.elements.window.layout.VerticalGUILayout;
 import dev.mv.vrender.camera.Camera;
+import dev.mv.vrender.render.Draw;
 import dev.mv.vrender.text.FontHolder;
 import dev.mv.vrender.window.Renderer;
 import dev.mv.vrender.window.Screen;
@@ -21,7 +22,7 @@ public class Main extends Screen implements Renderer {
     private GUIStatusBar bar;
 
     public static void main(String[] args) {
-        Window win = new Window(1000, 800, "test", true, new Main());
+        Window win = new Window(1500, 800, "test", true, new Main());
         win.run();
 
     }
@@ -57,7 +58,7 @@ public class Main extends Screen implements Renderer {
             }
         }));
 
-        GUITabList tl = new GUITabList(200, 500, 3, FontHolder.font);
+        GUITabList tl = new GUITabList(200, 500, 1, FontHolder.font);
         tl.addTab(tab);
         tl.addTab(tab2);
         tl.addTab(tab3);
@@ -74,7 +75,10 @@ public class Main extends Screen implements Renderer {
 
     @Override
     public void render(Window w) {
-        renderGUI(w);
+        //renderGUI(w);
+        w.draw.mode(Draw.CAMERA_STATIC);
+        w.draw.color(255, 255, 0, 255);
+        w.draw.rectangle(740, 390, 20, 20);
     }
 
     @Override

@@ -160,8 +160,10 @@ public class Window {
         glfwSetWindowSizeCallback(window, (window, w, h) -> {
             width = w;
             height = h;
+
             //glViewport(0, 0, w, h);
-            //camera.updateProjection();
+            camera.declareProjection();
+
             mainClass.resize(this, w, h);
         });
     }

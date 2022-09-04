@@ -56,8 +56,10 @@ void main() {
 
     //camMode: 0 = dynamic; 1 = static;
     if (aCameraMode == 0) {
-        gl_Position = uProjection * uView * uZoom * vec4(aVertPos, 1.0) * model;
+        gl_Position = uProjection * uView * uZoom * model * vec4(aVertPos, 1.0);
     } else {
-        gl_Position = uProjection * vec4(aVertPos, 1.0) * model;
+        gl_Position = vec4(aVertPos, 1.0) * uProjection * model;
+        gl_Position += vec4(-1.0, -1.0, -1.0, aVertPos.x + aVertPos.y + aVertPos.z);
+        gl_Position.xyz /= gl_Position.w;
     }
 }
