@@ -160,8 +160,8 @@ public class Window {
         glfwSetWindowSizeCallback(window, (window, w, h) -> {
             width = w;
             height = h;
-            camera.declareProjection();
-            glViewport(0, 0, w, h);
+            //glViewport(0, 0, w, h);
+            //camera.updateProjection();
             mainClass.resize(this, w, h);
         });
     }
@@ -292,6 +292,7 @@ public class Window {
             oY = oYb.get(0);
             long monitor = glfwGetPrimaryMonitor();
             GLFWVidMode mode = glfwGetVideoMode(monitor);
+            System.out.println(mode.width() + ":" + mode.height());
             glfwSetWindowMonitor(window, monitor, 0, 0, mode.width(), mode.height(), mode.refreshRate());
             width = mode.width();
             height = mode.height();
@@ -300,6 +301,7 @@ public class Window {
             long monitor = glfwGetPrimaryMonitor();
             GLFWVidMode mode = glfwGetVideoMode(monitor);
             glfwSetWindowMonitor(window, 0, oX, oY, oW, oH, mode.refreshRate());
+            System.out.println(mode.width() + "_" + mode.height());
         }
     }
 

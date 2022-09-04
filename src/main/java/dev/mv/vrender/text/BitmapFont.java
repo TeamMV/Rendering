@@ -41,7 +41,7 @@ public class BitmapFont {
         if (img == null) {
             return null;
         }
-        return new Texture(img);
+        return Texture.getTexture(img);
     }
 
     private Map<Integer, Glyph> createCharacters(String fntFileStream) throws IOException {

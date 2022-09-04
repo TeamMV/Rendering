@@ -1,9 +1,6 @@
 package dev.mv.vgui.elements.window.layout;
 
-import dev.mv.vgui.Clickable;
-import dev.mv.vgui.Draggable;
-import dev.mv.vgui.GUIElement;
-import dev.mv.vgui.Typeable;
+import dev.mv.vgui.*;
 import dev.mv.vgui.elements.Scrollable;
 import dev.mv.vrender.utils.VariablePosition;
 import dev.mv.vrender.window.Window;
@@ -41,6 +38,22 @@ public class HorizontalGUILayout extends GUIElement implements Clickable, Typeab
 
     public HorizontalGUILayout removeItem(GUIElement element){
         items.remove(element);
+
+        return this;
+    }
+
+    public HorizontalGUILayout centerInWindow(GUI gui){
+        int winWidth = gui.getGuiWindow().getWidth();
+        int winX = gui.getGuiWindow().getX();
+
+        xPos = winX + (winWidth / 2) - (getWidth() / 2);
+
+        return this;
+    }
+
+    public HorizontalGUILayout centerInScreen(Window w){
+        int winWidth = w.getWidth();
+        xPos = (winWidth / 2) - (getWidth() / 2);
 
         return this;
     }

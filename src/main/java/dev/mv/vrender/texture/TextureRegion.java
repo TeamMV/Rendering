@@ -1,6 +1,7 @@
 package dev.mv.vrender.texture;
 
 import java.awt.image.BufferedImage;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class TextureRegion {
     Texture tex;

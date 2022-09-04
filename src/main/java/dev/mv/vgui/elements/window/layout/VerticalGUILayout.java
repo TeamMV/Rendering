@@ -3,6 +3,7 @@ package dev.mv.vgui.elements.window.layout;
 import dev.mv.vgui.*;
 import dev.mv.vgui.elements.Scrollable;
 import dev.mv.vrender.utils.VariablePosition;
+import dev.mv.vrender.window.Screen;
 import dev.mv.vrender.window.Window;
 
 import java.util.ArrayList;
@@ -38,6 +39,13 @@ public class VerticalGUILayout extends GUIElement implements Clickable, Typeable
         int winX = gui.getGuiWindow().getX();
 
         xPos = winX + (winWidth / 2) - (maxWidth / 2);
+
+        return this;
+    }
+
+    public VerticalGUILayout centerInScreen(Window w){
+        int winWidth = w.getWidth();
+        xPos = (winWidth / 2) - (maxWidth / 2);
 
         return this;
     }

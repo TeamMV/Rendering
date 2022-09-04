@@ -42,6 +42,11 @@ public class Camera {
         projectionMatrix.ortho(0.0f, (float) window.getWidth(), 0.0f, (float) window.getHeight(), 0.0f, 100.0f);
     }
 
+    public void updateProjection(){
+        projectionMatrix.identity();
+        projectionMatrix.ortho2DLH(0.0f, (float) window.getWidth(), 0.0f, (float) window.getHeight());
+    }
+
     public Matrix4f getViewMatrix() {
         Vector3f cameraFront = new Vector3f(0.0f, 0.0f, -1.0f);
         Vector3f cameraUp = new Vector3f(0.0f, 1.0f, 0.0f);
