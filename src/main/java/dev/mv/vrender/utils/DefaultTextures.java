@@ -15,7 +15,7 @@ public class DefaultTextures {
 
     public static void onStart(){
         try {
-            BUTTON_SHEET = Texture.getTexture(DefaultTextures.class.getResourceAsStream(File.separator + "defaultTextures" + File.separator + "buttonSheet.png"));
+            BUTTON_SHEET = new Texture(DefaultTextures.class.getResourceAsStream(File.separator + "defaultTextures" + File.separator + "buttonSheet.png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

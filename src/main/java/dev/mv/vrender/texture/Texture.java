@@ -14,13 +14,13 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
 import static org.lwjgl.opengl.GL13.glActiveTexture;
 
-public class Texture <T> {
+public class Texture {
     int[] pixels;
     private int id;
     private int width;
     private int height;
 
-    private Texture(String filename) {
+    public Texture(String filename) {
         if (filename != null) {
             BufferedImage img;
             try {
@@ -55,7 +55,7 @@ public class Texture <T> {
         }
     }
 
-    private Texture(BufferedImage img) {
+    public Texture(BufferedImage img) {
         this.width = img.getWidth();
         this.height = img.getHeight();
         this.pixels = new int[this.width * this.height];
@@ -78,20 +78,8 @@ public class Texture <T> {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, this.width, this.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixelBuffer);
     }
 
-    private Texture(InputStream stream) throws IOException {
+    public Texture(InputStream stream) throws IOException {
         this(ImageIO.read(stream));
-    }
-
-    public static Texture<Byte> getTexture(String path){
-        return new Texture<>(path);
-    }
-
-    public static Texture<Byte> getTexture(BufferedImage img){
-        return new Texture<>(img);
-    }
-
-    public static Texture<Byte> getTexture(InputStream stream) throws IOException {
-        return new Texture<>(stream);
     }
 
     public void bind() {

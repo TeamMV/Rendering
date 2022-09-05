@@ -18,10 +18,6 @@ public abstract class Screen {
 
     public abstract void render(Window w);
 
-    public void loop(Window w) {
-
-    }
-
     public void renderGUI(Window w) {
         w.draw.mode(Draw.CAMERA_STATIC);
         for (GUI gui : guis) {
@@ -120,6 +116,8 @@ public abstract class Screen {
     }
 
     public abstract void resize(int width, int height);
+
+    public abstract void update(Window w);
 
     public abstract void keyDown(int c);
 

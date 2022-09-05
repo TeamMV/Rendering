@@ -21,9 +21,8 @@ public class BitmapFont {
 
     public BitmapFont(String pngFileStream, String fntFileStream) {
 
-        bitmap = loadTexture(pngFileStream);
-
         try {
+            bitmap = new Texture(this.getClass().getResourceAsStream(pngFileStream));
             chars = createCharacters(fntFileStream);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -41,7 +40,7 @@ public class BitmapFont {
         if (img == null) {
             return null;
         }
-        return Texture.getTexture(img);
+        return new Texture(img);
     }
 
     private Map<Integer, Glyph> createCharacters(String fntFileStream) throws IOException {

@@ -196,6 +196,10 @@ public class Window {
                 if (deltaU >= 1) {
                     mainClass.update(this);
 
+                    if (activeScreen != null) {
+                        activeScreen.update(this);
+                    }
+
                     ticks++;
                     deltaU--;
                 }
@@ -204,7 +208,6 @@ public class Window {
                     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
                     if (activeScreen != null) {
                         activeScreen.render(this);
-                        activeScreen.loop(this);
                     }
                     mainClass.render(this);
                     //System.out.println(width + ":" + height);
