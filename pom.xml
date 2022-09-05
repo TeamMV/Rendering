@@ -11,6 +11,7 @@
     <properties>
         <maven.compiler.source>18</maven.compiler.source>
         <maven.compiler.target>18</maven.compiler.target>
+        <project.source.encoding>UTF-8</project.source.encoding>
     </properties>
 
     <packaging>jar</packaging>

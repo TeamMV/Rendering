@@ -206,11 +206,13 @@ public class Window {
 
                 if (deltaF >= 1) {
                     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+
+                    mainClass.render(this);
+
                     if (activeScreen != null) {
                         activeScreen.render(this);
                     }
-                    mainClass.render(this);
-                    //System.out.println(width + ":" + height);
 
                     draw.draw();
 

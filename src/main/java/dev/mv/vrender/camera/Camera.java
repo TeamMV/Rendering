@@ -44,7 +44,6 @@ public class Camera {
         float[] mat = new float[16];
         projectionMatrix.identity();
         projectionMatrix.ortho(0.0f, (float) window.getWidth(), 0.0f, (float) window.getHeight(), 0.0f, 100.0f);
-        //projectionMatrix.negateX();
         Vector4f vec = new Vector4f(750, 0, 0, 1);
     }
 
