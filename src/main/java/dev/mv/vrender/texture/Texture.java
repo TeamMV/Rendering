@@ -107,5 +107,9 @@ public class Texture {
         return new TextureRegion(this, x, y, width, height);
     }
 
+    public TextureRegion getAsRegion(){
+        return new TextureRegion(this, 0, 0, width, height);
+    }
+
 }
 

@@ -5,11 +5,8 @@ import dev.mv.vrender.texture.Texture;
 import dev.mv.vrender.window.Window;
 import lombok.Getter;
 import org.lwjgl.BufferUtils;
-import org.lwjgl.opengl.GLUtil;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.Arrays;

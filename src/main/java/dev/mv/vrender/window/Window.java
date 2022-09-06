@@ -45,6 +45,8 @@ public class Window {
 
     @Getter
     private boolean fullscreen = false;
+    @Getter
+    private double deltaF;
 
     /**
      * Creates a new Window object with
@@ -191,6 +193,8 @@ public class Window {
                 deltaF += (currentTime - initialTime) / timeF;
                 initialTime = currentTime;
                 glfwPollEvents();
+
+                this.deltaF = deltaF;
 
 
                 if (deltaU >= 1) {
