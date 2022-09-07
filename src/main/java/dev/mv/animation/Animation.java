@@ -77,16 +77,18 @@ public class Animation {
     }
 
     public void draw(Window w, int x, int y, int width, int height, float rotation){
-        if(playing){
+        if (playing){
             w.draw.image(x, y, width, height, frames.get(currentFrame), rotation);
 
-            if(millis + speed <= System.currentTimeMillis()){
+            if (millis + speed <= System.currentTimeMillis()){
                 currentFrame++;
                 millis = System.currentTimeMillis();
-                if(currentFrame >= frames.size()){
+                if (currentFrame >= frames.size()){
                     currentFrame = 0;
                 }
             }
+        } else {
+            w.draw.image(x, y, width, height, frames.get(currentFrame), rotation);
         }
     }
 }

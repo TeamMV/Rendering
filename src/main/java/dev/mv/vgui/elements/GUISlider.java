@@ -66,6 +66,10 @@ public class GUISlider extends GUIElement implements Clickable, Draggable {
         this.renderExtension = renderExtension;
     }
 
+    public int getValue(){
+        return selection;
+    }
+
     @Override
     public void render(Window w) {
 

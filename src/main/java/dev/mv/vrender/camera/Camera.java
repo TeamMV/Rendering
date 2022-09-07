@@ -47,16 +47,14 @@ public class Camera {
         Vector4f vec = new Vector4f(750, 0, 0, 1);
     }
 
-    public void updateProjection(){
-        projectionMatrix.identity();
-        projectionMatrix.ortho2DLH(0.0f, (float) window.getWidth(), 0.0f, (float) window.getHeight());
-    }
-
     public Matrix4f getViewMatrix() {
         Vector3f cameraFront = new Vector3f(0.0f, 0.0f, -1.0f);
         Vector3f cameraUp = new Vector3f(0.0f, 1.0f, 0.0f);
         viewMatrix.identity();
-        viewMatrix.lookAt(new Vector3f(position.x - zoom, position.y - zoom, 20.0f), cameraFront.add(position.x - zoom, position.y - zoom, 0.0f), cameraUp);
+        viewMatrix.m00(1).m01(0).m02(0).m03(position.x);
+        viewMatrix.m10(0).m11(1).m12(0).m13(position.y);
+        viewMatrix.m20(0).m21(0).m22(1).m23(0);
+        viewMatrix.m20(0).m21(0).m22(0).m23(1);
         return viewMatrix;
     }
 
