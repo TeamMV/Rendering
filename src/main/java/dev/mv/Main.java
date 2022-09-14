@@ -9,6 +9,9 @@ import dev.mv.vrender.window.Renderer;
 import dev.mv.vrender.window.Screen;
 import dev.mv.vrender.window.Window;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main extends Screen implements Renderer {
     private Animation anim;
     private GUISlider slider;
@@ -54,6 +57,9 @@ public class Main extends Screen implements Renderer {
     @Override
     public void update(Window w) {
         //if(w.input.mouseClick(1)) anim.stop(); else anim.play();
+
+        if(w.input.scrollDown()) w.camera.zoom -= 0.2f;
+        if(w.input.scrollUp()) w.camera.zoom += 0.2f;
 
         anim.speed(slider.getValue() * 10);
     }

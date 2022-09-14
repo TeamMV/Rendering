@@ -16,7 +16,6 @@ out float fTexID;
 
 uniform mat4 uProjection;
 uniform mat4 uView;
-uniform mat4 uZoom;
 
 uniform float uResX;
 uniform float uResY;
@@ -39,7 +38,7 @@ void main() {
 
     //camMode: 0 = dynamic; 1 = static;
     if (aCameraMode == 0) {
-        gl_Position = uProjection * uView * uZoom * vec4(pos, aVertPos.z, 1.0);
+        gl_Position = uProjection * uView * vec4(pos, aVertPos.z, 1.0);
     } else {
         gl_Position = uProjection * vec4(pos, aVertPos.z, 1.0);
     }

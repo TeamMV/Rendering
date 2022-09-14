@@ -223,7 +223,6 @@ public class Batch {
 
         shader.setMatrix4f("uProjection", win.camera.getProjectionMatrix());
         shader.setMatrix4f("uView", win.camera.getViewMatrix());
-        shader.setMatrix4f("uZoom", win.camera.getZoomMatrix());
 
         glVertexAttribPointer(0, POSITION_SIZE, GL_FLOAT, false, VERTEX_SIZE_BYTES, POSITION_OFFSET_BYTES);
         glEnableVertexAttribArray(0);
