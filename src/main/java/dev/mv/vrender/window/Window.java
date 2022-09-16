@@ -175,6 +175,7 @@ public class Window {
 
     public void drawAndSwapBuffers(){
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         draw.draw();
         glfwSwapBuffers(window);
     }
@@ -183,7 +184,6 @@ public class Window {
 
         // Set the clear color
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // Run the rendering loop until the user has attempted to close
         // the window or has pressed the ESCAPE key.
