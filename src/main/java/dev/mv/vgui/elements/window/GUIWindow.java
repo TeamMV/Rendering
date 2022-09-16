@@ -16,18 +16,18 @@ public class GUIWindow {
 
     private GUI gui;
 
-    public GUIWindow(VariablePosition position, GUI gui){
-        this(position.getX(), position.getY(), position.getWidth(), position.getHeight(), gui);
+    public GUIWindow(VariablePosition position, GUI gui, GUI shouldOpenOnClose){
+        this(position.getX(), position.getY(), position.getWidth(), position.getHeight(), gui, shouldOpenOnClose);
     }
 
-    public GUIWindow(int x, int y, int width, int height, GUI gui) {
+    public GUIWindow(int x, int y, int width, int height, GUI gui, GUI shouldOpenOnClose) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.gui = gui;
 
-        button = new GUICloseButton(x + width - 64 - 42, y + height - 64 - 10, 64, 64, gui);
+        button = new GUICloseButton(x + width - 64 - 42, y + height - 64 - 10, 64, 64, gui, shouldOpenOnClose);
     }
 
     public void render(Window w){
