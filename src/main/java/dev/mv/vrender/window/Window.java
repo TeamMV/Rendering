@@ -167,13 +167,21 @@ public class Window {
             camera.declareProjection();
 
             mainClass.resize(this, w, h);
+            if(activeScreen != null){
+                activeScreen.resize(w, h);
+            }
         });
+    }
+
+    public void drawAndSwapBuffers(){
+        draw.draw();
+        glfwSwapBuffers(window);
     }
 
     private void loop() {
 
         // Set the clear color
-        glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
         // Run the rendering loop until the user has attempted to close
         // the window or has pressed the ESCAPE key.
