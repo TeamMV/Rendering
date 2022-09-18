@@ -88,6 +88,7 @@ public class GUIWindow {
 
     public void resize(int width, int height) {
         if (positionCalculator == null) return;
+        positionCalculator.resize(width, height);
         x = positionCalculator.getX();
         y = positionCalculator.getY();
         this.width = positionCalculator.getWidth();
