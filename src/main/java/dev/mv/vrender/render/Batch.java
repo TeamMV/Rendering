@@ -17,29 +17,28 @@ import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
 
 public class Batch {
     private static final int POSITION_SIZE = 3;
+    private static final int ROTATION_SIZE = 1;
+    private static final int COLOR_SIZE = 4;
+    private static final int UV_SIZE = 2;
+    private static final int TEX_ID_SIZE = 1;
+    private static final int CAMERA_MODE_SIZE = 1;
+    private static final int ROTATION_ORIGIN_SIZE = 2;
+    public final static int VERTEX_SIZE_FLOATS = POSITION_SIZE + ROTATION_SIZE + COLOR_SIZE + UV_SIZE + TEX_ID_SIZE + CAMERA_MODE_SIZE + ROTATION_ORIGIN_SIZE;
     private final int POSITION_OFFSET = 0;
     private final int POSITION_OFFSET_BYTES = POSITION_OFFSET * Float.BYTES;
-    private static final int ROTATION_SIZE = 1;
     private final int ROTATION_OFFSET = POSITION_SIZE;
     private final int ROTATION_OFFSET_BYTES = ROTATION_OFFSET * Float.BYTES;
-    private static final int COLOR_SIZE = 4;
     private final int COLOR_OFFSET = POSITION_SIZE + ROTATION_SIZE;
     private final int COLOR_OFFSET_BYTES = COLOR_OFFSET * Float.BYTES;
-    private static final int UV_SIZE = 2;
     private final int UV_OFFSET = POSITION_SIZE + ROTATION_SIZE + COLOR_SIZE;
     private final int UV_OFFSET_BYTES = UV_OFFSET * Float.BYTES;
-    private static final int TEX_ID_SIZE = 1;
     private final int TEX_ID_OFFSET = POSITION_SIZE + ROTATION_SIZE + COLOR_SIZE + UV_SIZE;
     private final int TEX_ID_OFFSET_BYTES = TEX_ID_OFFSET * Float.BYTES;
-    private static final int CAMERA_MODE_SIZE = 1;
-
     //f, f, f (pos), f (rot), f, f, f, f (col), f, f (uv), f (texID), f (camera mode)
     private final int CAMERA_MODE_OFFSET = POSITION_SIZE + ROTATION_SIZE + COLOR_SIZE + UV_SIZE + TEX_ID_SIZE;
     private final int CAMERA_MODE_OFFSET_BYTES = CAMERA_MODE_OFFSET * Float.BYTES;
-    private static final int ROTATION_ORIGIN_SIZE = 2;
     private final int ROTATION_ORIGIN_OFFSET = POSITION_SIZE + ROTATION_SIZE + COLOR_SIZE + UV_SIZE + TEX_ID_SIZE + CAMERA_MODE_SIZE;
     private final int ROTATION_ORIGIN_OFFSET_BYTES = ROTATION_ORIGIN_OFFSET * Float.BYTES;
-    public final static int VERTEX_SIZE_FLOATS = POSITION_SIZE + ROTATION_SIZE + COLOR_SIZE + UV_SIZE + TEX_ID_SIZE + CAMERA_MODE_SIZE + ROTATION_ORIGIN_SIZE;
     private final int VERTEX_SIZE_BYTES = VERTEX_SIZE_FLOATS * Float.BYTES;
     private int maxSize;
     private float[] data;

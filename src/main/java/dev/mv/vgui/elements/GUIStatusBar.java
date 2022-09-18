@@ -12,12 +12,12 @@ public class GUIStatusBar extends GUIElement {
     private int maxValue, currentValue;
     private int[] color;
 
-    public GUIStatusBar(VariablePosition position, int maxValue, int[] color){
+    public GUIStatusBar(VariablePosition position, int maxValue, int[] color) {
         this(position.getX(), position.getY(), position.getWidth(), position.getHeight(), maxValue, color);
         positionCalculator = position;
     }
 
-    public GUIStatusBar(int x, int y, int width, int height, int maxValue, int[] color){
+    public GUIStatusBar(int x, int y, int width, int height, int maxValue, int[] color) {
         xPos = x;
         yPos = y;
         this.width = width;
@@ -26,21 +26,21 @@ public class GUIStatusBar extends GUIElement {
         this.color = color;
     }
 
-    public void set(int value){
+    public void set(int value) {
         currentValue = value;
         currentValue -= Math.max((currentValue - maxValue), 0);
     }
 
-    public void setLimit(int value){
+    public void setLimit(int value) {
         maxValue = value;
     }
 
-    public void increment(int amount){
+    public void increment(int amount) {
         currentValue += amount;
         currentValue -= Math.max((currentValue - maxValue), 0);
     }
 
-    public void decrement(int amount){
+    public void decrement(int amount) {
         currentValue -= amount;
         currentValue += Math.max(currentValue * -1, 0);
     }
@@ -48,7 +48,7 @@ public class GUIStatusBar extends GUIElement {
     @Override
     public void render(Window w) {
 
-        int barProgressWidth = (int) ((width - 6) * ((float)currentValue / (float)maxValue));
+        int barProgressWidth = (int) ((width - 6) * ((float) currentValue / (float) maxValue));
 
         w.draw.color(255, 255, 255, 255);
         w.draw.rectangle(xPos, yPos, width, height);
@@ -71,7 +71,7 @@ public class GUIStatusBar extends GUIElement {
 
     @Override
     public void resize(int width, int height) {
-        if(positionCalculator == null) return;
+        if (positionCalculator == null) return;
         positionCalculator.resize(width, height);
     }
 

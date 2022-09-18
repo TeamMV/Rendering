@@ -5,7 +5,6 @@ import org.lwjgl.BufferUtils;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
@@ -103,11 +102,11 @@ public class Texture {
         return this.height;
     }
 
-    public TextureRegion getRegion(int x, int y, int width, int height){
+    public TextureRegion getRegion(int x, int y, int width, int height) {
         return new TextureRegion(this, x, y, width, height);
     }
 
-    public TextureRegion getAsRegion(){
+    public TextureRegion getAsRegion() {
         return new TextureRegion(this, 0, 0, width, height);
     }
 

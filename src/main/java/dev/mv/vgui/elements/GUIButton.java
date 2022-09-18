@@ -26,7 +26,7 @@ public class GUIButton extends GUIElement implements Clickable {
         yPos = y;
         this.listener = listner;
         this.width = layout.getWidth() + 50;
-        if(centerX){
+        if (centerX) {
             xPos = x - width / 2;
         }
         this.height = height;
@@ -36,7 +36,7 @@ public class GUIButton extends GUIElement implements Clickable {
     public GUIButton(int x, int y, boolean centerX, int width, int height, String text, BitmapFont font, ClickListener listner) {
         layout = new SizeLayout(font, text, height - height / 5);
         xPos = x;
-        if(centerX){
+        if (centerX) {
             xPos = x + width / 2;
         }
         yPos = y;
@@ -61,7 +61,7 @@ public class GUIButton extends GUIElement implements Clickable {
         } else {
             width = position.getWidth();
         }
-        if(centerX){
+        if (centerX) {
             xPos = position.getX() + width / 2;
         }
         this.positionCalculator = position;
@@ -100,18 +100,18 @@ public class GUIButton extends GUIElement implements Clickable {
     }
 
     @Override
-    public void setXPos(int x){
+    public void setXPos(int x) {
         xPos = x;
         label.setXPos(xPos + (width / 2) - (layout.getWidth() / 2));
-        if(positionCalculator == null) return;
+        if (positionCalculator == null) return;
         positionCalculator.setX(x);
     }
 
     @Override
-    public void setYPos(int y){
+    public void setYPos(int y) {
         yPos = y;
-        label.setYPos( y + (height / 2) - (layout.getHeight('e') / 2));
-        if(positionCalculator == null) return;
+        label.setYPos(y + (height / 2) - (layout.getHeight('e') / 2));
+        if (positionCalculator == null) return;
         positionCalculator.setY(y);
     }
 

@@ -14,16 +14,17 @@ import java.util.List;
 public class GUITab extends AbstractGUITab {
 
     private int maxWidth, maxHeight;
-    @Getter @Setter
+    @Getter
+    @Setter
     private String title;
     private List<GUIElement> items = new ArrayList<>();
     private List<int[]> positions = new ArrayList<>();
 
-    public GUITab(String title){
+    public GUITab(String title) {
         this.title = title;
     }
 
-    public void addItem(GUIElement e){
+    public void addItem(GUIElement e) {
         maxWidth = Math.max(maxWidth, e.getWidth());
         maxHeight = Math.max(maxHeight, e.getHeight());
         items.add(e);
@@ -33,7 +34,7 @@ public class GUITab extends AbstractGUITab {
     @Override
     public void render(Window w, int x, int y) {
         int count = 0;
-        for(GUIElement e : items){
+        for (GUIElement e : items) {
             e.setXPos(positions.get(count)[0] + x);
             e.setYPos(positions.get(count)[1] + y);
             e.render(w);
@@ -44,7 +45,7 @@ public class GUITab extends AbstractGUITab {
 
     @Override
     public void resize(int width, int height) {
-        if(positionCalculator == null) return;
+        if (positionCalculator == null) return;
         positionCalculator.resize(width, height);
     }
 
@@ -52,7 +53,7 @@ public class GUITab extends AbstractGUITab {
     public int getHeight() {
         int height = 0;
 
-        for(GUIElement e : items){
+        for (GUIElement e : items) {
             height = Math.max(height, xPos + e.getYPos() + e.getHeight());
         }
 
@@ -63,7 +64,7 @@ public class GUITab extends AbstractGUITab {
     public int getWidth() {
         int width = 0;
 
-        for(GUIElement e : items){
+        for (GUIElement e : items) {
             width = Math.max(width, xPos + e.getXPos() + e.getWidth());
         }
 
@@ -72,8 +73,8 @@ public class GUITab extends AbstractGUITab {
 
     @Override
     public void click(int x, int y, int button, int mods) {
-        for(GUIElement e : items){
-            if(e instanceof Clickable instance){
+        for (GUIElement e : items) {
+            if (e instanceof Clickable instance) {
                 instance.click(x, y, button, mods);
             }
         }
@@ -81,8 +82,8 @@ public class GUITab extends AbstractGUITab {
 
     @Override
     public void release(int x, int y, int mods) {
-        for(GUIElement e : items){
-            if(e instanceof Clickable instance){
+        for (GUIElement e : items) {
+            if (e instanceof Clickable instance) {
                 instance.release(x, y, mods);
             }
         }
@@ -90,8 +91,8 @@ public class GUITab extends AbstractGUITab {
 
     @Override
     public void drag(int x, int y, int button, int mods) {
-        for(GUIElement e : items){
-            if(e instanceof Draggable instance){
+        for (GUIElement e : items) {
+            if (e instanceof Draggable instance) {
                 instance.drag(x, y, button, mods);
             }
         }
@@ -99,8 +100,8 @@ public class GUITab extends AbstractGUITab {
 
     @Override
     public void keyTyped(char c) {
-        for(GUIElement e : items){
-            if(e instanceof Typeable instance){
+        for (GUIElement e : items) {
+            if (e instanceof Typeable instance) {
                 instance.keyTyped(c);
             }
         }
@@ -108,8 +109,8 @@ public class GUITab extends AbstractGUITab {
 
     @Override
     public boolean isSelected() {
-        for(GUIElement e : items){
-            if(e instanceof Typeable instance){
+        for (GUIElement e : items) {
+            if (e instanceof Typeable instance) {
                 return instance.isSelected();
             }
         }
@@ -119,8 +120,8 @@ public class GUITab extends AbstractGUITab {
 
     @Override
     public void scroll(int x, int y) {
-        for(GUIElement e : items){
-            if(e instanceof Scrollable instance){
+        for (GUIElement e : items) {
+            if (e instanceof Scrollable instance) {
                 instance.scroll(x, y);
             }
         }

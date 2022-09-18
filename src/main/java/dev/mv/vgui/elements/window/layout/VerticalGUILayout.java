@@ -3,7 +3,6 @@ package dev.mv.vgui.elements.window.layout;
 import dev.mv.vgui.*;
 import dev.mv.vgui.elements.Scrollable;
 import dev.mv.vrender.utils.VariablePosition;
-import dev.mv.vrender.window.Screen;
 import dev.mv.vrender.window.Window;
 
 import java.util.ArrayList;
@@ -18,23 +17,23 @@ public class VerticalGUILayout extends GUIElement implements Clickable, Typeable
     private int maxWidth = 0;
     private Alignment currentAlign = Alignment.LEFT;
 
-    public VerticalGUILayout(VariablePosition position){
+    public VerticalGUILayout(VariablePosition position) {
         this(position.getX(), position.getY());
         positionCalculator = position;
     }
 
-    public VerticalGUILayout(int x, int y){
+    public VerticalGUILayout(int x, int y) {
         xPos = x;
         yPos = y;
     }
 
-    public VerticalGUILayout setSpacing(int spacing){
+    public VerticalGUILayout setSpacing(int spacing) {
         this.spacing = spacing;
 
         return this;
     }
 
-    public VerticalGUILayout centerInWindow(GUI gui){
+    public VerticalGUILayout centerInWindow(GUI gui) {
         int winWidth = gui.getGuiWindow().getWidth();
         int winX = gui.getGuiWindow().getX();
 
@@ -43,54 +42,50 @@ public class VerticalGUILayout extends GUIElement implements Clickable, Typeable
         return this;
     }
 
-    public VerticalGUILayout centerInScreen(Window w){
+    public VerticalGUILayout centerInScreen(Window w) {
         int winWidth = w.getWidth();
         xPos = (winWidth / 2) - (maxWidth / 2);
 
         return this;
     }
 
-    public VerticalGUILayout alignContent(Alignment align){
+    public VerticalGUILayout alignContent(Alignment align) {
         currentAlign = align;
 
         return this;
     }
 
-    public enum Alignment{
-        LEFT,
-        CENTER,
-        RIGTH
-    }
-
-    public VerticalGUILayout appendItem(GUIElement element){
+    public VerticalGUILayout appendItem(GUIElement element) {
         items.add(element);
         maxWidth = Math.max(maxWidth, element.getWidth());
 
         return this;
     }
 
-    public VerticalGUILayout removeItem(GUIElement element){
+    public VerticalGUILayout removeItem(GUIElement element) {
         items.remove(element);
 
         return this;
     }
 
-    public void setXPos(int x){
+    public void setXPos(int x) {
         xPos = x;
     }
 
-    public void setYPos(int y){
+    public void setYPos(int y) {
         yPos = y;
     }
 
     @Override
     public void render(Window w) {
-        int yStart = yPos;;
-        int xStart = xPos;;
+        int yStart = yPos;
+        ;
+        int xStart = xPos;
+        ;
 
 
-        if(currentAlign == Alignment.LEFT){
-            for(int i = 0; i < items.size(); i++){
+        if (currentAlign == Alignment.LEFT) {
+            for (int i = 0; i < items.size(); i++) {
                 GUIElement e = items.get(i);
                 e.setXPos(xStart);
                 e.setYPos(yStart - e.getHeight());
@@ -98,8 +93,8 @@ public class VerticalGUILayout extends GUIElement implements Clickable, Typeable
                 yStart -= e.getHeight();
                 yStart -= spacing;
             }
-        }else if(currentAlign == Alignment.CENTER){
-            for(int i = 0; i < items.size(); i++){
+        } else if (currentAlign == Alignment.CENTER) {
+            for (int i = 0; i < items.size(); i++) {
                 GUIElement e = items.get(i);
                 e.setXPos(xStart + ((maxWidth / 2) - (e.getWidth() / 2)));
                 e.setYPos(yStart - e.getHeight());
@@ -107,8 +102,8 @@ public class VerticalGUILayout extends GUIElement implements Clickable, Typeable
                 yStart -= e.getHeight();
                 yStart -= spacing;
             }
-        }else if(currentAlign == Alignment.RIGTH){
-            for(int i = 0; i < items.size(); i++){
+        } else if (currentAlign == Alignment.RIGTH) {
+            for (int i = 0; i < items.size(); i++) {
                 GUIElement e = items.get(i);
                 e.setXPos(xStart + (maxWidth - e.getWidth()));
                 e.setYPos(yStart - e.getHeight());
@@ -121,7 +116,7 @@ public class VerticalGUILayout extends GUIElement implements Clickable, Typeable
 
     @Override
     public void resize(int width, int height) {
-        if(positionCalculator != null){
+        if (positionCalculator != null) {
             positionCalculator.resize(width, height);
 
             xPos = positionCalculator.getX();
@@ -130,9 +125,9 @@ public class VerticalGUILayout extends GUIElement implements Clickable, Typeable
     }
 
     @Override
-    public int getHeight(){
+    public int getHeight() {
         int res = 0;
-        for(GUIElement e : items){
+        for (GUIElement e : items) {
             res += e.getHeight();
             res += spacing;
         }
@@ -142,7 +137,7 @@ public class VerticalGUILayout extends GUIElement implements Clickable, Typeable
     @Override
     public int getWidth() {
         int res = 0;
-        for(GUIElement e : items){
+        for (GUIElement e : items) {
             res += e.getWidth();
             res += spacing;
         }
@@ -151,8 +146,8 @@ public class VerticalGUILayout extends GUIElement implements Clickable, Typeable
 
     @Override
     public void click(int x, int y, int button, int mods) {
-        for(GUIElement e : items){
-            if(e instanceof Clickable instance){
+        for (GUIElement e : items) {
+            if (e instanceof Clickable instance) {
                 instance.click(x, y, button, mods);
             }
         }
@@ -160,8 +155,8 @@ public class VerticalGUILayout extends GUIElement implements Clickable, Typeable
 
     @Override
     public void release(int x, int y, int mods) {
-        for(GUIElement e : items){
-            if(e instanceof Clickable instance){
+        for (GUIElement e : items) {
+            if (e instanceof Clickable instance) {
                 instance.release(x, y, mods);
             }
         }
@@ -169,8 +164,8 @@ public class VerticalGUILayout extends GUIElement implements Clickable, Typeable
 
     @Override
     public void drag(int x, int y, int button, int mods) {
-        for(GUIElement e : items){
-            if(e instanceof Draggable instance){
+        for (GUIElement e : items) {
+            if (e instanceof Draggable instance) {
                 instance.drag(x, y, button, mods);
             }
         }
@@ -178,8 +173,8 @@ public class VerticalGUILayout extends GUIElement implements Clickable, Typeable
 
     @Override
     public void keyTyped(char c) {
-        for(GUIElement e : items){
-            if(e instanceof Typeable instance){
+        for (GUIElement e : items) {
+            if (e instanceof Typeable instance) {
                 instance.keyTyped(c);
             }
         }
@@ -187,8 +182,8 @@ public class VerticalGUILayout extends GUIElement implements Clickable, Typeable
 
     @Override
     public boolean isSelected() {
-        for(GUIElement e : items){
-            if(e instanceof Typeable instance){
+        for (GUIElement e : items) {
+            if (e instanceof Typeable instance) {
                 return instance.isSelected();
             }
         }
@@ -198,10 +193,16 @@ public class VerticalGUILayout extends GUIElement implements Clickable, Typeable
 
     @Override
     public void scroll(int x, int y) {
-        for(GUIElement e : items){
-            if(e instanceof Scrollable instance){
+        for (GUIElement e : items) {
+            if (e instanceof Scrollable instance) {
                 instance.scroll(x, y);
             }
         }
+    }
+
+    public enum Alignment {
+        LEFT,
+        CENTER,
+        RIGTH
     }
 }

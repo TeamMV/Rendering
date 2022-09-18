@@ -12,7 +12,7 @@ public class GUICloseButton extends GUIIconButton {
     public GUICloseButton(int x, int y, int width, int height, GUI gui, GUI shouldOpenOnClose) {
         super(x, y, width, height, DefaultTextures.BUTTON_CROSS, true, e -> {
             gui.close();
-            if(shouldOpenOnClose == null) return;
+            if (shouldOpenOnClose == null) return;
             shouldOpenOnClose.open();
         });
     }

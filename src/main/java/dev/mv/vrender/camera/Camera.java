@@ -3,10 +3,7 @@ package dev.mv.vrender.camera;
 import dev.mv.vrender.window.Window;
 import org.joml.Matrix4f;
 import org.joml.Vector2f;
-import org.joml.Vector3f;
 import org.joml.Vector4f;
-
-import java.util.Arrays;
 
 public class Camera {
     public Vector2f position;
@@ -47,7 +44,7 @@ public class Camera {
         Vector4f vec = new Vector4f(750, 0, 0, 1);
     }
 
-    public void updateProjection(){
+    public void updateProjection() {
         projectionMatrix.identity();
         projectionMatrix.ortho2DLH(0.0f, (float) window.getWidth(), 0.0f, (float) window.getHeight());
     }

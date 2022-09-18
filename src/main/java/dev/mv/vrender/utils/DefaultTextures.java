@@ -18,7 +18,7 @@ public class DefaultTextures {
     public static Texture POWER_SHEET;
     public static TextureRegion CABLE;
 
-    public static void onStart(){
+    public static void onStart() {
         try {
             BUTTON_SHEET = new Texture(DefaultTextures.class.getResourceAsStream(File.separator + "defaultTextures" + File.separator + "buttonSheet.png"));
         } catch (IOException e) {

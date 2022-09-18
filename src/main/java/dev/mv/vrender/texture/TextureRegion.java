@@ -1,8 +1,5 @@
 package dev.mv.vrender.texture;
 
-import java.awt.image.BufferedImage;
-import java.util.concurrent.atomic.AtomicReference;
-
 public class TextureRegion {
     Texture tex;
     private int id;
@@ -19,11 +16,11 @@ public class TextureRegion {
         this.uv = createUV(x, y, width, height);
     }
 
-    public float[] getUV(){
+    public float[] getUV() {
         return this.uv;
     }
 
-    private float[] createUV(int x, int y, int width, int height){
+    private float[] createUV(int x, int y, int width, int height) {
         return new float[] {
                 (float) x / (float) this.width,
                 (float) (x + width) / (float) this.width,
@@ -40,7 +37,7 @@ public class TextureRegion {
         return this.height;
     }
 
-    public Texture getTexture(){
+    public Texture getTexture() {
         return this.tex;
     }
 

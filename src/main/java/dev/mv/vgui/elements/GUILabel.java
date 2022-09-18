@@ -47,13 +47,13 @@ public class GUILabel extends GUIElement {
         return lineHeight;
     }
 
+    public void setHeight(int height) {
+        lineHeight = height;
+    }
+
     @Override
     public int getWidth() {
         return layout.getWidth();
-    }
-
-    public void setHeight(int height) {
-        lineHeight = height;
     }
 
     public void setY(int y) {

@@ -17,12 +17,12 @@ public class GUIIconButton extends GUIElement implements Clickable {
 
     private boolean highlightImage;
 
-    public GUIIconButton(VariablePosition position, Texture tex, boolean highlightImage, ClickListener listner){
+    public GUIIconButton(VariablePosition position, Texture tex, boolean highlightImage, ClickListener listner) {
         this(position.getX(), position.getY(), position.getWidth(), position.getHeight(), tex, highlightImage, listner);
         positionCalculator = position;
     }
 
-    public GUIIconButton(int x, int y, int width, int height, Texture tex, boolean highlightImage, ClickListener listner){
+    public GUIIconButton(int x, int y, int width, int height, Texture tex, boolean highlightImage, ClickListener listner) {
         xPos = x;
         yPos = y;
         this.width = width;
@@ -32,12 +32,12 @@ public class GUIIconButton extends GUIElement implements Clickable {
         this.highlightImage = highlightImage;
     }
 
-    public GUIIconButton(VariablePosition position, TextureRegion tex, boolean highlightImage, ClickListener listner){
+    public GUIIconButton(VariablePosition position, TextureRegion tex, boolean highlightImage, ClickListener listner) {
         this(position.getX(), position.getY(), position.getWidth(), position.getHeight(), tex, highlightImage, listner);
         positionCalculator = position;
     }
 
-    public GUIIconButton(int x, int y, int width, int height, TextureRegion tex, boolean highlightImage, ClickListener listner){
+    public GUIIconButton(int x, int y, int width, int height, TextureRegion tex, boolean highlightImage, ClickListener listner) {
         xPos = x;
         yPos = y;
         this.width = width;
@@ -71,12 +71,12 @@ public class GUIIconButton extends GUIElement implements Clickable {
             w.draw.color(255, 255, 255, 255);
         }
 
-        if(!highlightImage) w.draw.color(0, 0, 0, 255);
+        if (!highlightImage) w.draw.color(0, 0, 0, 255);
 
-        if(tex != null){
-            w.draw.image(xPos + 15, yPos + 15, width - 30, height -30, tex);
-        }else if(texReg != null){
-            w.draw.image(xPos + 15, yPos + 15, width - 30, height -30, texReg);
+        if (tex != null) {
+            w.draw.image(xPos + 15, yPos + 15, width - 30, height - 30, tex);
+        } else if (texReg != null) {
+            w.draw.image(xPos + 15, yPos + 15, width - 30, height - 30, texReg);
         }
 
         w.draw.color(0, 0, 0, 255);
@@ -84,7 +84,7 @@ public class GUIIconButton extends GUIElement implements Clickable {
 
     @Override
     public void resize(int width, int height) {
-        if(positionCalculator == null) return;
+        if (positionCalculator == null) return;
         positionCalculator.resize(width, height);
     }
 

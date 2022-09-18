@@ -1,18 +1,16 @@
 package dev.mv;
 
-import dev.mv.animation.Animation;
 import dev.mv.vgui.GUI;
 import dev.mv.vgui.elements.GUISlider;
+import dev.mv.vrender.animation.Animation;
 import dev.mv.vrender.text.FontHolder;
 import dev.mv.vrender.utils.DefaultTextures;
 import dev.mv.vrender.window.Renderer;
 import dev.mv.vrender.window.Screen;
 import dev.mv.vrender.window.Window;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Main extends Screen implements Renderer {
+    int i = 0;
     private Animation anim;
     private GUISlider slider;
 
@@ -33,12 +31,13 @@ public class Main extends Screen implements Renderer {
         anim = new Animation(DefaultTextures.GENERATOR, 1, 3).speed(1000).play();
 
         slider = new GUISlider(100, 400, 400, 10, 1);
+        slider.setId("coolSlider");
         gui.attachElement(slider);
 
         w.setActiveScreen(this);
+
     }
 
-    int i = 0;
     @Override
     public void render(Window w) {
         //renderGUI(w);
@@ -58,8 +57,8 @@ public class Main extends Screen implements Renderer {
     public void update(Window w) {
         //if(w.input.mouseClick(1)) anim.stop(); else anim.play();
 
-        if(w.input.scrollDown()) w.camera.zoom -= 0.2f;
-        if(w.input.scrollUp()) w.camera.zoom += 0.2f;
+        if (w.input.scrollDown()) w.camera.zoom -= 0.2f;
+        if (w.input.scrollUp()) w.camera.zoom += 0.2f;
 
         anim.speed(slider.getValue() * 10);
     }

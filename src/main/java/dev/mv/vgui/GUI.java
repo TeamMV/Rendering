@@ -36,7 +36,7 @@ public class GUI {
     public void render(Window w) {
         if (!open) return;
         used = true;
-        if(guiWindow != null){
+        if (guiWindow != null) {
             guiWindow.render(w);
         }
         for (GUIElement element : elements) {
@@ -64,7 +64,7 @@ public class GUI {
         if (!open) return false;
         boolean ret = false;
         used = true;
-        if(guiWindow != null) guiWindow.click(x, y, button, mods);
+        if (guiWindow != null) guiWindow.click(x, y, button, mods);
         for (GUIElement element : elements) {
             if (element instanceof Clickable) {
                 ((Clickable) element).click(x, y, button, mods);
@@ -76,7 +76,7 @@ public class GUI {
         return ret;
     }
 
-    public boolean release(int x, int y, int mods){
+    public boolean release(int x, int y, int mods) {
         if (!open) return false;
         boolean ret = false;
         used = true;
@@ -152,7 +152,7 @@ public class GUI {
         elements.remove(e);
     }
 
-    public void setWindow(GUIWindow window){
+    public void setWindow(GUIWindow window) {
         guiWindow = window;
     }
 
@@ -190,5 +190,25 @@ public class GUI {
             }
         }
         return false;
+    }
+
+    public <T> T findElementById(String id, Class<T> destType) {
+        for (GUIElement e : elements) {
+            if (e.getClass().equals(destType)) {
+                if (e.id.equals(id)) {
+                    return (T) e;
+                }
+            }
+        }
+        return null;
+    }
+
+    public <T> T findElementById(String id) {
+        for (GUIElement e : elements) {
+            if (e.id.equals(id)) {
+                return (T) e;
+            }
+        }
+        return null;
     }
 }

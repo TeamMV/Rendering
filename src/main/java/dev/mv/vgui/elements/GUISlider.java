@@ -7,11 +7,11 @@ import dev.mv.vrender.window.Window;
 
 public class GUISlider extends GUIElement implements Clickable, Draggable {
 
-    private int width;
     private final int height;
     private final int steps;
-    private int selection;
     private final int selectorWidth = 30;
+    private int width;
+    private int selection;
     private float selectorX;
     private boolean startDrag = false, removeStripes = false;
     private boolean renderExtension = true;
@@ -66,7 +66,7 @@ public class GUISlider extends GUIElement implements Clickable, Draggable {
         this.renderExtension = renderExtension;
     }
 
-    public int getValue(){
+    public int getValue() {
         return selection;
     }
 
@@ -92,9 +92,9 @@ public class GUISlider extends GUIElement implements Clickable, Draggable {
         }
 
         w.draw.color(255, 255, 255, 255);
-        w.draw.rectangle((int)selectorX - 2, yPos - 5 - (selectorWidth / 4), selectorWidth + 4, selectorWidth + 4);
+        w.draw.rectangle((int) selectorX - 2, yPos - 5 - (selectorWidth / 4), selectorWidth + 4, selectorWidth + 4);
         w.draw.color(40, 40, 40, 255);
-        w.draw.rectangle((int)selectorX, yPos - 3 - (selectorWidth / 4), selectorWidth, selectorWidth);
+        w.draw.rectangle((int) selectorX, yPos - 3 - (selectorWidth / 4), selectorWidth, selectorWidth);
     }
 
     @Override
@@ -118,7 +118,7 @@ public class GUISlider extends GUIElement implements Clickable, Draggable {
     @Override
     public void click(int x, int y, int button, int mods) {
         if (button != 0) return;
-        if (x >= xPos && x <= xPos + width && y >= yPos && y <= yPos+ selectorWidth) {
+        if (x >= xPos && x <= xPos + width && y >= yPos && y <= yPos + selectorWidth) {
             startDrag = true;
             int selection = (int) Math.ceil((((float) x - (float) xPos) / ((float) width / ((steps * 2.0f) + 2.0f)) - 1.0f) / 2.0f);
             if (this.selection != selection) {

@@ -2,10 +2,13 @@ package dev.mv.vgui;
 
 import dev.mv.vrender.utils.VariablePosition;
 import dev.mv.vrender.window.Window;
+import lombok.Setter;
 
 public abstract class GUIElement {
 
     protected int xPos = -1, yPos = -1;
+    @Setter
+    protected String id;
     protected VariablePosition positionCalculator;
     private boolean visible = true;
 
@@ -21,19 +24,19 @@ public abstract class GUIElement {
         return xPos;
     }
 
+    public void setXPos(int x) {
+        xPos = x;
+        if (positionCalculator == null) return;
+        positionCalculator.setX(x);
+    }
+
     public int getYPos() {
         return yPos;
     }
 
-    public void setXPos(int x){
-        xPos = x;
-        if(positionCalculator == null) return;
-        positionCalculator.setX(x);
-    }
-
-    public void setYPos(int y){
+    public void setYPos(int y) {
         yPos = y;
-        if(positionCalculator == null) return;
+        if (positionCalculator == null) return;
         positionCalculator.setY(y);
     }
 

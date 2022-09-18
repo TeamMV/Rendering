@@ -20,19 +20,19 @@ public abstract class AbstractGUITab {
         return xPos;
     }
 
+    public void setXPos(int x) {
+        xPos = x;
+        if (positionCalculator == null) return;
+        positionCalculator.setX(x);
+    }
+
     public int getYPos() {
         return yPos;
     }
 
-    public void setXPos(int x){
-        xPos = x;
-        if(positionCalculator == null) return;
-        positionCalculator.setX(x);
-    }
-
-    public void setYPos(int y){
+    public void setYPos(int y) {
         yPos = y;
-        if(positionCalculator == null) return;
+        if (positionCalculator == null) return;
         positionCalculator.setY(y);
     }
 

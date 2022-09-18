@@ -1,5 +1,6 @@
 package dev.mv.vrender.render;
 
+import dev.mv.vrender.animation.Animation;
 import dev.mv.vrender.text.BitmapFont;
 import dev.mv.vrender.text.SizeLayout;
 import dev.mv.vrender.texture.Texture;
@@ -65,7 +66,7 @@ public class Draw {
 
         BatchController.addVertices(verts.set(
                 v1.put(ax, ay2, 0.0f, radRotation, r, g, b, a, 0.0f, 0.0f, 0.0f, currentCamMode, (float) originX, (float) originY),
-                v2.put(ax, ay, 0.0f, radRotation, r, g, b, a, 0.0f, 0.0f, 0.0f, currentCamMode,(float) originX, (float) originY),
+                v2.put(ax, ay, 0.0f, radRotation, r, g, b, a, 0.0f, 0.0f, 0.0f, currentCamMode, (float) originX, (float) originY),
                 v3.put(ax2, ay, 0.0f, radRotation, r, g, b, a, 0.0f, 0.0f, 0.0f, currentCamMode, (float) originX, (float) originY),
                 v4.put(ax2, ay2, 0.0f, radRotation, r, g, b, a, 0.0f, 0.0f, 0.0f, currentCamMode, (float) originX, (float) originY)
         ));
@@ -81,19 +82,7 @@ public class Draw {
     }
 
     public void image(int x, int y, int width, int height, Texture tex) {
-        float ax = x;
-        float ay = y;
-        float ax2 = x + width;
-        float ay2 = y + height;
-
-        int texID = BatchController.addTexture(tex);
-
-        BatchController.addVertices(verts.set(
-                v1.put(ax, ay2, 0.0f, 0.0f, r, g, b, a, 0.0f, 0.0f, (float) texID, currentCamMode, 0.0f, 0.0f),
-                v2.put(ax, ay, 0.0f, 0.0f, r, g, b, a, 0.0f, 1.0f, (float) texID, currentCamMode, 0.0f, 0.0f),
-                v3.put(ax2, ay, 0.0f, 0.0f, r, g, b, a, 1.0f, 1.0f, (float) texID, currentCamMode, 0.0f, 0.0f),
-                v4.put(ax2, ay2, 0.0f, 0.0f, r, g, b, a, 1.0f, 0.0f, (float) texID, currentCamMode, 0.0f, 0.0f)
-        ));
+        image(x, y, width, height, tex, 0f, 0, 0);
     }
 
     public void image(int x, int y, int width, int height, Texture tex, float rotation) {
@@ -118,15 +107,15 @@ public class Draw {
         ));
     }
 
-    public void image(int x, int y, int width, int height, TextureRegion tex){
-        image(x, y, width, height, tex, 0.0f, 0, 0);
+    public void image(int x, int y, int width, int height, TextureRegion tex) {
+        image(x, y, width, height, tex, 0f, 0, 0);
     }
 
-    public void image(int x, int y, int width, int height, TextureRegion tex, float rotation){
+    public void image(int x, int y, int width, int height, TextureRegion tex, float rotation) {
         image(x, y, width, height, tex, rotation, x + width / 2, y + height / 2);
     }
 
-    public void image(int x, int y, int width, int height, TextureRegion tex, float rotation, int originX, int originY){
+    public void image(int x, int y, int width, int height, TextureRegion tex, float rotation, int originX, int originY) {
         float ax = x;
         float ay = y;
         float ax2 = x + width;
@@ -149,12 +138,24 @@ public class Draw {
         ));
     }
 
-    public void imageFromTo(int ax, int ay, int bx, int by, int thickness, Texture tex){
+    public void image(int x, int y, int width, int height, Animation anim) {
+        image(x, y, width, height, anim.getPlayingFrame(), 0f, 0, 0);
+    }
+
+    public void image(int x, int y, int width, int height, Animation anim, float rotation) {
+        image(x, y, width, height, anim.getPlayingFrame(), rotation, x + width / 2, y + height / 2);
+    }
+
+    public void image(int x, int y, int width, int height, Animation anim, float rotation, int originX, int originY) {
+        image(x, y, width, height, anim.getPlayingFrame(), rotation, originX, originY);
+    }
+
+    public void imageFromTo(int ax, int ay, int bx, int by, int thickness, Texture tex) {
 
         int Ax, Ay, Bx, By;
         int originX, originY;
 
-        if(ax < bx ){
+        if (ax < bx) {
             Ax = ax;
             Bx = bx;
         } else {
@@ -162,7 +163,7 @@ public class Draw {
             Bx = ax;
         }
 
-        if(ay < by){
+        if (ay < by) {
             Ay = ay;
             By = by;
         } else {
@@ -178,7 +179,7 @@ public class Draw {
         image(Ax, Ay, Bx - Ax, thickness, tex);
     }
 
-    public void imageFromTo(int ax, int ay, int bx, int by, int thickness, TextureRegion tex){
+    public void imageFromTo(int ax, int ay, int bx, int by, int thickness, TextureRegion tex) {
 
         int originX = ax;
         int originY = ay;
@@ -186,14 +187,14 @@ public class Draw {
         double xl = bx - ax;
         double yl = by - ay;
 
-        if(xl == 0) xl++;
-        if(yl == 0) yl++;
+        if (xl == 0) xl++;
+        if (yl == 0) yl++;
 
         double sl = Math.sqrt(xl * xl + yl * yl);
 
         double alpha = (Math.atan(xl / yl) * (180f / Math.PI));
 
-        if(by < ay) alpha -= 180.0;
+        if (by < ay) alpha -= 180.0;
 
         double ltt = Math.sqrt(thickness) / thickness;
 

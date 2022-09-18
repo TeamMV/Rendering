@@ -17,16 +17,16 @@ public class GUICheckbox extends GUIElement implements Clickable {
     private ClickListener listener;
     private GUILabel label;
 
-    public GUICheckbox(VariablePosition position, String text, BitmapFont font, ClickListener listener){
+    public GUICheckbox(VariablePosition position, String text, BitmapFont font, ClickListener listener) {
         this(position.getX(), position.getY(), position.getWidth(), text, font, listener);
         positionCalculator = position;
     }
 
-    public GUICheckbox(int x, int y, int size, String text, BitmapFont font, ClickListener listener){
+    public GUICheckbox(int x, int y, int size, String text, BitmapFont font, ClickListener listener) {
         xPos = x;
         yPos = y;
         this.size = size;
-        if(font != null) {
+        if (font != null) {
             label = new GUILabel(x + size + 10, y + 10, size - 10, text, font);
         }
         this.listener = listener;
@@ -56,7 +56,7 @@ public class GUICheckbox extends GUIElement implements Clickable {
             w.draw.color(255, 255, 255, 255);
         }
 
-        if(enabled) w.draw.image(xPos + 15, yPos + 15, size - 30, size -30, DefaultTextures.BUTTON_TICK);
+        if (enabled) w.draw.image(xPos + 15, yPos + 15, size - 30, size - 30, DefaultTextures.BUTTON_TICK);
 
         w.draw.color(255, 255, 255, 255);
 
@@ -67,24 +67,24 @@ public class GUICheckbox extends GUIElement implements Clickable {
 
     @Override
     public void resize(int width, int height) {
-        if(positionCalculator != null){
+        if (positionCalculator != null) {
             positionCalculator.resize(width, height);
         }
     }
 
     @Override
-    public void setXPos(int x){
+    public void setXPos(int x) {
         xPos = x;
         label.setXPos(x + size + 10);
-        if(positionCalculator == null) return;
+        if (positionCalculator == null) return;
         positionCalculator.setX(x);
     }
 
     @Override
-    public void setYPos(int y){
+    public void setYPos(int y) {
         yPos = y;
         label.setYPos(y + 10);
-        if(positionCalculator == null) return;
+        if (positionCalculator == null) return;
         positionCalculator.setY(y);
     }
 

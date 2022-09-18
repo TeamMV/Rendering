@@ -104,7 +104,7 @@ public abstract class Screen {
         }
     }
 
-    protected void typed(char c){
+    protected void typed(char c) {
         keyTyped(c);
         guiKeyTyped(c);
     }

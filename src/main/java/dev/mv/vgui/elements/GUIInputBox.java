@@ -12,7 +12,8 @@ import lombok.Setter;
 public class GUIInputBox extends GUIElement implements Clickable, Typeable {
 
     private int width, height, textWidth, charOverflow = 0;
-    @Getter @Setter
+    @Getter
+    @Setter
     private int maxChars = -1;
     private String placeholder, text = "";
     private boolean isSelected, isPlaceholder = true;
@@ -91,18 +92,18 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
     }
 
     @Override
-    public void setXPos(int x){
+    public void setXPos(int x) {
         xPos = x;
         label.setXPos(x + 20);
-        if(positionCalculator == null) return;
+        if (positionCalculator == null) return;
         positionCalculator.setX(x);
     }
 
     @Override
-    public void setYPos(int y){
+    public void setYPos(int y) {
         yPos = y;
-        label.setYPos( y + (height / 2) - (layout.getHeight('e') / 2));
-        if(positionCalculator == null) return;
+        label.setYPos(y + (height / 2) - (layout.getHeight('e') / 2));
+        if (positionCalculator == null) return;
         positionCalculator.setY(y);
     }
 
@@ -132,21 +133,20 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
                 if (hidden) {
                     label.setText("*".repeat(label.getText().length()));
                 }
-            }
-            else if (c > 31 && c < 128) {
+            } else if (c > 31 && c < 128) {
                 if (isPlaceholder) {
                     label.setText("");
                     isPlaceholder = false;
                 }
 
-                if(text.length() >= maxChars && maxChars > 0) return;
+                if (text.length() >= maxChars && maxChars > 0) return;
 
                 text += c;
 
                 label.setText(text);
 
                 if (layout.getWidth(label.getText()) >= width - 20) {
-                    if(charOverflow <= maxChars || maxChars == -1) {
+                    if (charOverflow <= maxChars || maxChars == -1) {
                         label.setText(label.getText().substring(++charOverflow));
                     }
                 }

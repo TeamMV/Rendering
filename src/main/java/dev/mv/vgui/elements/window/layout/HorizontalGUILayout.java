@@ -14,35 +14,35 @@ public class HorizontalGUILayout extends GUIElement implements Clickable, Typeab
 
     private int spacing = 0;
 
-    public HorizontalGUILayout(VariablePosition position){
+    public HorizontalGUILayout(VariablePosition position) {
         this(position.getX(), position.getY());
         positionCalculator = position;
     }
 
-    public HorizontalGUILayout(int x, int y){
+    public HorizontalGUILayout(int x, int y) {
         xPos = x;
         yPos = y;
     }
 
-    public HorizontalGUILayout setSpacing(int spacing){
+    public HorizontalGUILayout setSpacing(int spacing) {
         this.spacing = spacing;
 
         return this;
     }
 
-    public HorizontalGUILayout appendItem(GUIElement element){
+    public HorizontalGUILayout appendItem(GUIElement element) {
         items.add(element);
 
         return this;
     }
 
-    public HorizontalGUILayout removeItem(GUIElement element){
+    public HorizontalGUILayout removeItem(GUIElement element) {
         items.remove(element);
 
         return this;
     }
 
-    public HorizontalGUILayout centerInWindow(GUI gui){
+    public HorizontalGUILayout centerInWindow(GUI gui) {
         int winWidth = gui.getGuiWindow().getWidth();
         int winX = gui.getGuiWindow().getX();
 
@@ -51,18 +51,18 @@ public class HorizontalGUILayout extends GUIElement implements Clickable, Typeab
         return this;
     }
 
-    public HorizontalGUILayout centerInScreen(Window w){
+    public HorizontalGUILayout centerInScreen(Window w) {
         int winWidth = w.getWidth();
         xPos = (winWidth / 2) - (getWidth() / 2);
 
         return this;
     }
 
-    public void setXPos(int x){
+    public void setXPos(int x) {
         xPos = x;
     }
 
-    public void setYPos(int y){
+    public void setYPos(int y) {
         yPos = y;
     }
 
@@ -71,7 +71,7 @@ public class HorizontalGUILayout extends GUIElement implements Clickable, Typeab
         int yStart = yPos;
         int xStart = xPos;
 
-        for(int i = 0; i < items.size(); i++){
+        for (int i = 0; i < items.size(); i++) {
             GUIElement e = items.get(i);
             e.setXPos(xStart);
             e.setYPos(yStart - e.getHeight());
@@ -83,7 +83,7 @@ public class HorizontalGUILayout extends GUIElement implements Clickable, Typeab
 
     @Override
     public void resize(int width, int height) {
-        if(positionCalculator != null){
+        if (positionCalculator != null) {
             positionCalculator.resize(width, height);
 
             xPos = positionCalculator.getX();
@@ -92,9 +92,9 @@ public class HorizontalGUILayout extends GUIElement implements Clickable, Typeab
     }
 
     @Override
-    public int getHeight(){
+    public int getHeight() {
         int res = 0;
-        for(GUIElement e : items){
+        for (GUIElement e : items) {
             res += e.getHeight();
             res += spacing;
         }
@@ -104,7 +104,7 @@ public class HorizontalGUILayout extends GUIElement implements Clickable, Typeab
     @Override
     public int getWidth() {
         int res = 0;
-        for(GUIElement e : items){
+        for (GUIElement e : items) {
             res += e.getWidth();
             res += spacing;
         }
@@ -113,8 +113,8 @@ public class HorizontalGUILayout extends GUIElement implements Clickable, Typeab
 
     @Override
     public void click(int x, int y, int button, int mods) {
-        for(GUIElement e : items){
-            if(e instanceof Clickable instance){
+        for (GUIElement e : items) {
+            if (e instanceof Clickable instance) {
                 instance.click(x, y, button, mods);
             }
         }
@@ -122,8 +122,8 @@ public class HorizontalGUILayout extends GUIElement implements Clickable, Typeab
 
     @Override
     public void release(int x, int y, int mods) {
-        for(GUIElement e : items){
-            if(e instanceof Clickable instance){
+        for (GUIElement e : items) {
+            if (e instanceof Clickable instance) {
                 instance.release(x, y, mods);
             }
         }
@@ -131,8 +131,8 @@ public class HorizontalGUILayout extends GUIElement implements Clickable, Typeab
 
     @Override
     public void drag(int x, int y, int button, int mods) {
-        for(GUIElement e : items){
-            if(e instanceof Draggable instance){
+        for (GUIElement e : items) {
+            if (e instanceof Draggable instance) {
                 instance.drag(x, y, button, mods);
             }
         }
@@ -140,8 +140,8 @@ public class HorizontalGUILayout extends GUIElement implements Clickable, Typeab
 
     @Override
     public void keyTyped(char c) {
-        for(GUIElement e : items){
-            if(e instanceof Typeable instance){
+        for (GUIElement e : items) {
+            if (e instanceof Typeable instance) {
                 instance.keyTyped(c);
             }
         }
@@ -149,8 +149,8 @@ public class HorizontalGUILayout extends GUIElement implements Clickable, Typeab
 
     @Override
     public boolean isSelected() {
-        for(GUIElement e : items){
-            if(e instanceof Typeable instance){
+        for (GUIElement e : items) {
+            if (e instanceof Typeable instance) {
                 return instance.isSelected();
             }
         }
@@ -160,8 +160,8 @@ public class HorizontalGUILayout extends GUIElement implements Clickable, Typeab
 
     @Override
     public void scroll(int x, int y) {
-        for(GUIElement e : items){
-            if(e instanceof Scrollable instance){
+        for (GUIElement e : items) {
+            if (e instanceof Scrollable instance) {
                 instance.scroll(x, y);
             }
         }

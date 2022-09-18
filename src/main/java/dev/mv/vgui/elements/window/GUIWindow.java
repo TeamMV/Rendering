@@ -16,7 +16,7 @@ public class GUIWindow {
 
     private GUI gui;
 
-    public GUIWindow(VariablePosition position, GUI gui, GUI shouldOpenOnClose){
+    public GUIWindow(VariablePosition position, GUI gui, GUI shouldOpenOnClose) {
         this(position.getX(), position.getY(), position.getWidth(), position.getHeight(), gui, shouldOpenOnClose);
     }
 
@@ -30,7 +30,7 @@ public class GUIWindow {
         button = new GUICloseButton(x + width - 64 - 42, y + height - 64 - 10, 64, 64, gui, shouldOpenOnClose);
     }
 
-    public void render(Window w){
+    public void render(Window w) {
         w.draw.color(255, 255, 255, 255);
         w.draw.rectangle(x, y + 50, width, height - 100);
         w.draw.rectangle(x + 50, y, width - 100, height);
@@ -52,7 +52,7 @@ public class GUIWindow {
         button.render(w);
     }
 
-    public void click(int x, int y, int b, int mods){
+    public void click(int x, int y, int b, int mods) {
         button.click(x, y, b, mods);
     }
 }

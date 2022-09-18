@@ -5,7 +5,7 @@ public class Vertices {
 
     private int length;
 
-    public Vertices set(Vertex v1, Vertex v2, Vertex v3, Vertex v4){
+    public Vertices set(Vertex v1, Vertex v2, Vertex v3, Vertex v4) {
         this.data[0] = v1;
         this.data[1] = v2;
         this.data[2] = v3;
@@ -16,7 +16,7 @@ public class Vertices {
         return this;
     }
 
-    public Vertices set(Vertex v1, Vertex v2, Vertex v3){
+    public Vertices set(Vertex v1, Vertex v2, Vertex v3) {
         this.data[0] = v1;
         this.data[1] = v2;
         this.data[2] = v3;
@@ -26,11 +26,11 @@ public class Vertices {
         return this;
     }
 
-    public Vertex get(int index){
+    public Vertex get(int index) {
         return data[index];
     }
 
-    public int length(){
+    public int length() {
         return length;
     }
 }

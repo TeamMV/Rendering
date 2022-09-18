@@ -47,6 +47,8 @@ public class Window {
     private boolean fullscreen = false;
     @Getter
     private double deltaF;
+    private int oW, oH;
+    private int oX, oY;
 
     /**
      * Creates a new Window object with
@@ -167,13 +169,13 @@ public class Window {
             camera.declareProjection();
 
             mainClass.resize(this, w, h);
-            if(activeScreen != null){
+            if (activeScreen != null) {
                 activeScreen.resize(w, h);
             }
         });
     }
 
-    public void drawAndSwapBuffers(){
+    public void drawAndSwapBuffers() {
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         draw.draw();
@@ -249,19 +251,19 @@ public class Window {
     }
 
     public void onKeyDown(int c) {
-        if(activeScreen != null) {
+        if (activeScreen != null) {
             activeScreen.keyDown(c);
         }
     }
 
     public void onKeyUp(int c) {
-        if(activeScreen != null) {
+        if (activeScreen != null) {
             activeScreen.keyUp(c);
         }
     }
 
     public void onKeyTyped(char c) {
-        if(activeScreen != null) {
+        if (activeScreen != null) {
             activeScreen.typed(c);
         }
     }
@@ -299,9 +301,6 @@ public class Window {
         window = windowId;
     }
 
-    private int oW, oH;
-    private int oX, oY;
-
     public void setFullscreen(boolean fullscreen) {
         this.fullscreen = fullscreen;
         if (fullscreen) {
@@ -317,8 +316,7 @@ public class Window {
             glfwSetWindowMonitor(window, monitor, 0, 0, mode.width(), mode.height(), mode.refreshRate());
             width = mode.width();
             height = mode.height();
-        }
-        else {
+        } else {
             long monitor = glfwGetPrimaryMonitor();
             GLFWVidMode mode = glfwGetVideoMode(monitor);
             glfwSetWindowMonitor(window, 0, oX, oY, oW, oH, mode.refreshRate());

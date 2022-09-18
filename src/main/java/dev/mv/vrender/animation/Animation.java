@@ -1,4 +1,4 @@
-package dev.mv.animation;
+package dev.mv.vrender.animation;
 
 import dev.mv.vrender.texture.TextureRegion;
 import dev.mv.vrender.utils.VariablePosition;
@@ -14,7 +14,7 @@ public class Animation {
 
     private long millis;
 
-    public Animation(TextureRegion... frames){
+    public Animation(TextureRegion... frames) {
         for (TextureRegion frame : frames) {
             this.frames.add(frame);
         }
@@ -22,7 +22,7 @@ public class Animation {
         millis = System.currentTimeMillis();
     }
 
-    public Animation(TextureRegion[] frames, int start, int end){
+    public Animation(TextureRegion[] frames, int start, int end) {
         for (int i = start; i < end + 1; i++) {
             this.frames.add(frames[i]);
         }
@@ -30,40 +30,58 @@ public class Animation {
         millis = System.currentTimeMillis();
     }
 
-    public void addFrame(TextureRegion tex){
+    public void addFrame(TextureRegion tex) {
         frames.add(tex);
     }
 
-    public Animation speed(int millis){
+    public Animation speed(int millis) {
         speed = millis;
         return this;
     }
 
-    public Animation play(){
+    public Animation play() {
         playing = true;
         return this;
     }
 
-    public Animation stop(){
+    public Animation stop() {
         playing = false;
         return this;
     }
 
-    public TextureRegion getFrame(int index){
-        return frames.get(0);
+    public int getCurrentIndex() {
+        return currentFrame;
     }
 
-    public TextureRegion getCurrentFrame(){
+    public TextureRegion getFrame(int index) {
+        return frames.get(index);
+    }
+
+    public TextureRegion getCurrentFrame() {
         return frames.get(currentFrame);
     }
 
-    public TextureRegion nextFrame(){
-        if(currentFrame++ >= frames.size() - 1) currentFrame = 0;
+    public TextureRegion getPlayingFrame() {
+        if (playing) {
+            if (millis + speed <= System.currentTimeMillis()) {
+                currentFrame++;
+                millis = System.currentTimeMillis();
+                if (currentFrame >= frames.size()) {
+                    currentFrame = 0;
+                }
+            }
+            return frames.get(currentFrame);
+        }
         return frames.get(currentFrame);
     }
 
-    public void skipFrames(int amount){
-        if(currentFrame + amount >= frames.size() - 1){
+    public TextureRegion nextFrame() {
+        if (currentFrame++ >= frames.size() - 1) currentFrame = 0;
+        return frames.get(currentFrame);
+    }
+
+    public void skipFrames(int amount) {
+        if (currentFrame + amount >= frames.size() - 1) {
             int extra = amount - (frames.size() - 1 - currentFrame);
             currentFrame = 0;
             currentFrame += extra;
@@ -72,18 +90,18 @@ public class Animation {
         }
     }
 
-    public void draw(Window w, VariablePosition position, float rotation){
+    public void draw(Window w, VariablePosition position, float rotation) {
         draw(w, position.getX(), position.getY(), position.getWidth(), position.getHeight(), rotation);
     }
 
-    public void draw(Window w, int x, int y, int width, int height, float rotation){
-        if (playing){
+    public void draw(Window w, int x, int y, int width, int height, float rotation) {
+        if (playing) {
             w.draw.image(x, y, width, height, frames.get(currentFrame), rotation);
 
-            if (millis + speed <= System.currentTimeMillis()){
+            if (millis + speed <= System.currentTimeMillis()) {
                 currentFrame++;
                 millis = System.currentTimeMillis();
-                if (currentFrame >= frames.size()){
+                if (currentFrame >= frames.size()) {
                     currentFrame = 0;
                 }
             }
