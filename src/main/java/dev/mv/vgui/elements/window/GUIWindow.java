@@ -19,8 +19,14 @@ public class GUIWindow {
     private VariablePosition positionCalculator = null;
 
     public GUIWindow(VariablePosition position, GUI gui, GUI shouldOpenOnClose) {
-        this(position.getX(), position.getY(), position.getWidth(), position.getHeight(), gui, shouldOpenOnClose);
         positionCalculator = position;
+        x = position.getX();
+        y = position.getY();
+        width = position.getWidth();
+        height = position.getHeight();
+        this.gui = gui;
+
+        button = new GUICloseButton(x + width - 64 - 42, y + height - 64 - 10, 64, 64, gui, shouldOpenOnClose);
     }
 
     public GUIWindow(int x, int y, int width, int height, GUI gui, GUI shouldOpenOnClose) {
@@ -34,8 +40,14 @@ public class GUIWindow {
     }
 
     public GUIWindow(VariablePosition position, GUI gui, Runnable shouldOpenOnClose) {
-        this(position.getX(), position.getY(), position.getWidth(), position.getHeight(), gui, shouldOpenOnClose);
         positionCalculator = position;
+        x = position.getX();
+        y = position.getY();
+        width = position.getWidth();
+        height = position.getHeight();
+        this.gui = gui;
+
+        button = new GUICloseButton(x + width - 64 - 42, y + height - 64 - 10, 64, 64, gui, shouldOpenOnClose);
     }
 
     public GUIWindow(int x, int y, int width, int height, GUI gui, Runnable shouldOpenOnClose) {

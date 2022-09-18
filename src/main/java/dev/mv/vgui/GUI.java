@@ -179,7 +179,9 @@ public class GUI {
 
     public void resize(int width, int height) {
         if (!open) return;
-        if (guiWindow != null) guiWindow.resize(width, height);
+        if (guiWindow != null) {
+            guiWindow.resize(width, height);
+        }
         for (GUIElement element : elements) {
             if (!(element instanceof GUITabList)) {
                 element.resize(width, height);
