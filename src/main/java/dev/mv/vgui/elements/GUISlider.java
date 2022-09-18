@@ -3,6 +3,7 @@ package dev.mv.vgui.elements;
 import dev.mv.vgui.Clickable;
 import dev.mv.vgui.Draggable;
 import dev.mv.vgui.GUIElement;
+import dev.mv.vrender.utils.VariablePosition;
 import dev.mv.vrender.window.Window;
 
 public class GUISlider extends GUIElement implements Clickable, Draggable {
@@ -21,6 +22,26 @@ public class GUISlider extends GUIElement implements Clickable, Draggable {
         yPos = y;
         height = 10;
         this.width = width;
+        if (steps > 0) {
+            this.steps = steps;
+        } else {
+            this.steps = 1;
+        }
+
+        if (defaultSelection <= this.steps && defaultSelection > 0) {
+            selection = defaultSelection;
+        } else {
+            selection = 1;
+        }
+        selectorX = (xPos + (((selection) * (width + 6)) / (this.steps + 1))) - 6 - (selectorWidth / 2);
+    }
+
+    public GUISlider(VariablePosition position, int steps, int defaultSelection) {
+        positionCalculator = position;
+        xPos = position.getX();
+        yPos = position.getY();
+        height = 10;
+        this.width = position.getWidth();
         if (steps > 0) {
             this.steps = steps;
         } else {
@@ -99,6 +120,7 @@ public class GUISlider extends GUIElement implements Clickable, Draggable {
 
     @Override
     public void resize(int width, int height) {
+        if (positionCalculator == null) return;
         positionCalculator.resize(width, height);
         xPos = positionCalculator.getX();
         yPos = positionCalculator.getY();
