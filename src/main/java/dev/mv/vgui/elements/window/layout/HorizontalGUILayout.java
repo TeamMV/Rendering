@@ -14,6 +14,8 @@ public class HorizontalGUILayout extends GUIElement implements Clickable, Typeab
     private List<GUIElement> items = new ArrayList<>();
 
     private int spacing = 0;
+    private Alignment currentAlign = Alignment.TOP;
+    private int maxWidth = 0;
 
     public HorizontalGUILayout(VariablePosition position) {
         this(position.getX(), position.getY());
@@ -33,6 +35,7 @@ public class HorizontalGUILayout extends GUIElement implements Clickable, Typeab
 
     public HorizontalGUILayout appendItem(GUIElement element) {
         items.add(element);
+        maxWidth = Math.max(maxWidth, element.getWidth());
 
         return this;
     }
@@ -47,14 +50,20 @@ public class HorizontalGUILayout extends GUIElement implements Clickable, Typeab
         int winWidth = gui.getGuiWindow().getWidth();
         int winX = gui.getGuiWindow().getX();
 
-        xPos = winX + (winWidth / 2) - (getWidth() / 2);
+        xPos = winX + (winWidth / 2) - (maxWidth / 2);
 
         return this;
     }
 
     public HorizontalGUILayout centerInScreen(Window w) {
         int winWidth = w.getWidth();
-        xPos = (winWidth / 2) - (getWidth() / 2);
+        xPos = (winWidth / 2) - (maxWidth / 2);
+
+        return this;
+    }
+
+    public HorizontalGUILayout alignContent(HorizontalGUILayout.Alignment align) {
+        currentAlign = align;
 
         return this;
     }
@@ -72,13 +81,33 @@ public class HorizontalGUILayout extends GUIElement implements Clickable, Typeab
         int yStart = yPos;
         int xStart = xPos;
 
-        for (int i = 0; i < items.size(); i++) {
-            GUIElement e = items.get(i);
-            e.setXPos(xStart);
-            e.setYPos(yStart - e.getHeight());
-            e.render(w);
-            xStart += e.getWidth();
-            xStart += spacing;
+        if (currentAlign == HorizontalGUILayout.Alignment.TOP) {
+            for (int i = 0; i < items.size(); i++) {
+                GUIElement e = items.get(i);
+                e.setXPos(xStart);
+                e.setYPos(yStart - e.getHeight());
+                e.render(w);
+                xStart += e.getWidth();
+                xStart += spacing;
+            }
+        } else if (currentAlign == HorizontalGUILayout.Alignment.CENTER) {
+            for (int i = 0; i < items.size(); i++) {
+                GUIElement e = items.get(i);
+                e.setXPos(xStart + ((maxWidth / 2) - (e.getWidth() / 2)));
+                e.setYPos(yStart - e.getHeight());
+                e.render(w);
+                yStart -= e.getHeight();
+                yStart -= spacing;
+            }
+        } else if (currentAlign == HorizontalGUILayout.Alignment.BOTTOM) {
+            for (int i = 0; i < items.size(); i++) {
+                GUIElement e = items.get(i);
+                e.setXPos(xStart + (maxWidth - e.getWidth()));
+                e.setYPos(yStart - e.getHeight());
+                e.render(w);
+                yStart -= e.getHeight();
+                yStart -= spacing;
+            }
         }
     }
 
@@ -166,6 +195,12 @@ public class HorizontalGUILayout extends GUIElement implements Clickable, Typeab
                 instance.scroll(x, y);
             }
         }
+    }
+
+    public enum Alignment {
+        TOP,
+        CENTER,
+        BOTTOM
     }
 
     private Consumer<HorizontalGUILayout> createdTask = null;

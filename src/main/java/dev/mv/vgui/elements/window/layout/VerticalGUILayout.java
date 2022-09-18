@@ -80,10 +80,7 @@ public class VerticalGUILayout extends GUIElement implements Clickable, Typeable
     @Override
     public void render(Window w) {
         int yStart = yPos;
-        ;
         int xStart = xPos;
-        ;
-
 
         if (currentAlign == Alignment.LEFT) {
             for (int i = 0; i < items.size(); i++) {
@@ -103,7 +100,7 @@ public class VerticalGUILayout extends GUIElement implements Clickable, Typeable
                 yStart -= e.getHeight();
                 yStart -= spacing;
             }
-        } else if (currentAlign == Alignment.RIGTH) {
+        } else if (currentAlign == Alignment.RIGHT) {
             for (int i = 0; i < items.size(); i++) {
                 GUIElement e = items.get(i);
                 e.setXPos(xStart + (maxWidth - e.getWidth()));
@@ -204,7 +201,7 @@ public class VerticalGUILayout extends GUIElement implements Clickable, Typeable
     public enum Alignment {
         LEFT,
         CENTER,
-        RIGTH
+        RIGHT
     }
 
     private Consumer<VerticalGUILayout> createdTask = null;
