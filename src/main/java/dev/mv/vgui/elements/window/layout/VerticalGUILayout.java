@@ -18,6 +18,9 @@ public class VerticalGUILayout extends GUIElement implements Clickable, Typeable
     private int maxWidth = 0;
     private Alignment currentAlign = Alignment.LEFT;
 
+    private Window centreScreen = null;
+    private GUI centreWindow = null;
+
     public VerticalGUILayout(VariablePosition position) {
         this(position.getX(), position.getY());
         positionCalculator = position;
@@ -30,16 +33,15 @@ public class VerticalGUILayout extends GUIElement implements Clickable, Typeable
 
     public VerticalGUILayout setSpacing(int spacing) {
         this.spacing = spacing;
-
         return this;
     }
 
     public VerticalGUILayout centerInWindow(GUI gui) {
         int winWidth = gui.getGuiWindow().getWidth();
         int winX = gui.getGuiWindow().getX();
-
         xPos = winX + (winWidth / 2) - (maxWidth / 2);
 
+        centreWindow = gui;
         return this;
     }
 
@@ -47,6 +49,7 @@ public class VerticalGUILayout extends GUIElement implements Clickable, Typeable
         int winWidth = w.getWidth();
         xPos = (winWidth / 2) - (maxWidth / 2);
 
+        centreScreen = w;
         return this;
     }
 
@@ -119,6 +122,12 @@ public class VerticalGUILayout extends GUIElement implements Clickable, Typeable
 
             xPos = positionCalculator.getX();
             yPos = positionCalculator.getY();
+        }
+        if (centreScreen != null) {
+            centerInScreen(centreScreen);
+        }
+        if (centreWindow != null) {
+            centerInWindow(centreWindow);
         }
     }
 

@@ -17,6 +17,9 @@ public class HorizontalGUILayout extends GUIElement implements Clickable, Typeab
     private Alignment currentAlign = Alignment.TOP;
     private int maxWidth = 0;
 
+    private Window centreScreen = null;
+    private GUI centreWindow = null;
+
     public HorizontalGUILayout(VariablePosition position) {
         this(position.getX(), position.getY());
         positionCalculator = position;
@@ -49,9 +52,9 @@ public class HorizontalGUILayout extends GUIElement implements Clickable, Typeab
     public HorizontalGUILayout centerInWindow(GUI gui) {
         int winWidth = gui.getGuiWindow().getWidth();
         int winX = gui.getGuiWindow().getX();
-
         xPos = winX + (winWidth / 2) - (maxWidth / 2);
 
+        centreWindow = gui;
         return this;
     }
 
@@ -59,6 +62,7 @@ public class HorizontalGUILayout extends GUIElement implements Clickable, Typeab
         int winWidth = w.getWidth();
         xPos = (winWidth / 2) - (maxWidth / 2);
 
+        centreScreen = w;
         return this;
     }
 
@@ -118,6 +122,12 @@ public class HorizontalGUILayout extends GUIElement implements Clickable, Typeab
 
             xPos = positionCalculator.getX();
             yPos = positionCalculator.getY();
+        }
+        if (centreScreen != null) {
+            centerInScreen(centreScreen);
+        }
+        if (centreWindow != null) {
+            centerInWindow(centreWindow);
         }
     }
 
