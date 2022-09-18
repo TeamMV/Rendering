@@ -24,6 +24,7 @@ public class GUILabel extends GUIElement {
         this.lineHeight = lineHeight;
         this.text = text;
         this.font = font;
+        colour = new int[] {255, 255, 255, 255};
 
         layout.set(font, text, lineHeight);
     }
@@ -35,6 +36,7 @@ public class GUILabel extends GUIElement {
         this.lineHeight = position.getHeight();
         this.text = text;
         this.font = font;
+        colour = new int[] {255, 255, 255, 255};
 
         layout.set(font, text, lineHeight);
     }
