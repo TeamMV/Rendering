@@ -108,6 +108,7 @@ public class GUICheckbox extends GUIElement implements Clickable {
     public void click(int x, int y, int button, int mods) {
         if (x >= xPos && x <= xPos + size && y >= yPos && y <= yPos + size) {
             enabled = !enabled;
+            if (listener == null) return;
             listener.clicked(this);
         }
     }

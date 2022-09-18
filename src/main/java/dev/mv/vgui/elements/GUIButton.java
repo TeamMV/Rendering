@@ -148,6 +148,7 @@ public class GUIButton extends GUIElement implements Clickable {
 
     @Override
     public void click(int x, int y, int button, int mods) {
+        if (listener == null) return;
         if (x >= xPos && x <= xPos + width && y >= yPos && y <= yPos + height) {
             listener.clicked(this);
         }
