@@ -10,6 +10,8 @@ import dev.mv.vrender.window.Window;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.function.Consumer;
+
 public class GUIInputBox extends GUIElement implements Clickable, Typeable {
 
     private int width, height, textWidth, charOverflow = 0;
@@ -241,6 +243,18 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
         label.setText(text.substring(charOverflow));
         textWidth = layout.getWidth(label.getText());
         if (isPlaceholder) label.setText(placeholder);
+    }
+
+    private Consumer<GUIInputBox> createdTask = null;
+
+    public void onCreate(Consumer<GUIInputBox> task) {
+        this.createdTask = task;
+    }
+
+    @Override
+    public void created() {
+        if (createdTask == null) return;
+        createdTask.accept(this);
     }
 
 }

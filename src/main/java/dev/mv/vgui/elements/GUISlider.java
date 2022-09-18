@@ -6,6 +6,8 @@ import dev.mv.vgui.GUIElement;
 import dev.mv.vrender.utils.VariablePosition;
 import dev.mv.vrender.window.Window;
 
+import java.util.function.Consumer;
+
 public class GUISlider extends GUIElement implements Clickable, Draggable {
 
     private final int height;
@@ -168,4 +170,17 @@ public class GUISlider extends GUIElement implements Clickable, Draggable {
             }
         }
     }
+
+    private Consumer<GUISlider> createdTask = null;
+
+    public void onCreate(Consumer<GUISlider> task) {
+        this.createdTask = task;
+    }
+
+    @Override
+    public void created() {
+        if (createdTask == null) return;
+        createdTask.accept(this);
+    }
+
 }

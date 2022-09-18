@@ -7,6 +7,7 @@ import dev.mv.vrender.window.Window;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class HorizontalGUILayout extends GUIElement implements Clickable, Typeable, Scrollable, Draggable {
 
@@ -165,5 +166,17 @@ public class HorizontalGUILayout extends GUIElement implements Clickable, Typeab
                 instance.scroll(x, y);
             }
         }
+    }
+
+    private Consumer<HorizontalGUILayout> createdTask = null;
+
+    public void onCreate(Consumer<HorizontalGUILayout> task) {
+        this.createdTask = task;
+    }
+
+    @Override
+    public void created() {
+        if (createdTask == null) return;
+        createdTask.accept(this);
     }
 }

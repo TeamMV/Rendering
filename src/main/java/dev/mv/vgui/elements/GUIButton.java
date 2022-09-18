@@ -3,11 +3,14 @@ package dev.mv.vgui.elements;
 import dev.mv.vgui.Clickable;
 import dev.mv.vgui.GUIElement;
 import dev.mv.vgui.elements.listeners.ClickListener;
+import dev.mv.vgui.elements.window.layout.HorizontalGUILayout;
 import dev.mv.vrender.text.BitmapFont;
 import dev.mv.vrender.text.SizeLayout;
 import dev.mv.vrender.utils.VariablePosition;
 import dev.mv.vrender.window.Window;
 import lombok.Setter;
+
+import java.util.function.Consumer;
 
 public class GUIButton extends GUIElement implements Clickable {
 
@@ -153,5 +156,17 @@ public class GUIButton extends GUIElement implements Clickable {
     @Override
     public void release(int x, int y, int mods) {
 
+    }
+
+    private Consumer<GUIButton> createdTask = null;
+
+    public void onCreate(Consumer<GUIButton> task) {
+        this.createdTask = task;
+    }
+
+    @Override
+    public void created() {
+        if (createdTask == null) return;
+        createdTask.accept(this);
     }
 }

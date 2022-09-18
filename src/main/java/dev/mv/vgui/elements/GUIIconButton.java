@@ -3,10 +3,13 @@ package dev.mv.vgui.elements;
 import dev.mv.vgui.Clickable;
 import dev.mv.vgui.GUIElement;
 import dev.mv.vgui.elements.listeners.ClickListener;
+import dev.mv.vgui.elements.window.layout.HorizontalGUILayout;
 import dev.mv.vrender.texture.Texture;
 import dev.mv.vrender.texture.TextureRegion;
 import dev.mv.vrender.utils.VariablePosition;
 import dev.mv.vrender.window.Window;
+
+import java.util.function.Consumer;
 
 public class GUIIconButton extends GUIElement implements Clickable {
 
@@ -112,5 +115,17 @@ public class GUIIconButton extends GUIElement implements Clickable {
     @Override
     public void release(int x, int y, int mods) {
 
+    }
+
+    private Consumer<GUIIconButton> createdTask = null;
+
+    public void onCreate(Consumer<GUIIconButton> task) {
+        this.createdTask = task;
+    }
+
+    @Override
+    public void created() {
+        if (createdTask == null) return;
+        createdTask.accept(this);
     }
 }

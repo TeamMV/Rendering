@@ -219,4 +219,10 @@ public class GUI {
         }
         return null;
     }
+    
+    public void created() {
+        for (GUIElement e : elements) {
+            e.created();
+        }
+    }
 }

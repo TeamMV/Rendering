@@ -5,6 +5,8 @@ import dev.mv.vrender.utils.VariablePosition;
 import dev.mv.vrender.window.Window;
 import lombok.Getter;
 
+import java.util.function.Consumer;
+
 public class GUIStatusBar extends GUIElement {
 
     private int width, height;
@@ -88,4 +90,17 @@ public class GUIStatusBar extends GUIElement {
     public int getWidth() {
         return width;
     }
+
+    private Consumer<GUIStatusBar> createdTask = null;
+
+    public void onCreate(Consumer<GUIStatusBar> task) {
+        this.createdTask = task;
+    }
+
+    @Override
+    public void created() {
+        if (createdTask == null) return;
+        createdTask.accept(this);
+    }
+
 }

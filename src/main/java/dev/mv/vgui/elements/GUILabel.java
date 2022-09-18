@@ -6,6 +6,8 @@ import dev.mv.vrender.text.SizeLayout;
 import dev.mv.vrender.utils.VariablePosition;
 import dev.mv.vrender.window.Window;
 
+import java.util.function.Consumer;
+
 public class GUILabel extends GUIElement {
 
     SizeLayout layout = new SizeLayout();
@@ -105,4 +107,17 @@ public class GUILabel extends GUIElement {
     public void setX(int x) {
         xPos = x;
     }
+
+    private Consumer<GUILabel> createdTask = null;
+
+    public void onCreate(Consumer<GUILabel> task) {
+        this.createdTask = task;
+    }
+
+    @Override
+    public void created() {
+        if (createdTask == null) return;
+        createdTask.accept(this);
+    }
+
 }

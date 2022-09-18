@@ -7,6 +7,7 @@ import dev.mv.vrender.window.Window;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class VerticalGUILayout extends GUIElement implements Clickable, Typeable, Scrollable, Draggable {
 
@@ -205,4 +206,17 @@ public class VerticalGUILayout extends GUIElement implements Clickable, Typeable
         CENTER,
         RIGTH
     }
+
+    private Consumer<VerticalGUILayout> createdTask = null;
+
+    public void onCreate(Consumer<VerticalGUILayout> task) {
+        this.createdTask = task;
+    }
+
+    @Override
+    public void created() {
+        if (createdTask == null) return;
+        createdTask.accept(this);
+    }
+
 }

@@ -11,6 +11,7 @@ import dev.mv.vrender.window.Window;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class GUITabList extends GUIElement implements Clickable, Typeable, Scrollable, Draggable {
     private int width = 200, height = 200;
@@ -169,5 +170,17 @@ public class GUITabList extends GUIElement implements Clickable, Typeable, Scrol
             if (selected != count++) continue;
             tab.drag(x, y, button, mods);
         }
+    }
+
+    private Consumer<GUITabList> createdTask = null;
+
+    public void onCreate(Consumer<GUITabList> task) {
+        this.createdTask = task;
+    }
+
+    @Override
+    public void created() {
+        if (createdTask == null) return;
+        createdTask.accept(this);
     }
 }

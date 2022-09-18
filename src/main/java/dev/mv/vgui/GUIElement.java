@@ -4,12 +4,15 @@ import dev.mv.vrender.utils.VariablePosition;
 import dev.mv.vrender.window.Window;
 import lombok.Setter;
 
+import java.util.function.Consumer;
+
 public abstract class GUIElement {
 
     protected int xPos = -1, yPos = -1;
     @Setter
     protected String id;
     protected VariablePosition positionCalculator;
+
     private boolean visible = true;
 
     public boolean isVisible() {
@@ -51,4 +54,6 @@ public abstract class GUIElement {
     public abstract int getHeight();
 
     public abstract int getWidth();
+
+    public abstract void created();
 }
