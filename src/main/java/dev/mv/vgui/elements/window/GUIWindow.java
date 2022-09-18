@@ -30,6 +30,20 @@ public class GUIWindow {
         button = new GUICloseButton(x + width - 64 - 42, y + height - 64 - 10, 64, 64, gui, shouldOpenOnClose);
     }
 
+    public GUIWindow(VariablePosition position, GUI gui, Runnable shouldOpenOnClose) {
+        this(position.getX(), position.getY(), position.getWidth(), position.getHeight(), gui, shouldOpenOnClose);
+    }
+
+    public GUIWindow(int x, int y, int width, int height, GUI gui, Runnable shouldOpenOnClose) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.gui = gui;
+
+        button = new GUICloseButton(x + width - 64 - 42, y + height - 64 - 10, 64, 64, gui, shouldOpenOnClose);
+    }
+
     public void render(Window w) {
         w.draw.color(255, 255, 255, 255);
         w.draw.rectangle(x, y + 50, width, height - 100);

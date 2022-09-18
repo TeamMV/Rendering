@@ -16,4 +16,16 @@ public class GUICloseButton extends GUIIconButton {
             shouldOpenOnClose.open();
         });
     }
+
+    public GUICloseButton(VariablePosition position, GUI gui, Runnable shouldOpenOnClose) {
+        this(position.getX(), position.getY(), position.getWidth(), position.getHeight(), gui, shouldOpenOnClose);
+    }
+
+    public GUICloseButton(int x, int y, int width, int height, GUI gui, Runnable shouldOpenOnClose) {
+        super(x, y, width, height, DefaultTextures.BUTTON_CROSS, true, e -> {
+            gui.close();
+            shouldOpenOnClose.run();
+        });
+    }
+
 }
