@@ -94,6 +94,6 @@ public class GUIWindow {
         this.width = positionCalculator.getWidth();
         this.height = positionCalculator.getHeight();
         button.setXPos(x + width - 64 - 42);
-        button.setXPos(y + height - 64 - 10);
+        button.setYPos(y + height - 64 - 10);
     }
 }
