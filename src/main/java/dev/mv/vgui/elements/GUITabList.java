@@ -47,6 +47,9 @@ public class GUITabList extends GUIElement implements Clickable, Typeable, Scrol
     @Override
     public void render(Window w) {
 
+        if (selected < 0) selected = 0;
+        if (selected >= tabs.size()) selected = tabs.size() - 1;
+
         int wi = width + 30;
 
         w.draw.color(255, 255, 255, 255);
@@ -170,6 +173,18 @@ public class GUITabList extends GUIElement implements Clickable, Typeable, Scrol
             if (selected != count++) continue;
             tab.drag(x, y, button, mods);
         }
+    }
+
+    public int getTabAmount() {
+        return tabs.size();
+    }
+
+    public void setSelectedTab(int selectedTab) {
+        selected = selectedTab - 1;
+    }
+
+    public int getSelectedTab() {
+        return selected;
     }
 
     private Consumer<GUITabList> createdTask = null;
