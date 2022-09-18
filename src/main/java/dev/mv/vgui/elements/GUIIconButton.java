@@ -86,6 +86,10 @@ public class GUIIconButton extends GUIElement implements Clickable {
     public void resize(int width, int height) {
         if (positionCalculator == null) return;
         positionCalculator.resize(width, height);
+        xPos = positionCalculator.getX();
+        yPos = positionCalculator.getY();
+        this.width = positionCalculator.getWidth();
+        this.height = positionCalculator.getHeight();
     }
 
     @Override

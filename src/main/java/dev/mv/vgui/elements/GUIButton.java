@@ -117,21 +117,20 @@ public class GUIButton extends GUIElement implements Clickable {
 
     @Override
     public void resize(int width, int height) {
-        if (positionCalculator != null) {
-            positionCalculator.resize(width, height);
-            xPos = positionCalculator.getX();
-            yPos = positionCalculator.getY();
-            this.height = positionCalculator.getHeight();
-            layout.setHeight(this.height - this.height / 5);
-            if (textWidth) {
-                this.width = layout.getWidth() + 50;
-            } else {
-                this.width = positionCalculator.getWidth();
-            }
-            label.setX(xPos + (this.width / 2) - (layout.getWidth() / 2));
-            label.setY(yPos + (this.height / 2 - layout.getHeight('e') / 2));
-            label.setHeight(this.height - this.height / 5);
+        if (positionCalculator == null) return; 
+        positionCalculator.resize(width, height);
+        xPos = positionCalculator.getX();
+        yPos = positionCalculator.getY();
+        this.height = positionCalculator.getHeight();
+        layout.setHeight(this.height - this.height / 5);
+        if (textWidth) {
+            this.width = layout.getWidth() + 50;
+        } else {
+            this.width = positionCalculator.getWidth();
         }
+        label.setX(xPos + (this.width / 2) - (layout.getWidth() / 2));
+        label.setY(yPos + (this.height / 2 - layout.getHeight('e') / 2));
+        label.setHeight(this.height - this.height / 5);
     }
 
     @Override

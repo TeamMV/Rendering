@@ -6,7 +6,11 @@ import dev.mv.vrender.utils.VariablePosition;
 
 public class GUICloseButton extends GUIIconButton {
     public GUICloseButton(VariablePosition position, GUI gui, GUI shouldOpenOnClose) {
-        this(position.getX(), position.getY(), position.getWidth(), position.getHeight(), gui, shouldOpenOnClose);
+        super(position, DefaultTextures.BUTTON_CROSS, true, e -> {
+            gui.close();
+            if (shouldOpenOnClose == null) return;
+            shouldOpenOnClose.open();
+        });
     }
 
     public GUICloseButton(int x, int y, int width, int height, GUI gui, GUI shouldOpenOnClose) {
@@ -17,14 +21,17 @@ public class GUICloseButton extends GUIIconButton {
         });
     }
 
-    public GUICloseButton(VariablePosition position, GUI gui, Runnable shouldOpenOnClose) {
-        this(position.getX(), position.getY(), position.getWidth(), position.getHeight(), gui, shouldOpenOnClose);
+    public GUICloseButton(VariablePosition position, GUI gui, Runnable runOnClose) {
+        super(position, DefaultTextures.BUTTON_CROSS, true, e -> {
+            gui.close();
+            runOnClose.run();
+        });
     }
 
-    public GUICloseButton(int x, int y, int width, int height, GUI gui, Runnable shouldOpenOnClose) {
+    public GUICloseButton(int x, int y, int width, int height, GUI gui, Runnable runOnClose) {
         super(x, y, width, height, DefaultTextures.BUTTON_CROSS, true, e -> {
             gui.close();
-            shouldOpenOnClose.run();
+            runOnClose.run();
         });
     }
 

@@ -97,6 +97,11 @@ public class GUITabList extends GUIElement implements Clickable, Typeable, Scrol
     public void resize(int width, int height) {
         if (positionCalculator == null) return;
         positionCalculator.resize(width, height);
+        xPos = positionCalculator.getX();
+        yPos = positionCalculator.getY();
+        this.width = positionCalculator.getWidth();
+        this.height = positionCalculator.getHeight();
+        tabs.forEach(tab -> tab.resize(width, height));
     }
 
     @Override

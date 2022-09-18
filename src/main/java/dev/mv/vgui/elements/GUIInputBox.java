@@ -5,6 +5,7 @@ import dev.mv.vgui.GUIElement;
 import dev.mv.vgui.Typeable;
 import dev.mv.vrender.text.BitmapFont;
 import dev.mv.vrender.text.SizeLayout;
+import dev.mv.vrender.utils.VariablePosition;
 import dev.mv.vrender.window.Window;
 import lombok.Getter;
 import lombok.Setter;
@@ -53,6 +54,35 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
         label = new GUILabel(x + 20, y + (height / 2) - (layout.getHeight('e') / 2), height - height / 5, placeholder, font);
     }
 
+    public GUIInputBox(VariablePosition position, String placeholder, BitmapFont font) {
+        this(position, placeholder, font, -1);
+    }
+
+    public GUIInputBox(VariablePosition position, String placeholder, BitmapFont font, boolean hidden) {
+        this(position, placeholder, font, -1, hidden);
+    }
+
+    public GUIInputBox(VariablePosition position, String placeholder, BitmapFont font, int maxChars) {
+        this(position, placeholder, font, maxChars, false);
+    }
+
+    public GUIInputBox(VariablePosition position, String placeholder, BitmapFont font, int maxChars, boolean hidden) {
+        positionCalculator = position;
+        layout = new SizeLayout(font, text, height - height / 5);
+        xPos = position.getX();
+        yPos = position.getY();
+        this.maxChars = maxChars;
+        this.width = position.getWidth();
+        this.height = position.getHeight();
+        this.placeholder = placeholder;
+        this.hidden = hidden;
+        this.font = font;
+
+        textWidth = layout.getWidth();
+
+        label = new GUILabel(xPos + 20, yPos + (height / 2) - (layout.getHeight('e') / 2), height - height / 5, placeholder, font);
+    }
+
     @Override
     public void render(Window w) {
         if (w.input.mouseInside(xPos, yPos, xPos + width, yPos + height) || isSelected) {
@@ -88,7 +118,16 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
 
     @Override
     public void resize(int width, int height) {
-
+        if (positionCalculator == null) return;
+        positionCalculator.resize(width, height);
+        xPos = positionCalculator.getX();
+        yPos = positionCalculator.getY();
+        this.width = positionCalculator.getWidth();
+        this.height = positionCalculator.getHeight();
+        layout.setHeight(this.height - this.height / 5);
+        label.setX(xPos + 20);
+        label.setY(yPos + (height / 2)  - (layout.getHeight('e') / 2));
+        label.setHeight(this.height - this.height / 5);
     }
 
     @Override

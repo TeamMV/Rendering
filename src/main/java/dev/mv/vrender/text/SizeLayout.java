@@ -8,7 +8,6 @@ public class SizeLayout {
     private BitmapFont font = null;
     @Setter
     private String text = "";
-    @Setter
     private int height = 0;
     @Getter
     private float multiplier = 0f;
@@ -59,17 +58,30 @@ public class SizeLayout {
         return font.getGlyph(c).getyOff() * multiplier;
     }
 
-    public void set(BitmapFont font, String text, int height) {
+    public SizeLayout set(BitmapFont font, String text, int height) {
         this.font = font;
         this.height = height;
         this.text = text;
         this.multiplier = (float) height / (float) font.getDefaultHeight();
+        return this;
     }
 
-    public void set(BitmapFont font, String text) {
+    public SizeLayout set(BitmapFont font, String text) {
         this.font = font;
         this.text = text;
         this.height = font.getDefaultHeight();
         this.multiplier = (float) height / (float) font.getDefaultHeight();
+        return this;
+    }
+
+    public SizeLayout setHeight(int height) {
+        this.height = height;
+        calculate();
+        return this;
+    }
+
+    public SizeLayout calculate() {
+        this.multiplier = (float) height / (float) font.getDefaultHeight();
+        return this;
     }
 }

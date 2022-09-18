@@ -47,6 +47,10 @@ public class GUITab extends AbstractGUITab {
     public void resize(int width, int height) {
         if (positionCalculator == null) return;
         positionCalculator.resize(width, height);
+        xPos = positionCalculator.getX();
+        yPos = positionCalculator.getY();
+        maxWidth = getWidth();
+        maxHeight = getHeight();
     }
 
     @Override

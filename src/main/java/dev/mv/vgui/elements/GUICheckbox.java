@@ -69,6 +69,9 @@ public class GUICheckbox extends GUIElement implements Clickable {
     public void resize(int width, int height) {
         if (positionCalculator != null) {
             positionCalculator.resize(width, height);
+            xPos = positionCalculator.getX();
+            yPos = positionCalculator.getY();
+            size = positionCalculator.getWidth();
         }
     }
 

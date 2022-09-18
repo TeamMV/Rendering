@@ -1,5 +1,6 @@
 package dev.mv.vgui;
 
+import dev.mv.vgui.elements.GUITabList;
 import dev.mv.vgui.elements.Scrollable;
 import dev.mv.vgui.elements.window.GUIWindow;
 import dev.mv.vrender.window.Window;
@@ -179,7 +180,14 @@ public class GUI {
     public void resize(int width, int height) {
         if (!open) return;
         for (GUIElement element : elements) {
-            element.resize(width, height);
+            if (!(element instanceof GUITabList)) {
+                element.resize(width, height);
+            }
+        }
+        for (GUIElement element : elements) {
+            if (element instanceof GUITabList) {
+                element.resize(width, height);
+            }
         }
     }
 
