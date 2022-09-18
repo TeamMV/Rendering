@@ -27,6 +27,7 @@ public class GUICloseButton extends GUIIconButton {
     public GUICloseButton(VariablePosition position, GUI gui, Runnable runOnClose) {
         super(position, DefaultTextures.BUTTON_CROSS, true, e -> {
             gui.close();
+            if (runOnClose == null) return;
             runOnClose.run();
         });
     }
@@ -34,6 +35,7 @@ public class GUICloseButton extends GUIIconButton {
     public GUICloseButton(int x, int y, int width, int height, GUI gui, Runnable runOnClose) {
         super(x, y, width, height, DefaultTextures.BUTTON_CROSS, true, e -> {
             gui.close();
+            if (runOnClose == null) return;
             runOnClose.run();
         });
     }
