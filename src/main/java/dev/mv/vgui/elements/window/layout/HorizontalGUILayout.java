@@ -33,7 +33,7 @@ public class HorizontalGUILayout extends GUIElement implements Clickable, Typeab
         yPos = y;
     }
 
-    public HorizontalGUILayout setSpacing(int spacing, int percent) {
+    public HorizontalGUILayout setSpacing(int spacing, float percent) {
         spacingPercentage = true;
         this.spacing = spacing;
         this.percent = percent;

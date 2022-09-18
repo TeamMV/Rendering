@@ -33,7 +33,7 @@ public class VerticalGUILayout extends GUIElement implements Clickable, Typeable
         yPos = y;
     }
 
-    public VerticalGUILayout setSpacing(int spacing, int percent) {
+    public VerticalGUILayout setSpacing(int spacing, float percent) {
         spacingPercentage = true;
         this.spacing = spacing;
         this.percent = percent;
