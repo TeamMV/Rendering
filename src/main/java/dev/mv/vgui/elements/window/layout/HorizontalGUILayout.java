@@ -14,6 +14,9 @@ public class HorizontalGUILayout extends GUIElement implements Clickable, Typeab
     private List<GUIElement> items = new ArrayList<>();
 
     private int spacing = 0;
+    private float percent = 0f;
+    private boolean spacingPercentage = false;
+
     private Alignment currentAlign = Alignment.TOP;
     private int maxWidth = 0;
 
@@ -30,9 +33,16 @@ public class HorizontalGUILayout extends GUIElement implements Clickable, Typeab
         yPos = y;
     }
 
-    public HorizontalGUILayout setSpacing(int spacing) {
+    public HorizontalGUILayout setSpacing(int spacing, int percent) {
+        spacingPercentage = true;
         this.spacing = spacing;
+        this.percent = percent;
+        return this;
+    }
 
+    public HorizontalGUILayout setSpacing(int spacing) {
+        spacingPercentage = false;
+        this.spacing = spacing;
         return this;
     }
 
@@ -128,6 +138,9 @@ public class HorizontalGUILayout extends GUIElement implements Clickable, Typeab
         }
         if (centreWindow != null) {
             centerInWindow(centreWindow);
+        }
+        if (spacingPercentage) {
+            spacing = Math.round(width * percent);
         }
     }
 

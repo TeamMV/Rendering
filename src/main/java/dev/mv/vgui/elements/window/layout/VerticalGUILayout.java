@@ -14,6 +14,8 @@ public class VerticalGUILayout extends GUIElement implements Clickable, Typeable
     private List<GUIElement> items = new ArrayList<>();
 
     private int spacing = 0;
+    private float percent = 0f;
+    private boolean spacingPercentage = false;
 
     private int maxWidth = 0;
     private Alignment currentAlign = Alignment.LEFT;
@@ -31,7 +33,15 @@ public class VerticalGUILayout extends GUIElement implements Clickable, Typeable
         yPos = y;
     }
 
+    public VerticalGUILayout setSpacing(int spacing, int percent) {
+        spacingPercentage = true;
+        this.spacing = spacing;
+        this.percent = percent;
+        return this;
+    }
+
     public VerticalGUILayout setSpacing(int spacing) {
+        spacingPercentage = false;
         this.spacing = spacing;
         return this;
     }
@@ -128,6 +138,9 @@ public class VerticalGUILayout extends GUIElement implements Clickable, Typeable
         }
         if (centreWindow != null) {
             centerInWindow(centreWindow);
+        }
+        if (spacingPercentage) {
+            spacing = Math.round(height * percent);
         }
     }
 
