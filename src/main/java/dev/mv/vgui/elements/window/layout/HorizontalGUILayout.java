@@ -142,6 +142,9 @@ public class HorizontalGUILayout extends GUIElement implements Clickable, Typeab
         if (spacingPercentage) {
             spacing = Math.round(width * percent);
         }
+        for (GUIElement element : items) {
+            element.resize(width, height);
+        }
     }
 
     @Override

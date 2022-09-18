@@ -142,6 +142,9 @@ public class VerticalGUILayout extends GUIElement implements Clickable, Typeable
         if (spacingPercentage) {
             spacing = Math.round(height * percent);
         }
+        for (GUIElement element : items) {
+            element.resize(width, height);
+        }
     }
 
     @Override
