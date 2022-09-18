@@ -53,7 +53,7 @@ public class GUIStatusBar extends GUIElement {
         w.draw.color(255, 255, 255, 255);
         w.draw.rectangle(xPos, yPos, width, height);
 
-        w.draw.color(color[0], color[1], color[2], 255);
+        w.draw.color(color[0], color[1], color[2], color[3]);
         w.draw.rectangle(xPos + 3, yPos + 3, barProgressWidth, height - 6);
 
         w.draw.color(0, 0, 0, 50);

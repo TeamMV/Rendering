@@ -3,6 +3,7 @@ package dev.mv.vgui.elements;
 import dev.mv.vgui.GUIElement;
 import dev.mv.vrender.text.BitmapFont;
 import dev.mv.vrender.text.SizeLayout;
+import dev.mv.vrender.utils.VariablePosition;
 import dev.mv.vrender.window.Window;
 
 public class GUILabel extends GUIElement {
@@ -13,12 +14,48 @@ public class GUILabel extends GUIElement {
     private String text;
     private BitmapFont font;
 
+    private int[] colour;
+
     public GUILabel(int x, int y, int lineHeight, String text, BitmapFont font) {
         xPos = x;
         yPos = y;
         this.lineHeight = lineHeight;
         this.text = text;
         this.font = font;
+
+        layout.set(font, text, lineHeight);
+    }
+
+    public GUILabel(VariablePosition position, String text, BitmapFont font) {
+        positionCalculator = position;
+        xPos = position.getX();
+        yPos = position.getY();
+        this.lineHeight = position.getHeight();
+        this.text = text;
+        this.font = font;
+
+        layout.set(font, text, lineHeight);
+    }
+
+    public GUILabel(int x, int y, int lineHeight, String text, BitmapFont font, int[] colour) {
+        xPos = x;
+        yPos = y;
+        this.lineHeight = lineHeight;
+        this.text = text;
+        this.font = font;
+        this.colour = colour;
+
+        layout.set(font, text, lineHeight);
+    }
+
+    public GUILabel(VariablePosition position, String text, BitmapFont font, int[] colour) {
+        positionCalculator = position;
+        xPos = position.getX();
+        yPos = position.getY();
+        this.lineHeight = position.getHeight();
+        this.text = text;
+        this.font = font;
+        this.colour = colour;
 
         layout.set(font, text, lineHeight);
     }
@@ -34,12 +71,17 @@ public class GUILabel extends GUIElement {
 
     @Override
     public void render(Window w) {
+        w.draw.color(colour[0], colour[1], colour[2], colour[3]);
         w.draw.text(xPos, yPos, lineHeight, text, font);
     }
 
     @Override
     public void resize(int width, int height) {
-
+        if (positionCalculator == null) return;
+        positionCalculator.resize(width, height);
+        xPos = positionCalculator.getX();
+        yPos = positionCalculator.getY();
+        lineHeight = positionCalculator.getHeight();
     }
 
     @Override
