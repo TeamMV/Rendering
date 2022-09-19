@@ -2,12 +2,13 @@ package dev.mv.vgui;
 
 import dev.mv.vrender.utils.VariablePosition;
 import dev.mv.vrender.window.Window;
+import lombok.Getter;
 import lombok.Setter;
 
 public abstract class GUIElement {
 
     protected int xPos = -1, yPos = -1;
-    @Setter
+    @Setter @Getter
     protected String id;
     protected VariablePosition positionCalculator;
 
