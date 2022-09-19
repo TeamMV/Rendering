@@ -5,6 +5,7 @@ import dev.mv.vrender.input.InputCore;
 import dev.mv.vrender.render.Draw;
 import dev.mv.vrender.text.FontHolder;
 import dev.mv.vrender.utils.DefaultTextures;
+import dev.mv.vrender.window.screen.Screen;
 import lombok.Getter;
 import lombok.Setter;
 import org.joml.Vector2f;
@@ -293,7 +294,6 @@ public class Window {
             return;
         }
         activeScreen = screen;
-        activeScreen.onActivation(this);
     }
 
     public void changeCurrentContext(long windowId) {

@@ -1,14 +1,14 @@
-package dev.mv.vrender.window;
+package dev.mv.vrender.window.screen;
 
 import dev.mv.vgui.GUI;
 import dev.mv.vrender.render.Draw;
+import dev.mv.vrender.window.Window;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 
 public abstract class Screen {
-
-    protected ArrayList<GUI> guis = new ArrayList<GUI>();
-
     private int lastMods = -1;
     private int lastButton = -1;
     private int lastAction = 0;
@@ -16,11 +16,17 @@ public abstract class Screen {
     private boolean mouseDown = false, keyHeld = false;
     private int mouseX = 0, mouseY = 0;
 
-    public abstract void render(Window w);
+    @Getter
+    @Setter
+    private LayoutInflater inflater;
 
-    public void renderGUI(Window w) {
+    public abstract void onCreate(LayoutInflater inflater);
+    public abstract void renderBefore(Window w);
+    public abstract void renderAfter(Window w);
+
+    private void renderGUI(Window w) {
         w.draw.mode(Draw.CAMERA_STATIC);
-        for (GUI gui : guis) {
+        for (GUI gui : inflater.openGuis) {
             if (gui.isOpen()) {
                 gui.render(w);
             }
@@ -28,14 +34,10 @@ public abstract class Screen {
         w.draw.mode(Draw.CAMERA_DYNAMIC);
     }
 
-    public void addGUI(GUI gui) {
-        this.guis.add(gui);
-    }
-
-    public void removeGUI(GUI gui) {
-        int i = guis.indexOf(gui);
-        if (i == -1) return;
-        guis.remove(i);
+    public void render(Window w){
+        renderBefore(w);
+        renderGUI(w);
+        renderAfter(w);
     }
 
     public void onMouseAction(int button, int action, int mods) {
@@ -50,14 +52,14 @@ public abstract class Screen {
         }
 
         if (action == 1) {
-            for (GUI gui : guis) {
+            for (GUI gui : inflater.openGuis) {
                 if (gui.isOpen()) {
                     gui.click(mouseX, mouseY, button, mods);
                 }
             }
             onMouseClick(mouseX, mouseY, button, mods);
         } else if (action == 0) {
-            for (GUI gui : guis) {
+            for (GUI gui : inflater.openGuis) {
                 if (gui.isOpen()) {
                     gui.release(mouseX, mouseY, mods);
                 }
@@ -70,7 +72,7 @@ public abstract class Screen {
     }
 
     public void onScroll(int x, int y) {
-        for (GUI gui : guis) {
+        for (GUI gui : inflater.openGuis) {
             if (gui.isOpen()) {
                 gui.scroll(x, y);
             }
@@ -83,7 +85,7 @@ public abstract class Screen {
         mouseY = y;
 
         if (mouseDown) {
-            for (GUI gui : guis) {
+            for (GUI gui : inflater.openGuis) {
                 if (gui.isOpen()) {
                     gui.drag(x, y, lastButton, lastMods);
                 }
@@ -92,25 +94,25 @@ public abstract class Screen {
         }
     }
 
-    protected void resizeGUI(int width, int height) {
-        for (GUI gui : guis) {
+    private void resizeGUI(int width, int height) {
+        for (GUI gui : inflater.guis.values()) {
             gui.resize(width, height);
         }
     }
 
     protected void guiKeyTyped(char c) {
-        for (GUI gui : guis) {
+        for (GUI gui : inflater.openGuis) {
             gui.keyTyped(c);
         }
     }
 
-    protected void typed(char c) {
+    public void typed(char c) {
         keyTyped(c);
         guiKeyTyped(c);
     }
 
     public void closeAllGUIs() {
-        for (GUI gui : guis) {
+        for (GUI gui : inflater.openGuis) {
             gui.close();
         }
     }
@@ -136,6 +138,4 @@ public abstract class Screen {
     public abstract void onMouseRelease(int x, int y, int button, int mods);
 
     public abstract void onMouseScroll(int x, int y);
-
-    public abstract void onActivation(Window w);
 }

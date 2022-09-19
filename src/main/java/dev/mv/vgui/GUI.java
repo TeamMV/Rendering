@@ -228,4 +228,15 @@ public class GUI {
             e.created();
         }
     }
+
+    @Override
+    public boolean equals(Object gui){
+        if(gui instanceof GUI){
+            if(this.getName().equals(((GUI) gui).getName())){
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
