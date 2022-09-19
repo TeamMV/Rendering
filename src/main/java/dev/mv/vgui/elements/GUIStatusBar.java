@@ -13,6 +13,7 @@ public class GUIStatusBar extends GUIElement {
     @Getter
     private int maxValue, currentValue;
     private int[] color;
+    private Consumer<GUIStatusBar> createdTask = null;
 
     public GUIStatusBar(VariablePosition position, int maxValue, int[] color) {
         this(position.getX(), position.getY(), position.getWidth(), position.getHeight(), maxValue, color);
@@ -90,8 +91,6 @@ public class GUIStatusBar extends GUIElement {
     public int getWidth() {
         return width;
     }
-
-    private Consumer<GUIStatusBar> createdTask = null;
 
     public void onCreate(Consumer<GUIStatusBar> task) {
         this.createdTask = task;

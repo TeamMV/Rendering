@@ -17,6 +17,7 @@ public class GUILabel extends GUIElement {
     private BitmapFont font;
 
     private int[] colour;
+    private Consumer<GUILabel> createdTask = null;
 
     public GUILabel(int x, int y, int lineHeight, String text, BitmapFont font) {
         xPos = x;
@@ -109,8 +110,6 @@ public class GUILabel extends GUIElement {
     public void setX(int x) {
         xPos = x;
     }
-
-    private Consumer<GUILabel> createdTask = null;
 
     public void onCreate(Consumer<GUILabel> task) {
         this.createdTask = task;

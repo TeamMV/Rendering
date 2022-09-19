@@ -3,7 +3,6 @@ package dev.mv.vgui.elements;
 import dev.mv.vgui.Clickable;
 import dev.mv.vgui.GUIElement;
 import dev.mv.vgui.elements.listeners.ClickListener;
-import dev.mv.vgui.elements.window.layout.HorizontalGUILayout;
 import dev.mv.vrender.text.BitmapFont;
 import dev.mv.vrender.text.SizeLayout;
 import dev.mv.vrender.utils.VariablePosition;
@@ -22,6 +21,7 @@ public class GUIButton extends GUIElement implements Clickable {
     private SizeLayout layout;
 
     private boolean textWidth = false;
+    private Consumer<GUIButton> createdTask = null;
 
     public GUIButton(int x, int y, boolean centerX, int height, String text, BitmapFont font, ClickListener listner) {
         layout = new SizeLayout(font, text, height - height / 5);
@@ -120,7 +120,7 @@ public class GUIButton extends GUIElement implements Clickable {
 
     @Override
     public void resize(int width, int height) {
-        if (positionCalculator == null) return; 
+        if (positionCalculator == null) return;
         positionCalculator.resize(width, height);
         xPos = positionCalculator.getX();
         yPos = positionCalculator.getY();
@@ -158,8 +158,6 @@ public class GUIButton extends GUIElement implements Clickable {
     public void release(int x, int y, int mods) {
 
     }
-
-    private Consumer<GUIButton> createdTask = null;
 
     public void onCreate(Consumer<GUIButton> task) {
         this.createdTask = task;

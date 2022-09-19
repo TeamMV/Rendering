@@ -4,8 +4,6 @@ import dev.mv.vrender.utils.VariablePosition;
 import dev.mv.vrender.window.Window;
 import lombok.Setter;
 
-import java.util.function.Consumer;
-
 public abstract class GUIElement {
 
     protected int xPos = -1, yPos = -1;

@@ -46,6 +46,12 @@ public class SizeLayout {
         return (int) (font.getDefaultHeight() * multiplier);
     }
 
+    public SizeLayout setHeight(int height) {
+        this.height = height;
+        calculate();
+        return this;
+    }
+
     public int getHeight(char c) {
         return (int) (font.getHeight(c) * multiplier);
     }
@@ -71,12 +77,6 @@ public class SizeLayout {
         this.text = text;
         this.height = font.getDefaultHeight();
         this.multiplier = (float) height / (float) font.getDefaultHeight();
-        return this;
-    }
-
-    public SizeLayout setHeight(int height) {
-        this.height = height;
-        calculate();
         return this;
     }
 

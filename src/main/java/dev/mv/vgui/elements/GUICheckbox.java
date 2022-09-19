@@ -3,7 +3,6 @@ package dev.mv.vgui.elements;
 import dev.mv.vgui.Clickable;
 import dev.mv.vgui.GUIElement;
 import dev.mv.vgui.elements.listeners.ClickListener;
-import dev.mv.vgui.elements.window.layout.HorizontalGUILayout;
 import dev.mv.vrender.text.BitmapFont;
 import dev.mv.vrender.utils.DefaultTextures;
 import dev.mv.vrender.utils.VariablePosition;
@@ -19,6 +18,7 @@ public class GUICheckbox extends GUIElement implements Clickable {
     private boolean enabled = false;
     private ClickListener listener;
     private GUILabel label;
+    private Consumer<GUICheckbox> createdTask = null;
 
     public GUICheckbox(VariablePosition position, String text, BitmapFont font, ClickListener listener) {
         this(position.getX(), position.getY(), position.getWidth(), text, font, listener);
@@ -117,8 +117,6 @@ public class GUICheckbox extends GUIElement implements Clickable {
     public void release(int x, int y, int mods) {
 
     }
-
-    private Consumer<GUICheckbox> createdTask = null;
 
     public void onCreate(Consumer<GUICheckbox> task) {
         this.createdTask = task;

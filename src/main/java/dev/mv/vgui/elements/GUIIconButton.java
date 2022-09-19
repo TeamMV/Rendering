@@ -3,7 +3,6 @@ package dev.mv.vgui.elements;
 import dev.mv.vgui.Clickable;
 import dev.mv.vgui.GUIElement;
 import dev.mv.vgui.elements.listeners.ClickListener;
-import dev.mv.vgui.elements.window.layout.HorizontalGUILayout;
 import dev.mv.vrender.texture.Texture;
 import dev.mv.vrender.texture.TextureRegion;
 import dev.mv.vrender.utils.VariablePosition;
@@ -19,6 +18,7 @@ public class GUIIconButton extends GUIElement implements Clickable {
     private ClickListener listener;
 
     private boolean highlightImage;
+    private Consumer<GUIIconButton> createdTask = null;
 
     public GUIIconButton(VariablePosition position, Texture tex, boolean highlightImage, ClickListener listner) {
         this(position.getX(), position.getY(), position.getWidth(), position.getHeight(), tex, highlightImage, listner);
@@ -117,8 +117,6 @@ public class GUIIconButton extends GUIElement implements Clickable {
     public void release(int x, int y, int mods) {
 
     }
-
-    private Consumer<GUIIconButton> createdTask = null;
 
     public void onCreate(Consumer<GUIIconButton> task) {
         this.createdTask = task;

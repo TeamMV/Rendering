@@ -1,11 +1,8 @@
 package dev.mv.vgui.elements;
 
 import dev.mv.vgui.GUI;
-import dev.mv.vgui.elements.window.layout.HorizontalGUILayout;
 import dev.mv.vrender.utils.DefaultTextures;
 import dev.mv.vrender.utils.VariablePosition;
-
-import java.util.function.Consumer;
 
 public class GUICloseButton extends GUIIconButton {
     public GUICloseButton(VariablePosition position, GUI gui, GUI shouldOpenOnClose) {

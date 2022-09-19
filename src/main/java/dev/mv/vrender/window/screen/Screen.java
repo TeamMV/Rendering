@@ -6,8 +6,6 @@ import dev.mv.vrender.window.Window;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
-
 public abstract class Screen {
     private int lastMods = -1;
     private int lastButton = -1;
@@ -21,7 +19,9 @@ public abstract class Screen {
     private LayoutInflater inflater;
 
     public abstract void onCreate(LayoutInflater inflater);
+
     public abstract void renderBefore(Window w);
+
     public abstract void renderAfter(Window w);
 
     private void renderGUI(Window w) {
@@ -34,7 +34,7 @@ public abstract class Screen {
         w.draw.mode(Draw.CAMERA_DYNAMIC);
     }
 
-    public void render(Window w){
+    public void render(Window w) {
         renderBefore(w);
         renderGUI(w);
         renderAfter(w);

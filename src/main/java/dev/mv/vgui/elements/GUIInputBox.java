@@ -27,6 +27,7 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
 
     private SizeLayout layout;
     private BitmapFont font;
+    private Consumer<GUIInputBox> createdTask = null;
 
     public GUIInputBox(int x, int y, int width, int height, String placeholder, BitmapFont font) {
         this(x, y, width, height, placeholder, font, -1);
@@ -128,7 +129,7 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
         this.height = positionCalculator.getHeight();
         layout.setHeight(this.height - this.height / 5);
         label.setX(xPos + 20);
-        label.setY(yPos + (height / 2)  - (layout.getHeight('e') / 2));
+        label.setY(yPos + (height / 2) - (layout.getHeight('e') / 2));
         label.setHeight(this.height - this.height / 5);
     }
 
@@ -244,8 +245,6 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
         textWidth = layout.getWidth(label.getText());
         if (isPlaceholder) label.setText(placeholder);
     }
-
-    private Consumer<GUIInputBox> createdTask = null;
 
     public void onCreate(Consumer<GUIInputBox> task) {
         this.createdTask = task;

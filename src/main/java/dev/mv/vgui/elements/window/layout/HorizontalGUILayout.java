@@ -22,6 +22,7 @@ public class HorizontalGUILayout extends GUIElement implements Clickable, Typeab
 
     private Window centreScreen = null;
     private GUI centreWindow = null;
+    private Consumer<HorizontalGUILayout> createdTask = null;
 
     public HorizontalGUILayout(VariablePosition position) {
         this(position.getX(), position.getY());
@@ -223,14 +224,6 @@ public class HorizontalGUILayout extends GUIElement implements Clickable, Typeab
         }
     }
 
-    public enum Alignment {
-        TOP,
-        CENTER,
-        BOTTOM
-    }
-
-    private Consumer<HorizontalGUILayout> createdTask = null;
-
     public void onCreate(Consumer<HorizontalGUILayout> task) {
         this.createdTask = task;
     }
@@ -239,5 +232,11 @@ public class HorizontalGUILayout extends GUIElement implements Clickable, Typeab
     public void created() {
         if (createdTask == null) return;
         createdTask.accept(this);
+    }
+
+    public enum Alignment {
+        TOP,
+        CENTER,
+        BOTTOM
     }
 }

@@ -21,6 +21,7 @@ public class GUITabList extends GUIElement implements Clickable, Typeable, Scrol
     private BitmapFont font;
 
     private int selected;
+    private Consumer<GUITabList> createdTask = null;
 
     public GUITabList(VariablePosition position, int defaultSelection, BitmapFont font) {
         this(position.getX(), position.getY(), defaultSelection, font);
@@ -179,15 +180,13 @@ public class GUITabList extends GUIElement implements Clickable, Typeable, Scrol
         return tabs.size();
     }
 
-    public void setSelectedTab(int selectedTab) {
-        selected = selectedTab - 1;
-    }
-
     public int getSelectedTab() {
         return selected;
     }
 
-    private Consumer<GUITabList> createdTask = null;
+    public void setSelectedTab(int selectedTab) {
+        selected = selectedTab - 1;
+    }
 
     public void onCreate(Consumer<GUITabList> task) {
         this.createdTask = task;

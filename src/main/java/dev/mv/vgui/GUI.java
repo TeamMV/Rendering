@@ -222,7 +222,7 @@ public class GUI {
         }
         return null;
     }
-    
+
     public void created() {
         for (GUIElement e : elements) {
             e.created();
@@ -230,9 +230,9 @@ public class GUI {
     }
 
     @Override
-    public boolean equals(Object gui){
-        if(gui instanceof GUI){
-            if(this.getName().equals(((GUI) gui).getName())){
+    public boolean equals(Object gui) {
+        if (gui instanceof GUI) {
+            if (this.getName().equals(((GUI) gui).getName())) {
                 return true;
             }
         }

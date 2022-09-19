@@ -18,6 +18,7 @@ public class GUISlider extends GUIElement implements Clickable, Draggable {
     private float selectorX;
     private boolean startDrag = false, removeStripes = false;
     private boolean renderExtension = true;
+    private Consumer<GUISlider> createdTask = null;
 
     public GUISlider(int x, int y, int width, int steps, int defaultSelection) {
         xPos = x;
@@ -170,8 +171,6 @@ public class GUISlider extends GUIElement implements Clickable, Draggable {
             }
         }
     }
-
-    private Consumer<GUISlider> createdTask = null;
 
     public void onCreate(Consumer<GUISlider> task) {
         this.createdTask = task;

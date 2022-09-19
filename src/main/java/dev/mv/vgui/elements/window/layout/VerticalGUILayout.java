@@ -22,6 +22,7 @@ public class VerticalGUILayout extends GUIElement implements Clickable, Typeable
 
     private Window centreScreen = null;
     private GUI centreWindow = null;
+    private Consumer<VerticalGUILayout> createdTask = null;
 
     public VerticalGUILayout(VariablePosition position) {
         this(position.getX(), position.getY());
@@ -223,14 +224,6 @@ public class VerticalGUILayout extends GUIElement implements Clickable, Typeable
         }
     }
 
-    public enum Alignment {
-        LEFT,
-        CENTER,
-        RIGHT
-    }
-
-    private Consumer<VerticalGUILayout> createdTask = null;
-
     public void onCreate(Consumer<VerticalGUILayout> task) {
         this.createdTask = task;
     }
@@ -239,6 +232,12 @@ public class VerticalGUILayout extends GUIElement implements Clickable, Typeable
     public void created() {
         if (createdTask == null) return;
         createdTask.accept(this);
+    }
+
+    public enum Alignment {
+        LEFT,
+        CENTER,
+        RIGHT
     }
 
 }

@@ -12,10 +12,10 @@ public class LayoutBundle {
     @Getter
     private GUI defaultGUI;
 
-    public LayoutBundle(GUI defaultGUI, GUI... guis){
+    public LayoutBundle(GUI defaultGUI, GUI... guis) {
         this.guis = new ArrayList<>();
         this.defaultGUI = defaultGUI;
-        for(GUI gui : guis){
+        for (GUI gui : guis) {
             this.guis.add(gui);
         }
     }
