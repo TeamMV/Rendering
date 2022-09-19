@@ -3,6 +3,8 @@ package dev.mv.vgui;
 import dev.mv.vgui.elements.GUITabList;
 import dev.mv.vgui.elements.Scrollable;
 import dev.mv.vgui.elements.window.GUIWindow;
+import dev.mv.vgui.elements.window.layout.HorizontalGUILayout;
+import dev.mv.vgui.elements.window.layout.VerticalGUILayout;
 import dev.mv.vrender.window.Window;
 import lombok.Getter;
 
@@ -206,9 +208,27 @@ public class GUI {
     public <T> T findElementById(String id, Class<T> destType) {
         if (id == null) return null;
         for (GUIElement e : elements) {
+            if (e instanceof VerticalGUILayout) {
+                T element = ((VerticalGUILayout) e).findElementById(id, destType);
+                if (element != null) {
+                    return element;
+                }
+            }
+            if (e instanceof HorizontalGUILayout) {
+                T element = ((HorizontalGUILayout) e).findElementById(id, destType);
+                if (element != null) {
+                    return element;
+                }
+            }
+            if (e instanceof GUITabList) {
+                T element = ((GUITabList) e).findElementById(id, destType);
+                if (element != null) {
+                    return element;
+                }
+            }
             if (e.getClass().equals(destType)) {
-                if (e.id == null) continue;
-                if (e.id.equals(id)) {
+                if (e.getId() == null) continue;
+                if (e.getId().equals(id)) {
                     return (T) e;
                 }
             }
@@ -219,8 +239,26 @@ public class GUI {
     public <T> T findElementById(String id) {
         if (id == null) return null;
         for (GUIElement e : elements) {
-            if (e.id == null) continue;
-            if (e.id.equals(id)) {
+            if (e instanceof VerticalGUILayout) {
+                T element = ((VerticalGUILayout) e).<T>findElementById(id);
+                if (element != null) {
+                    return element;
+                }
+            }
+            if (e instanceof HorizontalGUILayout) {
+                T element = ((HorizontalGUILayout) e).<T>findElementById(id);
+                if (element != null) {
+                    return element;
+                }
+            }
+            if (e instanceof GUITabList) {
+                T element = ((GUITabList) e).<T>findElementById(id);
+                if (element != null) {
+                    return element;
+                }
+            }
+            if (e.getId() == null) continue;
+            if (e.getId().equals(id)) {
                 return (T) e;
             }
         }

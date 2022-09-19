@@ -4,6 +4,8 @@ import dev.mv.vgui.Clickable;
 import dev.mv.vgui.Draggable;
 import dev.mv.vgui.GUIElement;
 import dev.mv.vgui.Typeable;
+import dev.mv.vgui.elements.window.layout.HorizontalGUILayout;
+import dev.mv.vgui.elements.window.layout.VerticalGUILayout;
 import dev.mv.vrender.text.BitmapFont;
 import dev.mv.vrender.text.SizeLayout;
 import dev.mv.vrender.utils.VariablePosition;
@@ -196,5 +198,25 @@ public class GUITabList extends GUIElement implements Clickable, Typeable, Scrol
     public void created() {
         if (createdTask == null) return;
         createdTask.accept(this);
+    }
+
+    public <T> T findElementById(String id, Class<T> destType) {
+        for (GUITab tab : tabs) {
+            T element = tab.findElementById(id, destType);
+            if (element != null) {
+                return element;
+            }
+        }
+        return null;
+    }
+
+    public <T> T findElementById(String id) {
+        for (GUITab tab : tabs) {
+            T element = tab.<T>findElementById(id);
+            if (element != null) {
+                return element;
+            }
+        }
+        return null;
     }
 }
