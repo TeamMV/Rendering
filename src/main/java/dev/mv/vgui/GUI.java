@@ -204,8 +204,10 @@ public class GUI {
     }
 
     public <T> T findElementById(String id, Class<T> destType) {
+        if (id == null) return null;
         for (GUIElement e : elements) {
             if (e.getClass().equals(destType)) {
+                if (e.id == null) continue;
                 if (e.id.equals(id)) {
                     return (T) e;
                 }
@@ -215,7 +217,9 @@ public class GUI {
     }
 
     public <T> T findElementById(String id) {
+        if (id == null) return null;
         for (GUIElement e : elements) {
+            if (e.id == null) continue;
             if (e.id.equals(id)) {
                 return (T) e;
             }
