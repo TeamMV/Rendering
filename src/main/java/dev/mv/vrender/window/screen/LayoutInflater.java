@@ -42,11 +42,16 @@ public class LayoutInflater {
     }
 
     public LayoutInflater swap(String name) {
+        List<GUI> toClose = new ArrayList<>();
         if (openGuis.size() > 0) {
             for (GUI gui : openGuis) {
-                close.accept(gui);
+                toClose.add(gui);
             }
         }
+        for (GUI gui : toClose) {
+            close.accept(gui);
+        }
+        toClose.clear();
         open.accept(guis.get(name));
 
         return this;
@@ -59,18 +64,27 @@ public class LayoutInflater {
     }
 
     public LayoutInflater close(String name) {
+        GUI toClose = null;
         for (GUI gui : openGuis) {
             if (gui.getName().equals(name)) {
-                close.accept(gui);
-                return this;
+                toClose = gui;
             }
+        }
+
+        if (toClose != null) {
+            close.accept(toClose);
         }
 
         return this;
     }
 
     public LayoutInflater closeAll() {
+        List<GUI> toClose = new ArrayList<>();
         for (GUI gui : openGuis) {
+            toClose.add(gui);
+        }
+
+        for (GUI gui : toClose) {
             close.accept(gui);
         }
 
