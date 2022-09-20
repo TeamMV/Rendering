@@ -220,6 +220,7 @@ public class Window {
                     activeScreen.render(this);
                 }
                 draw.draw();
+                mainClass.renderAfter(this);
                 glfwSwapBuffers(window);
                 frames++;
                 deltaF--;
