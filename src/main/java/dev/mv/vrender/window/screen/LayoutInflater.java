@@ -1,6 +1,7 @@
 package dev.mv.vrender.window.screen;
 
 import dev.mv.vgui.GUI;
+import dev.mv.vrender.window.Window;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,19 +15,24 @@ public class LayoutInflater {
     private GUI defaultGui;
     private Screen screen;
 
+    private Window window;
+
     private Consumer<GUI> open = (t) -> {
         t.open();
         openGuis.add(t);
+        t.setInflater(this);
+        t.resize(window.getWidth(), window.getHeight());
     };
     private Consumer<GUI> close = (t) -> {
         t.close();
         openGuis.remove(t);
     };
 
-    public LayoutInflater(Screen screen) {
+    public LayoutInflater(Screen screen, Window window) {
         this.guis = new HashMap<>();
         this.openGuis = new ArrayList<>();
         this.screen = screen;
+        this.window = window;
     }
 
     public LayoutInflater inflate(LayoutBundle layout) {

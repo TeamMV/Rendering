@@ -1,5 +1,6 @@
 package dev.mv.vrender.shader;
 
+import dev.mv.vrender.exception.ExceptionHandler;
 import lombok.Getter;
 import lombok.Setter;
 import org.joml.Matrix4f;
@@ -33,29 +34,10 @@ public class Shader {
         try {
             return new String(Shader.class.getResourceAsStream(fileStream).readAllBytes());
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            ExceptionHandler.throwNew(e);
         }
-        /*
-        if (!(new File(file).exists())) {
-            System.out.println("Could not load file: \"" + file + "\"!");
-            return null;
-        }
-        StringBuilder string = new StringBuilder();
-        BufferedReader reader;
-        try {
-            reader = new BufferedReader(new FileReader(file));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                string.append(line);
-                string.append("\n");
-            }
-            reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        //System.out.println(string.toString());
-        return string.toString();
-        */
+
+        return null;
     }
 
     public void make() {

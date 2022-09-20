@@ -50,6 +50,7 @@ public class Window {
     private double deltaF;
     private int oW, oH;
     private int oX, oY;
+    private boolean running = true;
 
     /**
      * Creates a new Window object with
@@ -190,63 +191,47 @@ public class Window {
 
         // Run the rendering loop until the user has attempted to close
         // the window or has pressed the ESCAPE key.
-        while (!glfwWindowShouldClose(window)) {
 
-            long initialTime = System.nanoTime();
-            final double timeU = 1000000000 / UPS;
-            final double timeF = 1000000000 / FPS;
-            double deltaU = 0, deltaF = 0;
-            int frames = 0, ticks = 0;
-            long timer = System.currentTimeMillis();
-
-            while (!glfwWindowShouldClose(window)) {
-
-                long currentTime = System.nanoTime();
-                deltaU += (currentTime - initialTime) / timeU;
-                deltaF += (currentTime - initialTime) / timeF;
-                initialTime = currentTime;
-                glfwPollEvents();
-
-                this.deltaF = deltaF;
-
-
-                if (deltaU >= 1) {
-                    mainClass.update(this);
-
-                    if (activeScreen != null) {
-                        activeScreen.update(this);
-                    }
-
-                    ticks++;
-                    deltaU--;
+        long initialTime = System.nanoTime();
+        final double timeU = 1000000000 / UPS;
+        final double timeF = 1000000000 / FPS;
+        double deltaU = 0, deltaF = 0;
+        int frames = 0, ticks = 0;
+        long timer = System.currentTimeMillis();
+        while (!glfwWindowShouldClose(window) && running) {
+            long currentTime = System.nanoTime();
+            deltaU += (currentTime - initialTime) / timeU;
+            deltaF += (currentTime - initialTime) / timeF;
+            initialTime = currentTime;
+            glfwPollEvents();
+            this.deltaF = deltaF;
+            if (deltaU >= 1) {
+                mainClass.update(this);
+                if (activeScreen != null) {
+                    activeScreen.update(this);
                 }
-
-                if (deltaF >= 1) {
-                    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-
-                    mainClass.render(this);
-
-                    if (activeScreen != null) {
-                        activeScreen.render(this);
-                    }
-
-                    draw.draw();
-
-                    glfwSwapBuffers(window);
-                    frames++;
-                    deltaF--;
+                ticks++;
+                deltaU--;
+            }
+            if (deltaF >= 1) {
+                glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+                mainClass.render(this);
+                if (activeScreen != null) {
+                    activeScreen.render(this);
                 }
-
-                if (System.currentTimeMillis() - timer > 1000) {
-                    if (true) {
-                        currentUPS = ticks;
-                        currentFPS = frames;
-                    }
-                    frames = 0;
-                    ticks = 0;
-                    timer += 1000;
+                draw.draw();
+                glfwSwapBuffers(window);
+                frames++;
+                deltaF--;
+            }
+            if (System.currentTimeMillis() - timer > 1000) {
+                if (true) {
+                    currentUPS = ticks;
+                    currentFPS = frames;
                 }
+                frames = 0;
+                ticks = 0;
+                timer += 1000;
             }
         }
     }
@@ -299,6 +284,11 @@ public class Window {
     public void changeCurrentContext(long windowId) {
         glfwMakeContextCurrent(windowId);
         window = windowId;
+    }
+
+    public void close(int code){
+        running = false;
+        System.exit(code);
     }
 
     public void setFullscreen(boolean fullscreen) {

@@ -6,7 +6,9 @@ import dev.mv.vgui.elements.window.GUIWindow;
 import dev.mv.vgui.elements.window.layout.HorizontalGUILayout;
 import dev.mv.vgui.elements.window.layout.VerticalGUILayout;
 import dev.mv.vrender.window.Window;
+import dev.mv.vrender.window.screen.LayoutInflater;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,9 @@ public class GUI {
     private boolean used = false;
     @Getter
     private GUIWindow guiWindow = null;
+
+    @Getter @Setter
+    private LayoutInflater inflater;
 
 
     public GUI(String name) {

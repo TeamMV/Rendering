@@ -1,5 +1,6 @@
 package dev.mv.vrender.render;
 
+import dev.mv.vrender.exception.ExceptionHandler;
 import dev.mv.vrender.texture.Texture;
 import dev.mv.vrender.window.Window;
 
@@ -16,7 +17,7 @@ public class BatchController {
     public static void init(Window window, int batchLimit) {
 
         if (batchLimit < 14) {
-            throw new IllegalArgumentException("Batch limit of " + batchLimit + " is too small, at least 14 is required!");
+            ExceptionHandler.throwNew(new IllegalArgumentException("Batch limit of " + batchLimit + " is too small, at least 14 is required!"));
         }
 
         win = window;

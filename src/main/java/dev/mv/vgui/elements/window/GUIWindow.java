@@ -1,6 +1,7 @@
 package dev.mv.vgui.elements.window;
 
 import dev.mv.vgui.GUI;
+import dev.mv.vgui.GUIRegistry;
 import dev.mv.vgui.elements.GUICloseButton;
 import dev.mv.vrender.utils.VariablePosition;
 import dev.mv.vrender.window.Window;
@@ -18,7 +19,7 @@ public class GUIWindow {
 
     private VariablePosition positionCalculator = null;
 
-    public GUIWindow(VariablePosition position, GUI gui, GUI shouldOpenOnClose) {
+    public GUIWindow(VariablePosition position, GUI gui, Runnable onClose) {
         positionCalculator = position;
         x = position.getX();
         y = position.getY();
@@ -26,38 +27,17 @@ public class GUIWindow {
         height = position.getHeight();
         this.gui = gui;
 
-        button = new GUICloseButton(x + width - 64 - 42, y + height - 64 - 10, 64, 64, gui, shouldOpenOnClose);
+        button = new GUICloseButton(x + width - 64 - 42, y + height - 64 - 10, 64, 64, gui, onClose);
     }
 
-    public GUIWindow(int x, int y, int width, int height, GUI gui, GUI shouldOpenOnClose) {
+    public GUIWindow(int x, int y, int width, int height, GUI gui, Runnable onClose) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.gui = gui;
 
-        button = new GUICloseButton(x + width - 64 - 42, y + height - 64 - 10, 64, 64, gui, shouldOpenOnClose);
-    }
-
-    public GUIWindow(VariablePosition position, GUI gui, Runnable shouldOpenOnClose) {
-        positionCalculator = position;
-        x = position.getX();
-        y = position.getY();
-        width = position.getWidth();
-        height = position.getHeight();
-        this.gui = gui;
-
-        button = new GUICloseButton(x + width - 64 - 42, y + height - 64 - 10, 64, 64, gui, shouldOpenOnClose);
-    }
-
-    public GUIWindow(int x, int y, int width, int height, GUI gui, Runnable shouldOpenOnClose) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-        this.gui = gui;
-
-        button = new GUICloseButton(x + width - 64 - 42, y + height - 64 - 10, 64, 64, gui, shouldOpenOnClose);
+        button = new GUICloseButton(x + width - 64 - 42, y + height - 64 - 10, 64, 64, gui, onClose);
     }
 
     public void render(Window w) {

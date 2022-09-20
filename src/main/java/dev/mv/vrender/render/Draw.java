@@ -1,6 +1,7 @@
 package dev.mv.vrender.render;
 
 import dev.mv.vrender.animation.Animation;
+import dev.mv.vrender.exception.ExceptionHandler;
 import dev.mv.vrender.text.BitmapFont;
 import dev.mv.vrender.text.SizeLayout;
 import dev.mv.vrender.texture.Texture;
@@ -32,7 +33,7 @@ public class Draw {
 
     public void mode(int mode) {
         if (mode < 0 && mode > 1) {
-            throw new IllegalArgumentException("Camera mode cannot be smaller than 0 or bigger than 1!");
+            ExceptionHandler.throwNew(new IllegalArgumentException("Camera mode cannot be smaller than 0 or bigger than 1!"));
         }
 
         currentCamMode = (float) mode;
