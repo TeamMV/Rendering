@@ -235,12 +235,6 @@ public class VerticalGUILayout extends GUIElement implements Clickable, Typeable
         createdTask.accept(this);
     }
 
-    public enum Alignment {
-        LEFT,
-        CENTER,
-        RIGHT
-    }
-
     public <T> T findElementById(String id, Class<T> destType) {
         if (id == null) return null;
         for (GUIElement e : items) {
@@ -299,6 +293,12 @@ public class VerticalGUILayout extends GUIElement implements Clickable, Typeable
             }
         }
         return null;
+    }
+
+    public enum Alignment {
+        LEFT,
+        CENTER,
+        RIGHT
     }
 
 }

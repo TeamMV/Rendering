@@ -3,9 +3,6 @@ package dev.mv.vgui.elements;
 import dev.mv.vgui.GUI;
 import dev.mv.vrender.utils.DefaultTextures;
 import dev.mv.vrender.utils.VariablePosition;
-import dev.mv.vrender.window.screen.LayoutInflater;
-
-import java.util.function.Consumer;
 
 public class GUICloseButton extends GUIIconButton {
     public GUICloseButton(VariablePosition position, GUI gui, Runnable onClose) {

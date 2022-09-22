@@ -1,6 +1,9 @@
 package dev.mv.vrender.utils;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Spliterator;
 import java.util.function.Consumer;
 
 public class ConsumableSystem<T extends Consumable> implements Iterable<T> {
@@ -9,30 +12,30 @@ public class ConsumableSystem<T extends Consumable> implements Iterable<T> {
     private int modCount = 0;
     private ConsumableConsumer<T> consumer;
 
-    public ConsumableSystem(){
+    public ConsumableSystem() {
         consumer = new ConsumableConsumer<>(this);
     }
 
-    public ConsumableSystem<T> addConsumable(T c){
+    public ConsumableSystem<T> addConsumable(T c) {
         goodies.put(c.getName(), c);
         modCount++;
 
         return this;
     }
 
-    public T get(String name){
+    public T get(String name) {
         return goodies.get(name);
     }
 
-    public T[] getAll(){
+    public T[] getAll() {
         return (T[]) goodies.values().toArray(new Object[goodies.size()]);
     }
 
-    public ConsumableConsumer<T> getConsumer(){
+    public ConsumableConsumer<T> getConsumer() {
         return consumer;
     }
 
-    public T consumableAt(int index){
+    public T consumableAt(int index) {
         return goodies.get(index);
     }
 

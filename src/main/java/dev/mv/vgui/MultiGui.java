@@ -15,15 +15,15 @@ public class MultiGui {
         this.name = name;
     }
 
-    public GUI getGuiFromOpenPage(){
+    public GUI getGuiFromOpenPage() {
         return getPages().getConsumer().getConsumedConsumeable().getGui();
     }
 
-    public void gotoPage(int index){
+    public void gotoPage(int index) {
         getPages().getConsumer().consume(index);
     }
 
-    public void gotoPage(String name){
+    public void gotoPage(String name) {
         getPages().getConsumer().consume(name);
     }
 }

@@ -1,7 +1,6 @@
 package dev.mv.vgui.elements.window;
 
 import dev.mv.vgui.GUI;
-import dev.mv.vgui.GUIRegistry;
 import dev.mv.vgui.elements.GUICloseButton;
 import dev.mv.vrender.utils.VariablePosition;
 import dev.mv.vrender.window.Window;

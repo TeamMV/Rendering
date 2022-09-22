@@ -8,7 +8,8 @@ import lombok.Setter;
 public abstract class GUIElement {
 
     protected int xPos = -1, yPos = -1;
-    @Setter @Getter
+    @Setter
+    @Getter
     protected String id;
     protected VariablePosition positionCalculator;
 

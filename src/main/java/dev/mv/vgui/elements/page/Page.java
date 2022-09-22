@@ -4,28 +4,24 @@ import dev.mv.vgui.GUI;
 import dev.mv.vrender.utils.Consumable;
 import dev.mv.vrender.utils.Loopable;
 import dev.mv.vrender.window.Window;
-import dev.mv.vrender.window.screen.Screen;
 import lombok.Getter;
 
 public class Page implements Consumable, Loopable {
 
     @Getter
     private GUI gui;
-    private Screen screen;
     private String name;
 
-    public Page(Screen screen, String name){
-        this.screen = screen;
+    public Page(String name) {
         this.name = name;
     }
 
-    public Page(Screen screen, String name, GUI gui){
-        this.screen = screen;
+    public Page(String name, GUI gui) {
         this.name = name;
         this.gui = gui;
     }
 
-    public Page setGui(GUI gui){
+    public Page setGui(GUI gui) {
         this.gui = gui;
 
         return this;
@@ -57,8 +53,8 @@ public class Page implements Consumable, Loopable {
     }
 
     @Override
-    public boolean equals(Object o){
-        if(o instanceof Page page){
+    public boolean equals(Object o) {
+        if (o instanceof Page page) {
             return this.getName().equals(page.name);
         }
 

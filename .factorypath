@@ -1,0 +1,34 @@
+<factorypath>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/lwjgl/lwjgl/3.3.1/lwjgl-3.3.1.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/lwjgl/lwjgl-assimp/3.3.1/lwjgl-assimp-3.3.1.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/lwjgl/lwjgl-egl/3.3.1/lwjgl-egl-3.3.1.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/lwjgl/lwjgl-glfw/3.3.1/lwjgl-glfw-3.3.1.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/lwjgl/lwjgl-jawt/3.3.1/lwjgl-jawt-3.3.1.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/lwjgl/lwjgl-jemalloc/3.3.1/lwjgl-jemalloc-3.3.1.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/lwjgl/lwjgl-libdivide/3.3.1/lwjgl-libdivide-3.3.1.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/lwjgl/lwjgl-nanovg/3.3.1/lwjgl-nanovg-3.3.1.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/lwjgl/lwjgl-openal/3.3.1/lwjgl-openal-3.3.1.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/lwjgl/lwjgl-opencl/3.3.1/lwjgl-opencl-3.3.1.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/lwjgl/lwjgl-opengl/3.3.1/lwjgl-opengl-3.3.1.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/lwjgl/lwjgl-opengles/3.3.1/lwjgl-opengles-3.3.1.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/lwjgl/lwjgl-rpmalloc/3.3.1/lwjgl-rpmalloc-3.3.1.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/lwjgl/lwjgl-stb/3.3.1/lwjgl-stb-3.3.1.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/lwjgl/lwjgl-xxhash/3.3.1/lwjgl-xxhash-3.3.1.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/lwjgl/lwjgl/3.3.1/lwjgl-3.3.1-natives-linux.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/lwjgl/lwjgl-assimp/3.3.1/lwjgl-assimp-3.3.1-natives-linux.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/lwjgl/lwjgl-glfw/3.3.1/lwjgl-glfw-3.3.1-natives-linux.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/lwjgl/lwjgl-jemalloc/3.3.1/lwjgl-jemalloc-3.3.1-natives-linux.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/lwjgl/lwjgl-libdivide/3.3.1/lwjgl-libdivide-3.3.1-natives-linux.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/lwjgl/lwjgl-nanovg/3.3.1/lwjgl-nanovg-3.3.1-natives-linux.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/lwjgl/lwjgl-openal/3.3.1/lwjgl-openal-3.3.1-natives-linux.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/lwjgl/lwjgl-opengl/3.3.1/lwjgl-opengl-3.3.1-natives-linux.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/lwjgl/lwjgl-opengles/3.3.1/lwjgl-opengles-3.3.1-natives-linux.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/lwjgl/lwjgl-rpmalloc/3.3.1/lwjgl-rpmalloc-3.3.1-natives-linux.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/lwjgl/lwjgl-stb/3.3.1/lwjgl-stb-3.3.1-natives-linux.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/lwjgl/lwjgl-xxhash/3.3.1/lwjgl-xxhash-3.3.1-natives-linux.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/joml/joml/1.10.4/joml-1.10.4.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/com/code-disaster/steamworks4j/steamworks4j/1.9.0/steamworks4j-1.9.0.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/com/code-disaster/steamworks4j/steamworks4j-server/1.9.0/steamworks4j-server-1.9.0.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/projectlombok/lombok/1.18.24/lombok-1.18.24.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/com/1stleg/jnativehook/2.1.0/jnativehook-2.1.0.jar" enabled="true" runInBatchMode="false"/>
+</factorypath>

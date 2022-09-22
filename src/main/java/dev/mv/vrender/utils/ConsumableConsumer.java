@@ -5,16 +5,16 @@ public class ConsumableConsumer<T extends Consumable> {
     private ConsumableSystem<T> system;
     private T current;
 
-    public ConsumableConsumer(ConsumableSystem<T> system){
+    public ConsumableConsumer(ConsumableSystem<T> system) {
         this.system = system;
     }
 
-    public void consume(String name){
+    public void consume(String name) {
         current = system.get(name);
         consume(current);
     }
 
-    public void consume(int index){
+    public void consume(int index) {
         consume(system.consumableAt(index));
     }
 
@@ -22,11 +22,11 @@ public class ConsumableConsumer<T extends Consumable> {
         consumeable.OnConsume();
     }
 
-    public T getConsumedConsumeable(){
+    public T getConsumedConsumeable() {
         return current;
     }
 
-    public T getConsumeable(String name){
+    public T getConsumeable(String name) {
         return system.get(name);
     }
 

@@ -3,7 +3,6 @@ package dev.mv.vrender.window.screen;
 import dev.mv.vgui.GUI;
 import dev.mv.vgui.MultiGui;
 import dev.mv.vgui.elements.page.Page;
-import dev.mv.vrender.utils.ConsumableSystem;
 import dev.mv.vrender.window.Window;
 
 import java.util.ArrayList;
@@ -40,7 +39,7 @@ public class LayoutInflater {
 
     public LayoutInflater inflate(LayoutBundle layout) {
         for (MultiGui pageSystem : layout.getGuis()) {
-            for(Page page : pageSystem.getPages().getAll()){
+            for (Page page : pageSystem.getPages().getAll()) {
                 page.getGui().close();
             }
         }
@@ -62,7 +61,7 @@ public class LayoutInflater {
         }
         toClose.clear();
         for (MultiGui pageSystem : pageSystems) {
-            if(pageSystem.getName().equals(name)){
+            if (pageSystem.getName().equals(name)) {
                 open.accept(pageSystem);
                 break;
             }
@@ -73,7 +72,7 @@ public class LayoutInflater {
 
     public LayoutInflater open(String name) {
         for (MultiGui pageSystem : pageSystems) {
-            if(pageSystem.getName().equals(name)){
+            if (pageSystem.getName().equals(name)) {
                 open.accept(pageSystem);
                 break;
             }
@@ -110,9 +109,9 @@ public class LayoutInflater {
         return this;
     }
 
-    public LayoutInflater gotoPage(String guiName, int index){
+    public LayoutInflater gotoPage(String guiName, int index) {
         openGuis.forEach(t -> {
-            if(t.getName().equals(guiName)) {
+            if (t.getName().equals(guiName)) {
                 t.gotoPage(index);
             }
         });
@@ -120,9 +119,9 @@ public class LayoutInflater {
         return this;
     }
 
-    public LayoutInflater gotoPage(String guiName,String name){
+    public LayoutInflater gotoPage(String guiName, String name) {
         openGuis.forEach(t -> {
-            if(t.getName().equals(guiName)) {
+            if (t.getName().equals(guiName)) {
                 t.gotoPage(name);
             }
         });
@@ -134,7 +133,7 @@ public class LayoutInflater {
         return defaultSystem;
     }
 
-    public List<MultiGui> getOpenGuis(){
+    public List<MultiGui> getOpenGuis() {
         return openGuis;
     }
 
@@ -145,8 +144,8 @@ public class LayoutInflater {
     }
 
     public MultiGui get(String name) {
-        for(MultiGui pageSystem : pageSystems){
-            if(pageSystem.getName().equals(name)){
+        for (MultiGui pageSystem : pageSystems) {
+            if (pageSystem.getName().equals(name)) {
                 return pageSystem;
             }
         }

@@ -4,8 +4,6 @@ import dev.mv.vgui.Clickable;
 import dev.mv.vgui.Draggable;
 import dev.mv.vgui.GUIElement;
 import dev.mv.vgui.Typeable;
-import dev.mv.vgui.elements.window.layout.HorizontalGUILayout;
-import dev.mv.vgui.elements.window.layout.VerticalGUILayout;
 import dev.mv.vrender.text.BitmapFont;
 import dev.mv.vrender.text.SizeLayout;
 import dev.mv.vrender.utils.VariablePosition;

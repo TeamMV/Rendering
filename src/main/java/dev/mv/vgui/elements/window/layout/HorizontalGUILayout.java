@@ -235,12 +235,6 @@ public class HorizontalGUILayout extends GUIElement implements Clickable, Typeab
         createdTask.accept(this);
     }
 
-    public enum Alignment {
-        TOP,
-        CENTER,
-        BOTTOM
-    }
-
     public <T> T findElementById(String id, Class<T> destType) {
         if (id == null) return null;
         for (GUIElement e : items) {
@@ -299,6 +293,12 @@ public class HorizontalGUILayout extends GUIElement implements Clickable, Typeab
             }
         }
         return null;
+    }
+
+    public enum Alignment {
+        TOP,
+        CENTER,
+        BOTTOM
     }
 
 }

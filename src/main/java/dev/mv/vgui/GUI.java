@@ -24,7 +24,8 @@ public class GUI {
     @Getter
     private GUIWindow guiWindow = null;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private LayoutInflater inflater;
 
     public GUI(String name) {

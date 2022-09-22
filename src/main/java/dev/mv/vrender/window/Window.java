@@ -287,7 +287,7 @@ public class Window {
         window = windowId;
     }
 
-    public void close(int code){
+    public void close(int code) {
         running = false;
         System.exit(code);
     }
