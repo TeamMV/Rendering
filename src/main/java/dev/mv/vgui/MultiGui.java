@@ -19,6 +19,10 @@ public class MultiGui {
         return getPages().getConsumer().getConsumedConsumeable().getGui();
     }
 
+    public GUI getGui(String name) {
+        return getPages().get(name).getGui();
+    }
+
     public void gotoPage(int index) {
         getPages().getConsumer().consume(index);
     }
