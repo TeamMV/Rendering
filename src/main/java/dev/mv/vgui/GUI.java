@@ -27,7 +27,6 @@ public class GUI {
     @Getter @Setter
     private LayoutInflater inflater;
 
-
     public GUI(String name) {
         this(name, new GUIElement[] {});
     }

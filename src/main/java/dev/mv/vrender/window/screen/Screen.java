@@ -1,7 +1,10 @@
 package dev.mv.vrender.window.screen;
 
 import dev.mv.vgui.GUI;
+import dev.mv.vgui.MultiGui;
+import dev.mv.vgui.elements.page.Page;
 import dev.mv.vrender.render.Draw;
+import dev.mv.vrender.utils.ConsumableSystem;
 import dev.mv.vrender.window.Window;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,6 +21,8 @@ public abstract class Screen {
     @Setter
     private LayoutInflater inflater;
 
+    private ConsumableSystem<Page> pages;
+
     public abstract void onCreate(LayoutInflater inflater);
 
     public abstract void renderBefore(Window w);
@@ -26,10 +31,12 @@ public abstract class Screen {
 
     private void renderGUI(Window w) {
         w.draw.mode(Draw.CAMERA_STATIC);
-        for (GUI gui : inflater.openGuis) {
-            if (gui.isOpen()) {
-                gui.render(w);
-            }
+        for (MultiGui gui : inflater.openGuis) {
+            gui.getPages().forEach(t -> {
+               if(t.getGui().isOpen()){
+                   t.getGui().render(w);
+               }
+            });
         }
         w.draw.mode(Draw.CAMERA_DYNAMIC);
     }
@@ -52,17 +59,21 @@ public abstract class Screen {
         }
 
         if (action == 1) {
-            for (GUI gui : inflater.openGuis) {
-                if (gui.isOpen()) {
-                    gui.click(mouseX, mouseY, button, mods);
-                }
+            for (MultiGui pageSystem : inflater.openGuis) {
+                pageSystem.getPages().forEach(t -> {
+                    if(t.getGui().isOpen()){
+                        t.getGui().click(mouseX, mouseY, button, mods);
+                    }
+                });
             }
             onMouseClick(mouseX, mouseY, button, mods);
         } else if (action == 0) {
-            for (GUI gui : inflater.openGuis) {
-                if (gui.isOpen()) {
-                    gui.release(mouseX, mouseY, mods);
-                }
+            for (MultiGui pageSystem : inflater.openGuis) {
+                pageSystem.getPages().forEach(t -> {
+                    if(t.getGui().isOpen()){
+                        t.getGui().release(mouseX, mouseY, mods);
+                    }
+                });
             }
             onMouseRelease(mouseX, mouseY, button, mods);
         }
@@ -72,10 +83,12 @@ public abstract class Screen {
     }
 
     public void onScroll(int x, int y) {
-        for (GUI gui : inflater.openGuis) {
-            if (gui.isOpen()) {
-                gui.scroll(x, y);
-            }
+        for (MultiGui pageSystem : inflater.openGuis) {
+            pageSystem.getPages().forEach(t -> {
+                if(t.getGui().isOpen()){
+                    t.getGui().scroll(x, y);
+                }
+            });
         }
         onMouseScroll(x, y);
     }
@@ -85,24 +98,34 @@ public abstract class Screen {
         mouseY = y;
 
         if (mouseDown) {
-            for (GUI gui : inflater.openGuis) {
-                if (gui.isOpen()) {
-                    gui.drag(x, y, lastButton, lastMods);
-                }
+            for (MultiGui pageSystem : inflater.openGuis) {
+                pageSystem.getPages().forEach(t -> {
+                    if(t.getGui().isOpen()){
+                        t.getGui().drag(x, y, lastButton, lastMods);
+                    }
+                });
             }
             onMouseDrag(x, y, lastButton, lastMods);
         }
     }
 
     private void resizeGUI(int width, int height) {
-        for (GUI gui : inflater.guis.values()) {
-            gui.resize(width, height);
+        for (MultiGui pageSystem : inflater.openGuis) {
+            pageSystem.getPages().forEach(t -> {
+                if(t.getGui().isOpen()){
+                    t.getGui().resize(width, height);
+                }
+            });
         }
     }
 
     protected void guiKeyTyped(char c) {
-        for (GUI gui : inflater.openGuis) {
-            gui.keyTyped(c);
+        for (MultiGui pageSystem : inflater.openGuis) {
+            pageSystem.getPages().forEach(t -> {
+                if(t.getGui().isOpen()){
+                    t.getGui().keyTyped(c);
+                }
+            });
         }
     }
 
@@ -112,8 +135,10 @@ public abstract class Screen {
     }
 
     public void closeAllGUIs() {
-        for (GUI gui : inflater.openGuis) {
-            gui.close();
+        for (MultiGui pageSystem : inflater.openGuis) {
+            pageSystem.getPages().forEach(t -> {
+                t.getGui().close();
+            });
         }
     }
 

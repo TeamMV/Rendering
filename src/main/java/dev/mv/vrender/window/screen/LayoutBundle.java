@@ -1,6 +1,6 @@
 package dev.mv.vrender.window.screen;
 
-import dev.mv.vgui.GUI;
+import dev.mv.vgui.MultiGui;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -8,14 +8,14 @@ import java.util.List;
 
 public class LayoutBundle {
     @Getter
-    private List<GUI> guis;
+    private List<MultiGui> guis;
     @Getter
-    private GUI defaultGUI;
+    private MultiGui defaultGUI;
 
-    public LayoutBundle(GUI defaultGUI, GUI... guis) {
+    public LayoutBundle(MultiGui defaultGUI, MultiGui... guis) {
         this.guis = new ArrayList<>();
         this.defaultGUI = defaultGUI;
-        for (GUI gui : guis) {
+        for (MultiGui gui : guis) {
             this.guis.add(gui);
         }
     }

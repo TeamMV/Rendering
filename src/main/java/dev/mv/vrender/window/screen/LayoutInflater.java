@@ -1,79 +1,92 @@
 package dev.mv.vrender.window.screen;
 
 import dev.mv.vgui.GUI;
+import dev.mv.vgui.MultiGui;
+import dev.mv.vgui.elements.page.Page;
+import dev.mv.vrender.utils.ConsumableSystem;
 import dev.mv.vrender.window.Window;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Consumer;
 
 public class LayoutInflater {
-    protected Map<String, GUI> guis;
-    protected List<GUI> openGuis;
-    private GUI defaultGui;
+
+    protected List<MultiGui> pageSystems;
+    protected List<MultiGui> openGuis;
+    private MultiGui defaultSystem;
     private Screen screen;
 
     private Window window;
 
-    private Consumer<GUI> open = (t) -> {
-        t.open();
+    private Consumer<MultiGui> open = (t) -> {
+        GUI gui = t.getGuiFromOpenPage();
+        gui.open();
         openGuis.add(t);
-        t.setInflater(this);
-        t.resize(window.getWidth(), window.getHeight());
+        gui.setInflater(this);
+        gui.resize(window.getWidth(), window.getHeight());
     };
-    private Consumer<GUI> close = (t) -> {
-        t.close();
+    private Consumer<MultiGui> close = (t) -> {
+        GUI gui = t.getGuiFromOpenPage();
+        gui.close();
         openGuis.remove(t);
     };
 
     public LayoutInflater(Screen screen, Window window) {
-        this.guis = new HashMap<>();
         this.openGuis = new ArrayList<>();
         this.screen = screen;
         this.window = window;
     }
 
     public LayoutInflater inflate(LayoutBundle layout) {
-        for (GUI gui : layout.getGuis()) {
-            this.guis.put(gui.getName(), gui);
-            gui.close();
+        for (MultiGui pageSystem : layout.getGuis()) {
+            for(Page page : pageSystem.getPages().getAll()){
+                page.getGui().close();
+            }
         }
-        this.guis.put(layout.getDefaultGUI().getName(), layout.getDefaultGUI());
         open.accept(layout.getDefaultGUI());
-        defaultGui = layout.getDefaultGUI();
+        defaultSystem = layout.getDefaultGUI();
 
         return this;
     }
 
     public LayoutInflater swap(String name) {
-        List<GUI> toClose = new ArrayList<>();
+        List<MultiGui> toClose = new ArrayList<>();
         if (openGuis.size() > 0) {
-            for (GUI gui : openGuis) {
-                toClose.add(gui);
+            for (MultiGui pageSystem : openGuis) {
+                toClose.add(pageSystem);
             }
         }
-        for (GUI gui : toClose) {
-            close.accept(gui);
+        for (MultiGui pageSystem : toClose) {
+            close.accept(pageSystem);
         }
         toClose.clear();
-        open.accept(guis.get(name));
+        for (MultiGui pageSystem : pageSystems) {
+            if(pageSystem.getName().equals(name)){
+                open.accept(pageSystem);
+                break;
+            }
+        }
 
         return this;
     }
 
     public LayoutInflater open(String name) {
-        open.accept(guis.get(name));
+        for (MultiGui pageSystem : pageSystems) {
+            if(pageSystem.getName().equals(name)){
+                open.accept(pageSystem);
+                break;
+            }
+        }
 
         return this;
     }
 
     public LayoutInflater close(String name) {
-        GUI toClose = null;
-        for (GUI gui : openGuis) {
-            if (gui.getName().equals(name)) {
-                toClose = gui;
+        MultiGui toClose = null;
+        for (MultiGui pageSystem : openGuis) {
+            if (pageSystem.getName().equals(name)) {
+                toClose = pageSystem;
             }
         }
 
@@ -85,33 +98,59 @@ public class LayoutInflater {
     }
 
     public LayoutInflater closeAll() {
-        List<GUI> toClose = new ArrayList<>();
-        for (GUI gui : openGuis) {
-            toClose.add(gui);
+        List<MultiGui> toClose = new ArrayList<>();
+        for (MultiGui pageSystem : openGuis) {
+            toClose.add(pageSystem);
         }
 
-        for (GUI gui : toClose) {
-            close.accept(gui);
+        for (MultiGui pageSystem : toClose) {
+            close.accept(pageSystem);
         }
 
         return this;
     }
 
-    public GUI getDefaultGui() {
-        return defaultGui;
+    public LayoutInflater gotoPage(String guiName, int index){
+        openGuis.forEach(t -> {
+            if(t.getName().equals(guiName)) {
+                t.gotoPage(index);
+            }
+        });
+
+        return this;
+    }
+
+    public LayoutInflater gotoPage(String guiName,String name){
+        openGuis.forEach(t -> {
+            if(t.getName().equals(guiName)) {
+                t.gotoPage(name);
+            }
+        });
+
+        return this;
+    }
+
+    public MultiGui getDefaultGui() {
+        return defaultSystem;
+    }
+
+    public List<MultiGui> getOpenGuis(){
+        return openGuis;
     }
 
     public LayoutInflater resize(int width, int height) {
-        guis.forEach((name, gui) -> gui.resize(width, height));
+        pageSystems.forEach((system) -> system.getGuiFromOpenPage().resize(width, height));
 
         return this;
     }
 
-    public GUI[] getGuis() {
-        return guis.values().toArray(new GUI[] {});
-    }
+    public MultiGui get(String name) {
+        for(MultiGui pageSystem : pageSystems){
+            if(pageSystem.getName().equals(name)){
+                return pageSystem;
+            }
+        }
 
-    public GUI get(String name) {
-        return guis.get(name);
+        return null;
     }
 }
