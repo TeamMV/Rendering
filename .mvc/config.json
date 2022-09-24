@@ -6,5 +6,6 @@
 	"author": "Maxim Savenkov & Julian Hohenhausen",
 	"git": true,
 	"gitLink": "https://github.com/TeamMV/Rendering.git",
-	"licence": "MIT"
+	"licence": "MIT",
+	"frameworkVersion": "v0.0.0"
 }
