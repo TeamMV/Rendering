@@ -46,7 +46,9 @@ public class LayoutInflater {
             }
             pageSystems.add(pageSystem);
         }
-        open.accept(layout.getDefaultGUI());
+        if(layout.getDefaultGUI() != null){
+            open.accept(layout.getDefaultGUI());
+        }
         defaultSystem = layout.getDefaultGUI();
 
         return this;
