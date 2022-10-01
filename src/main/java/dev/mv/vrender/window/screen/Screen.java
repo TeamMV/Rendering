@@ -20,6 +20,8 @@ public abstract class Screen {
 
     public abstract void onCreate(LayoutInflater inflater);
 
+    public abstract void onActivate(Window w);
+
     public abstract void renderBefore(Window w);
 
     public abstract void renderAfter(Window w);

@@ -280,6 +280,7 @@ public class Window {
             return;
         }
         activeScreen = screen;
+        activeScreen.onActivate(this);
     }
 
     public void changeCurrentContext(long windowId) {
