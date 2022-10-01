@@ -39,7 +39,7 @@ public class LayoutInflater {
 
     public LayoutInflater inflate(LayoutBundle layout) {
         for (MultiGui pageSystem : layout.getGuis()) {
-            for (Page page : pageSystem.getPages().getAll()) {
+            for (Page page : pageSystem.getPages().values()) {
                 page.getGui().close();
             }
         }
@@ -105,16 +105,6 @@ public class LayoutInflater {
         for (MultiGui pageSystem : toClose) {
             close.accept(pageSystem);
         }
-
-        return this;
-    }
-
-    public LayoutInflater gotoPage(String guiName, int index) {
-        openGuis.forEach(t -> {
-            if (t.getName().equals(guiName)) {
-                t.gotoPage(index);
-            }
-        });
 
         return this;
     }

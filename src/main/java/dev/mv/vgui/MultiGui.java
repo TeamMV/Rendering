@@ -1,33 +1,33 @@
 package dev.mv.vgui;
 
 import dev.mv.vgui.elements.page.Page;
-import dev.mv.vrender.utils.ConsumableSystem;
 import lombok.Getter;
+
+import java.util.Map;
 
 public class MultiGui {
     @Getter
-    private ConsumableSystem<Page> pages;
+    private Map<String, Page> pages;
+    private Page open;
     @Getter
     private String name;
 
-    public MultiGui(ConsumableSystem<Page> pages, String name) {
-        this.pages = pages;
+    public MultiGui(String name, Page... pages) {
+        for(Page page : pages){
+            this.pages.put(page.getName(), page);
+        }
         this.name = name;
     }
 
     public GUI getGuiFromOpenPage() {
-        return getPages().getConsumer().getConsumedConsumeable().getGui();
+        return open.getGui();
     }
 
     public GUI getGui(String name) {
         return getPages().get(name).getGui();
     }
 
-    public void gotoPage(int index) {
-        getPages().getConsumer().consume(index);
-    }
-
     public void gotoPage(String name) {
-        getPages().getConsumer().consume(name);
+        open = getPages().get(name);
     }
 }
