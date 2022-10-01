@@ -191,7 +191,7 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
 
                 label.setText(text);
 
-                if (layout.getWidth(label.getText()) >= width - 20) {
+                if (label.getWidth() >= width - 20) {
                     if (charOverflow <= maxChars || maxChars == -1) {
                         label.setText(label.getText().substring(++charOverflow));
                     }
@@ -204,7 +204,7 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
         }
 
         layout.setHeight(height);
-        textWidth = layout.getWidth(label.getText());
+        textWidth = label.getWidth();
     }
 
     @Override
