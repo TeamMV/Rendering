@@ -1,7 +1,6 @@
 package dev.mv.vrender.window.screen;
 
 import dev.mv.vgui.MultiGui;
-import dev.mv.vgui.elements.page.Page;
 import dev.mv.vrender.render.Draw;
 import dev.mv.vrender.window.Window;
 import lombok.Getter;
@@ -30,7 +29,7 @@ public abstract class Screen {
         for (MultiGui gui : inflater.openGuis) {
             gui.getPages().values().forEach(t -> {
                 if (t.getGui().isOpen()) {
-                    t.getGui().render(w);
+                    t.loop(w);
                 }
             });
         }

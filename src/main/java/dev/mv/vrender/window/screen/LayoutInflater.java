@@ -23,7 +23,7 @@ public class LayoutInflater {
         gui.open();
         openGuis.add(t);
         gui.setInflater(this);
-        gui.resize(window.getWidth(), window.getHeight());
+        t.getPages().values().forEach(page -> page.getGui().resize(window.getWidth(), window.getHeight()));
     };
     private Consumer<MultiGui> close = (t) -> {
         GUI gui = t.getGuiFromOpenPage();
@@ -33,6 +33,7 @@ public class LayoutInflater {
 
     public LayoutInflater(Screen screen, Window window) {
         this.openGuis = new ArrayList<>();
+        this.pageSystems = new ArrayList<>();
         this.screen = screen;
         this.window = window;
     }
@@ -41,7 +42,9 @@ public class LayoutInflater {
         for (MultiGui pageSystem : layout.getGuis()) {
             for (Page page : pageSystem.getPages().values()) {
                 page.getGui().close();
+                page.getGui().resize(window.getWidth(), window.getHeight());
             }
+            pageSystems.add(pageSystem);
         }
         open.accept(layout.getDefaultGUI());
         defaultSystem = layout.getDefaultGUI();
@@ -113,6 +116,7 @@ public class LayoutInflater {
         openGuis.forEach(t -> {
             if (t.getName().equals(guiName)) {
                 t.gotoPage(name);
+                t.getPage(name).resize(window.getWidth(), window.getHeight());
             }
         });
 
@@ -133,7 +137,7 @@ public class LayoutInflater {
         return this;
     }
 
-    public MultiGui get(String name) {
+    public MultiGui getGui(String name) {
         for (MultiGui pageSystem : pageSystems) {
             if (pageSystem.getName().equals(name)) {
                 return pageSystem;
