@@ -7,6 +7,7 @@ import dev.mv.vrender.text.BitmapFont;
 import dev.mv.vrender.text.SizeLayout;
 import dev.mv.vrender.utils.VariablePosition;
 import dev.mv.vrender.window.Window;
+import lombok.Getter;
 import lombok.Setter;
 
 import java.util.function.Consumer;
@@ -16,6 +17,9 @@ public class GUIButton extends GUIElement implements Clickable {
     private int width, height;
     private GUILabel label;
 
+    @Getter
+    private boolean enabled = true;
+
     @Setter
     private ClickListener listener;
     private SizeLayout layout;
@@ -23,10 +27,11 @@ public class GUIButton extends GUIElement implements Clickable {
     private boolean textWidth = false;
     private Consumer<GUIButton> createdTask = null;
 
-    public GUIButton(int x, int y, boolean centerX, int height, String text, BitmapFont font, ClickListener listner) {
+    public GUIButton(int x, int y, boolean centerX, int height, boolean disabled, String text, BitmapFont font, ClickListener listner) {
         layout = new SizeLayout(font, text, height - height / 5);
         xPos = x;
         yPos = y;
+        this.enabled = !disabled;
         this.listener = listner;
         this.width = layout.getWidth() + 50;
         if (centerX) {
@@ -36,27 +41,29 @@ public class GUIButton extends GUIElement implements Clickable {
         label = new GUILabel(xPos + (width / 2) - (layout.getWidth() / 2), yPos + (height / 2 - layout.getHeight('e') / 2), height - height / 5, text, font);
     }
 
-    public GUIButton(int x, int y, boolean centerX, int width, int height, String text, BitmapFont font, ClickListener listner) {
+    public GUIButton(int x, int y, boolean centerX, int width, int height, boolean disabled, String text, BitmapFont font, ClickListener listner) {
         layout = new SizeLayout(font, text, height - height / 5);
         xPos = x;
         if (centerX) {
             xPos = x + width / 2;
         }
         yPos = y;
+        this.enabled = !disabled;
         this.listener = listner;
         this.width = width;
         this.height = height;
         label = new GUILabel(x + (width / 2) - (layout.getWidth() / 2), y + (height / 2 - layout.getHeight('e') / 2), height - height / 5, text, font);
     }
 
-    public GUIButton(VariablePosition position, boolean centerX, String text, BitmapFont font, ClickListener listner) {
-        this(position, centerX, text, font, listner, false);
+    public GUIButton(VariablePosition position, boolean centerX, boolean disabled, String text, BitmapFont font, ClickListener listner) {
+        this(position, centerX, disabled, text, font, listner, false);
     }
 
-    public GUIButton(VariablePosition position, boolean centerX, String text, BitmapFont font, ClickListener listner, boolean textWidth) {
+    public GUIButton(VariablePosition position, boolean centerX, boolean disabled, String text, BitmapFont font, ClickListener listner, boolean textWidth) {
         this.textWidth = textWidth;
         xPos = position.getX();
         yPos = position.getY();
+        this.enabled = !disabled;
         height = position.getHeight();
         layout = new SizeLayout(font, text, height - height / 5);
         if (textWidth) {
@@ -86,6 +93,10 @@ public class GUIButton extends GUIElement implements Clickable {
         w.draw.triangle(xPos + width, yPos + height / 2, xPos + width - 10, yPos + height, xPos + width - 10, yPos);
 
         w.draw.color(40, 40, 40, 255);
+
+        if(!enabled){
+            w.draw.color(120, 120, 120, 255);
+        }
 
         w.draw.rectangle(xPos + 13, yPos + 5, width - 26, height - 10);
         w.draw.triangle(xPos + 5, yPos + height / 2, xPos + 13, yPos + height - 5, xPos + 13, yPos + 5);
@@ -149,6 +160,7 @@ public class GUIButton extends GUIElement implements Clickable {
     @Override
     public void click(int x, int y, int button, int mods) {
         if (listener == null) return;
+        if(!enabled) return;
         if (x >= xPos && x <= xPos + width && y >= yPos && y <= yPos + height) {
             listener.clicked(this);
         }
@@ -167,5 +179,13 @@ public class GUIButton extends GUIElement implements Clickable {
     public void created() {
         if (createdTask == null) return;
         createdTask.accept(this);
+    }
+
+    public void disable(){
+        enabled = false;
+    }
+
+    public void enable(){
+        enabled = true;
     }
 }
