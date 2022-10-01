@@ -121,4 +121,10 @@ public class GUILabel extends GUIElement {
         createdTask.accept(this);
     }
 
+    public void setColor(int r, int g, int b, int a){
+        this.colour[0] = r;
+        this.colour[1] = g;
+        this.colour[2] = b;
+        this.colour[3] = a;
+    }
 }

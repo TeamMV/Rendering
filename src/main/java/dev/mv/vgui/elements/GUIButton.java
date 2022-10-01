@@ -88,14 +88,18 @@ public class GUIButton extends GUIElement implements Clickable {
             w.draw.color(255, 255, 255, 255);
         }
 
+        if(!enabled) {
+            w.draw.color(255, 255, 255, 50);
+        }
+
         w.draw.rectangle(xPos + 10, yPos, width - 20, height);
         w.draw.triangle(xPos, yPos + height / 2, xPos + 10, yPos + height, xPos + 10, yPos);
         w.draw.triangle(xPos + width, yPos + height / 2, xPos + width - 10, yPos + height, xPos + width - 10, yPos);
 
         w.draw.color(40, 40, 40, 255);
 
-        if(!enabled){
-            w.draw.color(120, 120, 120, 255);
+        if(!enabled) {
+            w.draw.color(40, 40, 40, 50);
         }
 
         w.draw.rectangle(xPos + 13, yPos + 5, width - 26, height - 10);
@@ -103,11 +107,14 @@ public class GUIButton extends GUIElement implements Clickable {
         w.draw.triangle(xPos + width - 5, yPos + height / 2, xPos + width - 13, yPos + height - 5, xPos + width - 13, yPos + 5);
 
         if (w.input.mouseInside(xPos, yPos, xPos + width, yPos + height)) {
-            w.draw.color(186, 247, 32, 255);
+            label.setColor(186, 247, 32, 255);
         } else {
-            w.draw.color(255, 255, 255, 255);
+            label.setColor(255, 255, 255, 255);
         }
 
+        if(!enabled) {
+            label.setColor(255, 255, 255, 50);
+        }
         label.render(w);
 
         w.draw.color(0, 0, 0, 255);

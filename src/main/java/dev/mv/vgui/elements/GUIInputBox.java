@@ -109,9 +109,9 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
         w.draw.triangle(xPos + width - 5, yPos + height / 2, xPos + width - 13, yPos + height - 5, xPos + width - 13, yPos + 5);
 
         if (w.input.mouseInside(xPos, yPos, xPos + width, yPos + height) || isSelected) {
-            w.draw.color(186, 247, 32, 255);
+            label.setColor(186, 247, 32, 255);
         } else {
-            w.draw.color(255, 255, 255, 255);
+            label.setColor(255, 255, 255, 255);
         }
 
         label.render(w);
