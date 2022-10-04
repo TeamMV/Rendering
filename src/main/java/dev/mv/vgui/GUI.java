@@ -1,7 +1,9 @@
 package dev.mv.vgui;
 
+import dev.mv.vgui.callbacks.*;
 import dev.mv.vgui.elements.GUITabList;
 import dev.mv.vgui.elements.Scrollable;
+import dev.mv.vgui.elements.page.Page;
 import dev.mv.vgui.elements.window.GUIWindow;
 import dev.mv.vgui.elements.window.layout.HorizontalGUILayout;
 import dev.mv.vgui.elements.window.layout.VerticalGUILayout;
@@ -21,6 +23,15 @@ public class GUI {
     private final List<GUIElement> toRemove = new ArrayList<GUIElement>();
     private boolean open;
     private boolean used = false;
+
+    private GUIClickCallback clickCallback = null;
+    private GUICloseCallback closeCallback = null;
+    private GUIMouseMoveCallback mouseMoveCallback = null;
+    private GUIOpenCallback openCallback = null;
+    private GUISwitchPageCallback switchPageCallback = null;
+    private GUIResizeCallback resizeCallback = null;
+    private int lastMx = 0, lastMy = 0;
+
     @Getter
     private GUIWindow guiWindow = null;
 
@@ -53,19 +64,43 @@ public class GUI {
             }
         }
         used = false;
+
+        if (mouseMoveCallback != null) {
+            int mx = w.input.mousePosition().x;
+            int my = w.input.mousePosition().y;
+
+            if (mx != lastMx || my != lastMy) {
+                mouseMoveCallback.invoke(this, mx, my);
+                lastMx = mx;
+                lastMy = my;
+            }
+        }
     }
 
     public boolean isOpen() {
         return open;
     }
 
+    public void switchForCallback(Page from, Page to) {
+        if (switchPageCallback != null) {
+            switchPageCallback.invoke(this, from, to);
+        }
+    }
+
     public void open() {
         open = true;
+        if (openCallback != null) {
+            openCallback.invoke(this);
+        }
         //resize(MainGameData.SCREEN_SIZE.getWidth(), MainGameData.SCREEN_SIZE.getHeight());
     }
 
     public void close() {
         open = false;
+        elements.forEach(GUIElement::reset);
+        if (closeCallback != null) {
+            closeCallback.invoke(this);
+        }
     }
 
     public boolean click(int x, int y, int button, int mods) {
@@ -81,6 +116,9 @@ public class GUI {
         }
         used = false;
         update();
+        if (clickCallback != null) {
+            clickCallback.invoke(this, x, y, button, mods);
+        }
         return ret;
     }
 
@@ -199,6 +237,10 @@ public class GUI {
                 element.resize(width, height);
             }
         }
+
+        if (resizeCallback != null) {
+            resizeCallback.invoke(this, width, height);
+        }
     }
 
     public boolean isSelected() {
@@ -273,6 +315,27 @@ public class GUI {
     public void created() {
         for (GUIElement e : elements) {
             e.created();
+        }
+    }
+
+    public void setCallback(GUICallback callback) {
+        if (callback instanceof GUIClickCallback c) {
+            clickCallback = c;
+        }
+        if (callback instanceof GUICloseCallback c) {
+            closeCallback = c;
+        }
+        if (callback instanceof  GUIMouseMoveCallback c) {
+            mouseMoveCallback = c;
+        }
+        if (callback instanceof GUIOpenCallback c) {
+            openCallback = c;
+        }
+        if (closeCallback instanceof GUIResizeCallback c) {
+            resizeCallback = c;
+        }
+        if (callback instanceof GUISwitchPageCallback c) {
+            switchPageCallback = c;
         }
     }
 

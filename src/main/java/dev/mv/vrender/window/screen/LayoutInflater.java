@@ -119,6 +119,7 @@ public class LayoutInflater {
             if (t.getName().equals(guiName)) {
                 t.gotoPage(name);
                 t.getPage(name).resize(window.getWidth(), window.getHeight());
+                t.getPage(name).switchForCallback(t.getOpenPage(), t.getPages().get(name));
             }
         });
 

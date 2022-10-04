@@ -13,10 +13,10 @@ public class GUILabel extends GUIElement {
     SizeLayout layout = new SizeLayout();
 
     private int lineHeight;
-    private String text;
+    private String text, initialText;
     private BitmapFont font;
 
-    private int[] colour;
+    private int[] colour, initialColor;
     private Consumer<GUILabel> createdTask = null;
 
     public GUILabel(int x, int y, int lineHeight, String text, BitmapFont font) {
@@ -24,8 +24,10 @@ public class GUILabel extends GUIElement {
         yPos = y;
         this.lineHeight = lineHeight;
         this.text = text;
+        this.initialText = text;
         this.font = font;
         colour = new int[] {255, 255, 255, 255};
+        initialColor = colour;
 
         layout.set(font, text, lineHeight);
     }
@@ -36,8 +38,10 @@ public class GUILabel extends GUIElement {
         yPos = position.getY();
         this.lineHeight = position.getHeight();
         this.text = text;
+        this.initialText = text;
         this.font = font;
         colour = new int[] {255, 255, 255, 255};
+        initialColor = colour;
 
         layout.set(font, text, lineHeight);
     }
@@ -47,8 +51,10 @@ public class GUILabel extends GUIElement {
         yPos = y;
         this.lineHeight = lineHeight;
         this.text = text;
+        this.initialText = text;
         this.font = font;
         this.colour = colour;
+        initialColor = colour;
 
         layout.set(font, text, lineHeight);
     }
@@ -59,8 +65,10 @@ public class GUILabel extends GUIElement {
         yPos = position.getY();
         this.lineHeight = position.getHeight();
         this.text = text;
+        this.initialText = text;
         this.font = font;
         this.colour = colour;
+        initialColor = colour;
 
         layout.set(font, text, lineHeight);
     }
@@ -119,6 +127,12 @@ public class GUILabel extends GUIElement {
     public void created() {
         if (createdTask == null) return;
         createdTask.accept(this);
+    }
+
+    @Override
+    protected void reset() {
+        setText(initialText);
+        colour = initialColor;
     }
 
     public void setColor(int r, int g, int b, int a){

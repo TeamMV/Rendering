@@ -182,4 +182,9 @@ public class GUISlider extends GUIElement implements Clickable, Draggable {
         createdTask.accept(this);
     }
 
+    @Override
+    protected void reset() {
+
+    }
+
 }

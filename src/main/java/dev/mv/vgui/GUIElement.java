@@ -56,4 +56,6 @@ public abstract class GUIElement {
     public abstract int getWidth();
 
     public abstract void created();
+
+    protected abstract void reset();
 }

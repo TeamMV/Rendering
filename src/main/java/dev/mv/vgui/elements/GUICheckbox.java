@@ -127,4 +127,9 @@ public class GUICheckbox extends GUIElement implements Clickable {
         if (createdTask == null) return;
         createdTask.accept(this);
     }
+
+    @Override
+    protected void reset() {
+
+    }
 }

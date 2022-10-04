@@ -188,6 +188,11 @@ public class GUIButton extends GUIElement implements Clickable {
         createdTask.accept(this);
     }
 
+    @Override
+    protected void reset() {
+
+    }
+
     public void disable(){
         enabled = false;
     }

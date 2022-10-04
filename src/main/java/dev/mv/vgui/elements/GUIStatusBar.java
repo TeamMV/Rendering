@@ -102,4 +102,9 @@ public class GUIStatusBar extends GUIElement {
         createdTask.accept(this);
     }
 
+    @Override
+    protected void reset() {
+
+    }
+
 }

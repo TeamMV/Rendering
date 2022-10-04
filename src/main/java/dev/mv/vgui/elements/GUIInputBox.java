@@ -260,4 +260,11 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
         createdTask.accept(this);
     }
 
+    @Override
+    protected void reset() {
+        isPlaceholder = true;
+        label.setText(placeholder);
+        isSelected = false;
+    }
+
 }

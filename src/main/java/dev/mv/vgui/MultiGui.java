@@ -37,6 +37,10 @@ public class MultiGui {
         return open.getGui();
     }
 
+    public Page getOpenPage() {
+        return open;
+    }
+
     public GUI getPage(String name) {
         return getPages().get(name).getGui();
     }

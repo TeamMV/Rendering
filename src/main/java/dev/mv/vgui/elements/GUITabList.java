@@ -198,6 +198,13 @@ public class GUITabList extends GUIElement implements Clickable, Typeable, Scrol
         createdTask.accept(this);
     }
 
+    @Override
+    protected void reset() {
+        if(tabs.get(0) != null) {
+            setSelectedTab(1);
+        }
+    }
+
     public <T> T findElementById(String id, Class<T> destType) {
         for (GUITab tab : tabs) {
             T element = tab.findElementById(id, destType);
