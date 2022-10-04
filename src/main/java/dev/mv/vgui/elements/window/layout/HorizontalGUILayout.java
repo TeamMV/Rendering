@@ -236,8 +236,8 @@ public class HorizontalGUILayout extends GUIElement implements Clickable, Typeab
     }
 
     @Override
-    protected void reset() {
-
+    public void reset() {
+        items.forEach(GUIElement::reset);
     }
 
     public <T> T findElementById(String id, Class<T> destType) {

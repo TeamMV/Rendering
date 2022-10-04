@@ -37,31 +37,24 @@ public class GUICheckbox extends GUIElement implements Clickable {
 
     @Override
     public void render(Window w) {
-        if (w.input.mouseInside(xPos, yPos, xPos + size, yPos + size)) {
-            w.draw.color(186, 247, 32, 255);
-        } else {
-            w.draw.color(255, 255, 255, 255);
-        }
+        w.draw.color(255, 255, 255, 255);
 
         w.draw.rectangle(xPos + 10, yPos, size - 20, size);
         w.draw.triangle(xPos, yPos + size / 2, xPos + 10, yPos + size, xPos + 10, yPos);
         w.draw.triangle(xPos + size, yPos + size / 2, xPos + size - 10, yPos + size, xPos + size - 10, yPos);
 
         w.draw.color(40, 40, 40, 255);
+        if (w.input.mouseInside(xPos, yPos, xPos + size, yPos + size)) {
+            w.draw.color(13, 132, 148, 255);
+        }
 
         w.draw.rectangle(xPos + 13, yPos + 5, size - 26, size - 10);
         w.draw.triangle(xPos + 5, yPos + size / 2, xPos + 13, yPos + size - 5, xPos + 13, yPos + 5);
         w.draw.triangle(xPos + size - 5, yPos + size / 2, xPos + size - 13, yPos + size - 5, xPos + size - 13, yPos + 5);
 
-        if (w.input.mouseInside(xPos, yPos, xPos + size, yPos + size)) {
-            w.draw.color(186, 247, 32, 255);
-        } else {
-            w.draw.color(255, 255, 255, 255);
-        }
+        w.draw.color(255, 255, 255, 255);
 
         if (enabled) w.draw.image(xPos + 15, yPos + 15, size - 30, size - 30, DefaultTextures.BUTTON_TICK);
-
-        w.draw.color(255, 255, 255, 255);
 
         label.render(w);
 
@@ -129,7 +122,7 @@ public class GUICheckbox extends GUIElement implements Clickable {
     }
 
     @Override
-    protected void reset() {
+    public void reset() {
 
     }
 }

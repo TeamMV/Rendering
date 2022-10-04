@@ -130,7 +130,7 @@ public class GUILabel extends GUIElement {
     }
 
     @Override
-    protected void reset() {
+    public void reset() {
         setText(initialText);
         colour = initialColor;
     }

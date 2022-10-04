@@ -57,5 +57,5 @@ public abstract class GUIElement {
 
     public abstract void created();
 
-    protected abstract void reset();
+    public abstract void reset();
 }

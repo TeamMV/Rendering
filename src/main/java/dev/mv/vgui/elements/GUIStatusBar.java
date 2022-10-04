@@ -103,7 +103,7 @@ public class GUIStatusBar extends GUIElement {
     }
 
     @Override
-    protected void reset() {
+    public void reset() {
 
     }
 

@@ -75,22 +75,21 @@ public class GUITabList extends GUIElement implements Clickable, Typeable, Scrol
             int xi = xPos + 200 * i + 15;
 
             w.draw.color(255, 255, 255, 255);
-            if (selected == i) w.draw.color(186, 247, 32, 255);
-            if (w.input.mouseInside(xi, yPos + height - 35 - 5, xi + 200, yPos + height - 5))
-                w.draw.color(186, 247, 32, 255);
+
             w.draw.triangle(xi, yPos + height - 5, xi + 20, yPos + height - 5, xi + 20, yPos + height - 35 - 5);
             w.draw.rectangle(xi + 20, yPos + height - 35 - 5, 200 - 40, 35);
             w.draw.triangle(xi + 20 + 200 - 40, yPos + height - 35 - 5, xi + 200 - 20, yPos + height - 5, xi + 200, yPos + height - 5);
 
             w.draw.color(40, 40, 40, 255);
+            if (w.input.mouseInside(xi, yPos + height - 35 - 5, xi + 200, yPos + height - 5))
+                w.draw.color(13, 132, 148, 255);
+            if (selected == i) w.draw.color(13, 132, 148, 255);
             w.draw.triangle(xi + 4, yPos + height - 2 - 5, xi + 20 + 2, yPos + height - 2 - 5, xi + 20 + 2, yPos + height - 35 + 2 - 5);
             w.draw.rectangle(xi + 2 + 20, yPos + 2 + height - 35 - 5, 200 - 40 - 4, 35 - 4);
             w.draw.triangle(xi - 2 + 200 - 20, yPos + height - 35 + 2 - 5, xi - 2 + 200 - 20, yPos + height - 2 - 5, xi + 200 - 4, yPos + height - 2 - 5);
 
             w.draw.color(255, 255, 255, 255);
             if (selected == i) w.draw.color(186, 247, 32, 255);
-            if (w.input.mouseInside(xi, yPos + height - 35 - 5, xi + 200, yPos + height - 5))
-                w.draw.color(186, 247, 32, 255);
             String title = tabs.get(i).getTitle();
             w.draw.text(xi + 100 - layout.getWidth(title) / 2, yPos + height - 31 - 4, 31, title, font);
 
@@ -199,7 +198,7 @@ public class GUITabList extends GUIElement implements Clickable, Typeable, Scrol
     }
 
     @Override
-    protected void reset() {
+    public void reset() {
         if(tabs.get(0) != null) {
             setSelectedTab(1);
         }

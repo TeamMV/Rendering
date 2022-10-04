@@ -96,8 +96,8 @@ public class GUI {
     }
 
     public void close() {
-        open = false;
         elements.forEach(GUIElement::reset);
+        open = false;
         if (closeCallback != null) {
             closeCallback.invoke(this);
         }

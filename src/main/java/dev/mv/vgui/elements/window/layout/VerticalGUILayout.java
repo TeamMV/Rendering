@@ -236,8 +236,8 @@ public class VerticalGUILayout extends GUIElement implements Clickable, Typeable
     }
 
     @Override
-    protected void reset() {
-
+    public void reset() {
+        items.forEach(GUIElement::reset);
     }
 
     public <T> T findElementById(String id, Class<T> destType) {

@@ -183,7 +183,7 @@ public class GUISlider extends GUIElement implements Clickable, Draggable {
     }
 
     @Override
-    protected void reset() {
+    public void reset() {
 
     }
 

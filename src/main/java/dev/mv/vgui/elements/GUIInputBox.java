@@ -92,27 +92,22 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
 
     @Override
     public void render(Window w) {
-        if (w.input.mouseInside(xPos, yPos, xPos + width, yPos + height) || isSelected) {
-            w.draw.color(186, 247, 32, 255);
-        } else {
-            w.draw.color(255, 255, 255, 255);
-        }
+        w.draw.color(255, 255, 255, 255);
 
         w.draw.rectangle(xPos + 10, yPos, width - 20, height);
         w.draw.triangle(xPos, yPos + height / 2, xPos + 10, yPos + height, xPos + 10, yPos);
         w.draw.triangle(xPos + width, yPos + height / 2, xPos + width - 10, yPos + height, xPos + width - 10, yPos);
 
         w.draw.color(40, 40, 40, 255);
+        if (w.input.mouseInside(xPos, yPos, xPos + width, yPos + height) || isSelected) {
+            w.draw.color(13, 132, 148, 255);
+        }
 
         w.draw.rectangle(xPos + 13, yPos + 5, width - 26, height - 10);
         w.draw.triangle(xPos + 5, yPos + height / 2, xPos + 13, yPos + height - 5, xPos + 13, yPos + 5);
         w.draw.triangle(xPos + width - 5, yPos + height / 2, xPos + width - 13, yPos + height - 5, xPos + width - 13, yPos + 5);
 
-        if (w.input.mouseInside(xPos, yPos, xPos + width, yPos + height) || isSelected) {
-            label.setColor(186, 247, 32, 255);
-        } else {
-            label.setColor(255, 255, 255, 255);
-        }
+        label.setColor(255, 255, 255, 255);
 
         label.render(w);
 
@@ -261,7 +256,7 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
     }
 
     @Override
-    protected void reset() {
+    public void reset() {
         isPlaceholder = true;
         label.setText(placeholder);
         isSelected = false;
