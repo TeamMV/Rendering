@@ -235,6 +235,11 @@ public class VerticalGUILayout extends GUIElement implements Clickable, Typeable
         createdTask.accept(this);
     }
 
+    @Override
+    protected void reset() {
+
+    }
+
     public <T> T findElementById(String id, Class<T> destType) {
         if (id == null) return null;
         for (GUIElement e : items) {
