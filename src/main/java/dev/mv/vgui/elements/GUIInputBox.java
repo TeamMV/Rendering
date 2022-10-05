@@ -209,11 +209,13 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
             isSelected = true;
             if (!isPlaceholder) return;
             label.setText("");
+            textWidth = layout.getWidth(label.getText());
             isPlaceholder = false;
         } else {
             isSelected = false;
             if (!text.equals("")) return;
             label.setText(placeholder);
+            textWidth = layout.getWidth(label.getText());
             isPlaceholder = true;
         }
     }
