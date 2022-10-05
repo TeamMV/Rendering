@@ -30,15 +30,18 @@ public class SizeLayout {
     public int getWidth(String s) {
         int res = 0;
         for (int i = 0; i < s.length(); i++) {
-            res += font.getWidth(s.charAt(i)) * multiplier;
-            if (s.charAt(i) == ' ') res += font.getWidth('i') * multiplier;
+            if (s.charAt(i) == ' ') {
+                res += 2 * font.getWidth('j');
+            } else {
+                res += 2 * font.getWidth(s.charAt(i));
+            }
         }
         return res;
     }
 
     public int getWidth(char c) {
-        if (c == ' ') return (int) (font.getWidth('i') * multiplier) + font.getSpacing();
-        return (int) (font.getWidth(c) * multiplier) + font.getSpacing();
+        if (c == ' ') return (int) ((font.getWidth('j') + font.getSpacing()) * multiplier);
+        return (int) ((font.getWidth(c) + font.getSpacing()) * multiplier);
     }
 
     public int getHeight() {

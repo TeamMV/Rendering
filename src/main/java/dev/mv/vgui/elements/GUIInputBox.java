@@ -112,7 +112,7 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
         label.render(w);
 
         if (isSelected) {
-            w.draw.rectangle(xPos + textWidth + 20, yPos + 10, 3, height - 20);
+            w.draw.rectangle(xPos + textWidth + 30, yPos + 10, 3, height - 20);
         }
 
         w.draw.color(0, 0, 0, 255);
@@ -261,7 +261,7 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
     public void reset() {
         isPlaceholder = true;
         label.setText(placeholder);
+        text = "";
         isSelected = false;
     }
-
 }
