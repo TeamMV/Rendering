@@ -151,64 +151,34 @@ public class Draw {
         image(x, y, width, height, anim.getPlayingFrame(), rotation, originX, originY);
     }
 
+    public void rectangleFromTo(int ax, int ay, int bx, int by, int thickness) {
+        int w = (bx - ax);
+        int h = (by - ay);
+
+        float alpha = (float) (Math.atan2(bx - ax, by - ay - thickness / 2f) * (180 / Math.PI)) - 90f;
+        int width = (int) Math.sqrt((w * w) + (h * h));
+
+        rectangle(ax, ay, width, thickness, alpha, ax, ay + thickness / 2);
+    }
+
     public void imageFromTo(int ax, int ay, int bx, int by, int thickness, Texture tex) {
+        int w = (bx - ax);
+        int h = (by - ay);
 
-        int Ax, Ay, Bx, By;
-        int originX, originY;
+        float alpha = (float) (Math.atan2(bx - ax, by - ay - thickness / 2f) * (180 / Math.PI)) - 90f;
+        int width = (int) Math.sqrt((w * w) + (h * h));
 
-        if (ax < bx) {
-            Ax = ax;
-            Bx = bx;
-        } else {
-            Ax = bx;
-            Bx = ax;
-        }
-
-        if (ay < by) {
-            Ay = ay;
-            By = by;
-        } else {
-            Ay = by;
-            By = ay;
-        }
-
-        originX = Ax;
-        originY = Ay;
-
-        float alpha = (float) Math.atan((Bx - Ax) / By - Ay);
-
-        image(Ax, Ay, Bx - Ax, thickness, tex);
+        image(ax, ay, width, thickness, tex, alpha, ax, ay + thickness / 2);
     }
 
     public void imageFromTo(int ax, int ay, int bx, int by, int thickness, TextureRegion tex) {
+        int w = (bx - ax);
+        int h = (by - ay);
 
-        int originX = ax;
-        int originY = ay;
+        float alpha = (float) (Math.atan2(bx - ax, by - ay - thickness / 2f) * (180 / Math.PI)) - 90f;
+        int width = (int) Math.sqrt((w * w) + (h * h));
 
-        double xl = bx - ax;
-        double yl = by - ay;
-
-        if (xl == 0) xl++;
-        if (yl == 0) yl++;
-
-        double sl = Math.sqrt(xl * xl + yl * yl);
-
-        double alpha = (Math.atan(xl / yl) * (180f / Math.PI));
-
-        if (by < ay) alpha -= 180.0;
-
-        double ltt = Math.sqrt(thickness) / thickness;
-
-        image((int) (originX - ltt), (int) (originY + ltt), thickness, (int) sl, tex, (float) alpha, originX, originY);
-
-        color(0, 255, 0, 255);
-        rectangle(originX, originY - 5, (int) xl, 5);
-        rectangle((int) (originX + xl), originY, 5, (int) yl);
-        color(255, 0, 0, 255);
-        rectangle(originX - 5, originY - 5, 5, 5);
-        color(0, 0, 255, 255);
-        rectangle(bx, by, 5, 5);
-        color(0, 0, 0, 255);
+        image(ax, ay, width, thickness, tex, alpha, ax, ay + thickness / 2);
     }
 
 

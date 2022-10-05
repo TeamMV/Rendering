@@ -36,6 +36,8 @@ public class DefaultTextures {
             throw new RuntimeException(e);
         }
 
+        CABLE = POWER_SHEET.getRegion(64, 32, 32, 32);
+
         GENERATOR[0] = POWER_SHEET.getRegion(0, 0, 32, 32);
         GENERATOR[1] = POWER_SHEET.getRegion(32, 0, 32, 32);
         GENERATOR[2] = POWER_SHEET.getRegion(64, 0, 32, 32);

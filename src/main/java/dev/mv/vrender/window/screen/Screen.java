@@ -40,7 +40,7 @@ public abstract class Screen {
 
     public void render(Window w) {
         renderBefore(w);
-        renderGUI(w);
+        //renderGUI(w);
         renderAfter(w);
     }
 

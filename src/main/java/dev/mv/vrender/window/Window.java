@@ -45,6 +45,9 @@ public class Window {
     private long window;
 
     @Getter
+    private long currentFrame = 0, currentTime = 0;
+
+    @Getter
     private boolean fullscreen = false;
     @Getter
     private double deltaF;
@@ -204,6 +207,7 @@ public class Window {
                 if (activeScreen != null) {
                     activeScreen.update(this);
                 }
+                currentTime++;
                 ticks++;
                 deltaU--;
             }
@@ -216,6 +220,7 @@ public class Window {
                 draw.draw();
                 mainClass.renderAfter(this);
                 glfwSwapBuffers(window);
+                currentFrame++;
                 frames++;
                 deltaF--;
             }
