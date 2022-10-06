@@ -11,6 +11,8 @@ public interface Renderer {
      */
     void render(Window w);
 
+    void onClose(Window w);
+
     void renderAfter(Window w);
 
     void update(Window w);

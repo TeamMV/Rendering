@@ -234,6 +234,8 @@ public class Window {
                 timer += 1000;
             }
         }
+
+        mainClass.onClose(this);
     }
 
     public void onKeyDown(int c) {
