@@ -37,7 +37,7 @@ public class SizeLayout {
 
     public int getWidth(char c) {
         if(c <= 31) return -1;
-        if (c == ' ') return (int) multiplier + font.getSpacing()) * multiplier);
+        if (c == ' ') return (int) ((multiplier + font.getSpacing()) * multiplier);
         return (int) ((font.getWidth(c) + font.getSpacing()) * multiplier);
     }
 
