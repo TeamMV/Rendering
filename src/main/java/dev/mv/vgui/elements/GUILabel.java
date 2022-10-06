@@ -86,6 +86,7 @@ public class GUILabel extends GUIElement {
     public void render(Window w) {
         w.draw.color(colour[0], colour[1], colour[2], colour[3]);
         w.draw.text(xPos, yPos, lineHeight, text, font);
+        w.draw.color(0, 0, 0, 255);
     }
 
     @Override
