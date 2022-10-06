@@ -290,6 +290,7 @@ public class Window {
     }
 
     public void close(int code) {
+        mainClass.onClose(this);
         running = false;
         System.exit(code);
     }
