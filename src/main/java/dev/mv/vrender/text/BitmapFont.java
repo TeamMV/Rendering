@@ -109,7 +109,11 @@ public class BitmapFont {
     }
 
     public Vector2f[] getUV(char c) {
-        return chars.get(c + 0).getTexCoords();
+        try {
+            return chars.get(c + 0).getTexCoords();
+        } catch (NullPointerException e) {
+            throw new RuntimeException(new CharNotSupportetException(c));
+        }
     }
 
     public int getDefaultHeight() {
@@ -117,14 +121,26 @@ public class BitmapFont {
     }
 
     public int getHeight(char c) {
-        return chars.get(c + 0).getHeight();
+        try {
+            return chars.get(c + 0).getHeight();
+        } catch (NullPointerException e) {
+            throw new RuntimeException(new CharNotSupportetException(c));
+        }
     }
 
     public int getWidth(char c) {
-        return chars.get(c + 0).getWidth();
+        try {
+            return chars.get(c + 0).getWidth();
+        } catch (NullPointerException e) {
+            throw new RuntimeException(new CharNotSupportetException(c));
+        }
     }
 
     public Glyph getGlyph(char c) {
-        return chars.get(c + 0);
+        try {
+            return chars.get(c + 0);
+        } catch (NullPointerException e) {
+            throw new RuntimeException(new CharNotSupportetException(c));
+        }
     }
 }

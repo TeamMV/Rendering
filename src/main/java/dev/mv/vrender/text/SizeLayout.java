@@ -30,16 +30,13 @@ public class SizeLayout {
     public int getWidth(String s) {
         int res = 0;
         for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == ' ') {
-                res += 2 * font.getWidth('j');
-            } else {
-                res += 2 * font.getWidth(s.charAt(i));
-            }
+            res += getWidth(s.charAt(i));
         }
         return res;
     }
 
     public int getWidth(char c) {
+        if(c <= 31) return -1;
         if (c == ' ') return (int) ((font.getWidth('j') + font.getSpacing()) * multiplier);
         return (int) ((font.getWidth(c) + font.getSpacing()) * multiplier);
     }
@@ -55,14 +52,17 @@ public class SizeLayout {
     }
 
     public int getHeight(char c) {
+        if(c <= 32) return -1;
         return (int) (font.getHeight(c) * multiplier);
     }
 
     public float getXOffset(char c) {
+        if(c <= 32) return -1;
         return font.getGlyph(c).getxOff() * multiplier;
     }
 
     public float getYOffset(char c) {
+        if(c <= 32) return -1;
         return font.getGlyph(c).getyOff() * multiplier;
     }
 

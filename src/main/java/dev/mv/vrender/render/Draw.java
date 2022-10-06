@@ -191,6 +191,8 @@ public class Draw {
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
 
+            if(c <= 31) continue;
+
             float ax = x + charX + layout.getXOffset(c);
             float ay = y - (layout.getHeight(c) + layout.getYOffset(c)) + layout.getHeight();
             float ax2 = x + charX + layout.getWidth(c) + layout.getXOffset(c);
