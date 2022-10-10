@@ -2,6 +2,8 @@ package dev.mv.vgui;
 
 import dev.mv.vgui.elements.page.Page;
 import lombok.Getter;
+
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +13,8 @@ public class MultiGui {
     private Page open;
     @Getter
     private String name;
+    @Getter
+    private File scriptFile;
 
     public MultiGui(String name, Page... pages) {
         this.pages = new HashMap<>();
@@ -31,6 +35,10 @@ public class MultiGui {
             this.open = page;
         }
         this.pages.put(page.getName(), page);
+    }
+
+    public void setScript(File file) {
+        scriptFile = file;
     }
 
     public GUI getGuiFromOpenPage() {
