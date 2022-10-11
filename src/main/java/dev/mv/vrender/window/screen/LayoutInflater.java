@@ -13,6 +13,8 @@ public class LayoutInflater {
 
     protected List<MultiGui> pageSystems;
     protected List<MultiGui> openGuis;
+
+    private List<GUI> toClose;
     private MultiGui defaultSystem;
     private Screen screen;
 
@@ -28,12 +30,13 @@ public class LayoutInflater {
     private Consumer<MultiGui> close = (t) -> {
         GUI gui = t.getGuiFromOpenPage();
         gui.close();
-        openGuis.remove(t);
+        toClose.add(gui);
     };
 
     public LayoutInflater(Screen screen, Window window) {
         this.openGuis = new ArrayList<>();
         this.pageSystems = new ArrayList<>();
+        this.toClose = new ArrayList<>();
         this.screen = screen;
         this.window = window;
     }
@@ -148,5 +151,13 @@ public class LayoutInflater {
         }
 
         return null;
+    }
+
+    protected void canClose() {
+        for(GUI gui : toClose) {
+            gui.close();
+        }
+
+        toClose.clear();
     }
 }

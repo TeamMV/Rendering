@@ -35,6 +35,7 @@ public abstract class Screen {
                 }
             });
         }
+        inflater.canClose();
         w.draw.mode(Draw.CAMERA_DYNAMIC);
     }
 
