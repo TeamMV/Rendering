@@ -84,7 +84,7 @@ public class GUIButton extends GUIElement implements Clickable {
 
         w.draw.color(255, 255, 255, 255);
 
-        if(!enabled) {
+        if (!enabled) {
             w.draw.color(255, 255, 255, 50);
         }
 
@@ -98,7 +98,7 @@ public class GUIButton extends GUIElement implements Clickable {
             w.draw.color(13, 132, 148, 255);
         }
 
-        if(!enabled) {
+        if (!enabled) {
             w.draw.color(40, 40, 40, 50);
         }
 
@@ -108,7 +108,7 @@ public class GUIButton extends GUIElement implements Clickable {
 
         label.setColor(255, 255, 255, 255);
 
-        if(!enabled) {
+        if (!enabled) {
             label.setColor(255, 255, 255, 50);
         }
         label.render(w);
@@ -163,7 +163,7 @@ public class GUIButton extends GUIElement implements Clickable {
     @Override
     public void click(int x, int y, int button, int mods) {
         if (listener == null) return;
-        if(!enabled) return;
+        if (!enabled) return;
         if (x >= xPos && x <= xPos + width && y >= yPos && y <= yPos + height) {
             listener.clicked(this);
         }
@@ -189,11 +189,11 @@ public class GUIButton extends GUIElement implements Clickable {
 
     }
 
-    public void disable(){
+    public void disable() {
         enabled = false;
     }
 
-    public void enable(){
+    public void enable() {
         enabled = true;
     }
 }

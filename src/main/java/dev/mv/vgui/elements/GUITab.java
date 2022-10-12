@@ -30,7 +30,7 @@ public class GUITab extends AbstractGUITab {
         maxWidth = Math.max(maxWidth, e.getWidth());
         maxHeight = Math.max(maxHeight, e.getHeight());
         items.add(e);
-        positions.add(new int[] {e.getXPos(), e.getYPos()});
+        positions.add(new int[]{e.getXPos(), e.getYPos()});
     }
 
     @Override

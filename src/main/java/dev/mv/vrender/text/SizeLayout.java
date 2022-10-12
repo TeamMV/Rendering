@@ -23,16 +23,23 @@ public class SizeLayout {
 
     }
 
-    public int getWidth() {
-        return getWidth(text);
-    }
-
     public static int getWidth(String s, int height, BitmapFont font) {
         int res = 0;
         for (int i = 0; i < s.length(); i++) {
             res += getWidth(s.charAt(i), height, font);
         }
         return res;
+    }
+
+    public static int getWidth(char c, int height, BitmapFont font) {
+        if (c <= 31) return -1;
+        float multiplier = (float) height / (float) font.getDefaultHeight();
+        if (c == ' ') return (int) ((font.getHeight('.')) * multiplier);
+        return (int) ((font.getWidth(c) + font.getSpacing()) * multiplier);
+    }
+
+    public int getWidth() {
+        return getWidth(text);
     }
 
     public int getWidth(String s) {
@@ -44,15 +51,8 @@ public class SizeLayout {
     }
 
     public int getWidth(char c) {
-        if(c <= 31) return -1;
+        if (c <= 31) return -1;
         if (c == ' ') return (int) ((getHeight('.')) * multiplier);
-        return (int) ((font.getWidth(c) + font.getSpacing()) * multiplier);
-    }
-
-    public static int getWidth(char c, int height, BitmapFont font) {
-        if(c <= 31) return -1;
-        float multiplier = (float) height / (float) font.getDefaultHeight();
-        if (c == ' ') return (int) ((font.getHeight('.')) * multiplier);
         return (int) ((font.getWidth(c) + font.getSpacing()) * multiplier);
     }
 
@@ -67,17 +67,17 @@ public class SizeLayout {
     }
 
     public int getHeight(char c) {
-        if(c <= 32) return -1;
+        if (c <= 32) return -1;
         return (int) (font.getHeight(c) * multiplier);
     }
 
     public float getXOffset(char c) {
-        if(c <= 32) return -1;
+        if (c <= 32) return -1;
         return font.getGlyph(c).getxOff() * multiplier;
     }
 
     public float getYOffset(char c) {
-        if(c <= 32) return -1;
+        if (c <= 32) return -1;
         return font.getGlyph(c).getyOff() * multiplier;
     }
 

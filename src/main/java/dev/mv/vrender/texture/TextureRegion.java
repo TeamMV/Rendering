@@ -21,11 +21,11 @@ public class TextureRegion {
     }
 
     private float[] createUV(int x, int y, int width, int height) {
-        return new float[] {
-                (float) x / (float) this.width,
-                (float) (x + width) / (float) this.width,
-                (float) (y + height) / (float) this.height,
-                (float) (y) / (float) this.height
+        return new float[]{
+            (float) x / (float) this.width,
+            (float) (x + width) / (float) this.width,
+            (float) (y + height) / (float) this.height,
+            (float) (y) / (float) this.height
         };
     }
 

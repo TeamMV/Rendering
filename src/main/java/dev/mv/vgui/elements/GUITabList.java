@@ -199,7 +199,7 @@ public class GUITabList extends GUIElement implements Clickable, Typeable, Scrol
 
     @Override
     public void reset() {
-        if(tabs.get(0) != null) {
+        if (tabs.get(0) != null) {
             setSelectedTab(1);
         }
     }

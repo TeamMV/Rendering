@@ -17,12 +17,12 @@ public class VariablePosition {
 
     public static VariablePosition fromScreenPosition(int x, int y, int width, int height, int sWidth, int sHeight) {
         return new VariablePosition(sWidth, sHeight, (w, h) ->
-                new int[] {
-                        (int) (((float) x / (float) sWidth) * w),
-                        (int) (((float) y / (float) sHeight) * h),
-                        (int) (((float) width / (float) sWidth) * w),
-                        (int) (((float) height / (float) sHeight) * h)
-                }
+            new int[]{
+                (int) (((float) x / (float) sWidth) * w),
+                (int) (((float) y / (float) sHeight) * h),
+                (int) (((float) width / (float) sWidth) * w),
+                (int) (((float) height / (float) sHeight) * h)
+            }
         );
     }
 

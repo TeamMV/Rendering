@@ -46,10 +46,10 @@ public class Draw {
         float ay2 = y + height;
 
         BatchController.addVertices(verts.set(
-                v1.put(ax, ay2, 0.0f, 0.0f, r, g, b, a, 0.0f, 0.0f, 0.0f, currentCamMode, 0.0f, 0.0f),
-                v2.put(ax, ay, 0.0f, 0.0f, r, g, b, a, 0.0f, 0.0f, 0.0f, currentCamMode, 0.0f, 0.0f),
-                v3.put(ax2, ay, 0.0f, 0.0f, r, g, b, a, 0.0f, 0.0f, 0.0f, currentCamMode, 0.0f, 0.0f),
-                v4.put(ax2, ay2, 0.0f, 0.0f, r, g, b, a, 0.0f, 0.0f, 0.0f, currentCamMode, 0.0f, 0.0f)
+            v1.put(ax, ay2, 0.0f, 0.0f, r, g, b, a, 0.0f, 0.0f, 0.0f, currentCamMode, 0.0f, 0.0f),
+            v2.put(ax, ay, 0.0f, 0.0f, r, g, b, a, 0.0f, 0.0f, 0.0f, currentCamMode, 0.0f, 0.0f),
+            v3.put(ax2, ay, 0.0f, 0.0f, r, g, b, a, 0.0f, 0.0f, 0.0f, currentCamMode, 0.0f, 0.0f),
+            v4.put(ax2, ay2, 0.0f, 0.0f, r, g, b, a, 0.0f, 0.0f, 0.0f, currentCamMode, 0.0f, 0.0f)
         ));
     }
 
@@ -66,19 +66,19 @@ public class Draw {
         float radRotation = (float) (rotation * (Math.PI / 180));
 
         BatchController.addVertices(verts.set(
-                v1.put(ax, ay2, 0.0f, radRotation, r, g, b, a, 0.0f, 0.0f, 0.0f, currentCamMode, (float) originX, (float) originY),
-                v2.put(ax, ay, 0.0f, radRotation, r, g, b, a, 0.0f, 0.0f, 0.0f, currentCamMode, (float) originX, (float) originY),
-                v3.put(ax2, ay, 0.0f, radRotation, r, g, b, a, 0.0f, 0.0f, 0.0f, currentCamMode, (float) originX, (float) originY),
-                v4.put(ax2, ay2, 0.0f, radRotation, r, g, b, a, 0.0f, 0.0f, 0.0f, currentCamMode, (float) originX, (float) originY)
+            v1.put(ax, ay2, 0.0f, radRotation, r, g, b, a, 0.0f, 0.0f, 0.0f, currentCamMode, (float) originX, (float) originY),
+            v2.put(ax, ay, 0.0f, radRotation, r, g, b, a, 0.0f, 0.0f, 0.0f, currentCamMode, (float) originX, (float) originY),
+            v3.put(ax2, ay, 0.0f, radRotation, r, g, b, a, 0.0f, 0.0f, 0.0f, currentCamMode, (float) originX, (float) originY),
+            v4.put(ax2, ay2, 0.0f, radRotation, r, g, b, a, 0.0f, 0.0f, 0.0f, currentCamMode, (float) originX, (float) originY)
         ));
     }
 
     public void triangle(int x1, int y1, int x2, int y2, int x3, int y3) {
 
         BatchController.addVertices(verts.set(
-                v1.put(x1, y1, 0.0f, 0.0f, r, g, b, a, 0.0f, 0.0f, 0.0f, currentCamMode, 0.0f, 0.0f),
-                v2.put(x2, y2, 0.0f, 0.0f, r, g, b, a, 0.0f, 0.0f, 0.0f, currentCamMode, 0.0f, 0.0f),
-                v3.put(x3, y3, 0.0f, 0.0f, r, g, b, a, 0.0f, 0.0f, 0.0f, currentCamMode, 0.0f, 0.0f)
+            v1.put(x1, y1, 0.0f, 0.0f, r, g, b, a, 0.0f, 0.0f, 0.0f, currentCamMode, 0.0f, 0.0f),
+            v2.put(x2, y2, 0.0f, 0.0f, r, g, b, a, 0.0f, 0.0f, 0.0f, currentCamMode, 0.0f, 0.0f),
+            v3.put(x3, y3, 0.0f, 0.0f, r, g, b, a, 0.0f, 0.0f, 0.0f, currentCamMode, 0.0f, 0.0f)
         ));
     }
 
@@ -101,10 +101,10 @@ public class Draw {
         int texID = BatchController.addTexture(tex);
 
         BatchController.addVertices(verts.set(
-                v1.put(ax, ay2, 0.0f, radRotation, r, g, b, a, 0.0f, 0.0f, (float) texID, currentCamMode, (float) originX, (float) originY),
-                v2.put(ax, ay, 0.0f, radRotation, r, g, b, a, 0.0f, 1.0f, (float) texID, currentCamMode, (float) originX, (float) originY),
-                v3.put(ax2, ay, 0.0f, radRotation, r, g, b, a, 1.0f, 1.0f, (float) texID, currentCamMode, (float) originX, (float) originY),
-                v4.put(ax2, ay2, 0.0f, radRotation, r, g, b, a, 1.0f, 0.0f, (float) texID, currentCamMode, (float) originX, (float) originY)
+            v1.put(ax, ay2, 0.0f, radRotation, r, g, b, a, 0.0f, 0.0f, (float) texID, currentCamMode, (float) originX, (float) originY),
+            v2.put(ax, ay, 0.0f, radRotation, r, g, b, a, 0.0f, 1.0f, (float) texID, currentCamMode, (float) originX, (float) originY),
+            v3.put(ax2, ay, 0.0f, radRotation, r, g, b, a, 1.0f, 1.0f, (float) texID, currentCamMode, (float) originX, (float) originY),
+            v4.put(ax2, ay2, 0.0f, radRotation, r, g, b, a, 1.0f, 0.0f, (float) texID, currentCamMode, (float) originX, (float) originY)
         ));
     }
 
@@ -132,10 +132,10 @@ public class Draw {
         int texID = BatchController.addTexture(tex.getTexture());
 
         BatchController.addVertices(verts.set(
-                v1.put(ax, ay2, 0.0f, radRotation, r, g, b, a, ux0, uy0, (float) texID, currentCamMode, (float) originX, (float) originY),
-                v2.put(ax, ay, 0.0f, radRotation, r, g, b, a, ux0, uy1, (float) texID, currentCamMode, (float) originX, (float) originY),
-                v3.put(ax2, ay, 0.0f, radRotation, r, g, b, a, ux1, uy1, (float) texID, currentCamMode, (float) originX, (float) originY),
-                v4.put(ax2, ay2, 0.0f, radRotation, r, g, b, a, ux1, uy0, (float) texID, currentCamMode, (float) originX, (float) originY)
+            v1.put(ax, ay2, 0.0f, radRotation, r, g, b, a, ux0, uy0, (float) texID, currentCamMode, (float) originX, (float) originY),
+            v2.put(ax, ay, 0.0f, radRotation, r, g, b, a, ux0, uy1, (float) texID, currentCamMode, (float) originX, (float) originY),
+            v3.put(ax2, ay, 0.0f, radRotation, r, g, b, a, ux1, uy1, (float) texID, currentCamMode, (float) originX, (float) originY),
+            v4.put(ax2, ay2, 0.0f, radRotation, r, g, b, a, ux1, uy0, (float) texID, currentCamMode, (float) originX, (float) originY)
         ));
     }
 
@@ -191,7 +191,7 @@ public class Draw {
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
 
-            if(c <= 31) continue;
+            if (c <= 31) continue;
 
             float ax = x + charX + layout.getXOffset(c);
             float ay = y - (layout.getHeight(c) + layout.getYOffset(c)) + layout.getHeight();
@@ -209,10 +209,10 @@ public class Draw {
             int texID = BatchController.addTexture(font.getBitmap());
 
             BatchController.addVertices(verts.set(
-                    v1.put(ax, ay2, 0.0f, 0.0f, r, g, b, a, ux0, uy0, (float) texID, currentCamMode, 0.0f, 0.0f),
-                    v2.put(ax, ay, 0.0f, 0.0f, r, g, b, a, ux0, uy1, (float) texID, currentCamMode, 0.0f, 0.0f),
-                    v3.put(ax2, ay, 0.0f, 0.0f, r, g, b, a, ux1, uy1, (float) texID, currentCamMode, 0.0f, 0.0f),
-                    v4.put(ax2, ay2, 0.0f, 0.0f, r, g, b, a, ux1, uy0, (float) texID, currentCamMode, 0.0f, 0.0f)
+                v1.put(ax, ay2, 0.0f, 0.0f, r, g, b, a, ux0, uy0, (float) texID, currentCamMode, 0.0f, 0.0f),
+                v2.put(ax, ay, 0.0f, 0.0f, r, g, b, a, ux0, uy1, (float) texID, currentCamMode, 0.0f, 0.0f),
+                v3.put(ax2, ay, 0.0f, 0.0f, r, g, b, a, ux1, uy1, (float) texID, currentCamMode, 0.0f, 0.0f),
+                v4.put(ax2, ay2, 0.0f, 0.0f, r, g, b, a, ux1, uy0, (float) texID, currentCamMode, 0.0f, 0.0f)
             ));
         }
     }

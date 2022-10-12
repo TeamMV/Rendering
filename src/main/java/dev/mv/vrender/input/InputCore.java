@@ -86,7 +86,7 @@ public class InputCore implements NativeKeyListener {
         glfwGetCursorPos(window.getWindow(), mxPos, myPos);
         int mx = (int) mxPos.get(0), my = window.getHeight() - (int) myPos.get(0);
         return (mx >= x && mx <= x2 &&
-                my >= y && my <= y2);
+            my >= y && my <= y2);
     }
 
     public boolean scrollUp() {

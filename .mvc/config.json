@@ -1,11 +1,11 @@
 {
-	"name": "Rendering",
-	"language": "java",
-	"type": "lib",
-	"framework": "none",
-	"author": "Maxim Savenkov & Julian Hohenhausen",
-	"git": true,
-	"gitLink": "https://github.com/TeamMV/Rendering.git",
-	"licence": "MIT",
-	"frameworkVersion": "v0.0.0"
+  "name": "Rendering",
+  "language": "java",
+  "type": "lib",
+  "framework": "none",
+  "author": "Maxim Savenkov & Julian Hohenhausen",
+  "git": true,
+  "gitLink": "https://github.com/TeamMV/Rendering.git",
+  "licence": "MIT",
+  "frameworkVersion": "v0.0.0"
 }

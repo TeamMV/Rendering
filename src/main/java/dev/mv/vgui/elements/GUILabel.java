@@ -26,7 +26,7 @@ public class GUILabel extends GUIElement {
         this.text = text;
         this.initialText = text;
         this.font = font;
-        colour = new int[] {255, 255, 255, 255};
+        colour = new int[]{255, 255, 255, 255};
         initialColor = colour;
 
         layout.set(font, text, lineHeight);
@@ -40,7 +40,7 @@ public class GUILabel extends GUIElement {
         this.text = text;
         this.initialText = text;
         this.font = font;
-        colour = new int[] {255, 255, 255, 255};
+        colour = new int[]{255, 255, 255, 255};
         initialColor = colour;
 
         layout.set(font, text, lineHeight);
@@ -136,7 +136,7 @@ public class GUILabel extends GUIElement {
         colour = initialColor;
     }
 
-    public void setColor(int r, int g, int b, int a){
+    public void setColor(int r, int g, int b, int a) {
         this.colour[0] = r;
         this.colour[1] = g;
         this.colour[2] = b;

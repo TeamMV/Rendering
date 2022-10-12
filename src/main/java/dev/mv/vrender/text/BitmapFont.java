@@ -76,13 +76,13 @@ public class BitmapFont {
             maxWidth = Math.max(maxWidth, Integer.parseInt(getCharAttrib(line, "width")));
             maxHeight = Math.max(maxHeight, Integer.parseInt(getCharAttrib(line, "height")));
             map.put(Integer.parseInt(getCharAttrib(line, "id")), new Glyph(
-                    Integer.parseInt(getCharAttrib(line, "x")),
-                    Integer.parseInt(getCharAttrib(line, "y")),
-                    Integer.parseInt(getCharAttrib(line, "width")),
-                    Integer.parseInt(getCharAttrib(line, "height")),
-                    Integer.parseInt(getCharAttrib(line, "xoffset")),
-                    Integer.parseInt(getCharAttrib(line, "yoffset")),
-                    Integer.parseInt(getCharAttrib(line, "xadvance"))
+                Integer.parseInt(getCharAttrib(line, "x")),
+                Integer.parseInt(getCharAttrib(line, "y")),
+                Integer.parseInt(getCharAttrib(line, "width")),
+                Integer.parseInt(getCharAttrib(line, "height")),
+                Integer.parseInt(getCharAttrib(line, "xoffset")),
+                Integer.parseInt(getCharAttrib(line, "yoffset")),
+                Integer.parseInt(getCharAttrib(line, "xadvance"))
             ).makeTexCoords(atlasWidth, atlasHeight));
         }
 

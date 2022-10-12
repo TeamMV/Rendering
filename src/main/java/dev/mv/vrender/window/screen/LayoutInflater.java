@@ -49,7 +49,7 @@ public class LayoutInflater {
             }
             pageSystems.add(pageSystem);
         }
-        if(layout.getDefaultGUI() != null){
+        if (layout.getDefaultGUI() != null) {
             open.accept(layout.getDefaultGUI());
         }
         defaultSystem = layout.getDefaultGUI();
@@ -154,7 +154,7 @@ public class LayoutInflater {
     }
 
     protected void canClose() {
-        for(GUI gui : toClose) {
+        for (GUI gui : toClose) {
             gui.close();
         }
 

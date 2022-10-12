@@ -18,7 +18,7 @@ public class MultiGui {
 
     public MultiGui(String name, Page... pages) {
         this.pages = new HashMap<>();
-        for(Page page : pages){
+        for (Page page : pages) {
             this.pages.put(page.getName(), page);
         }
         this.name = name;
@@ -31,7 +31,7 @@ public class MultiGui {
     }
 
     public void addPage(Page page) {
-        if(this.open == null){
+        if (this.open == null) {
             this.open = page;
         }
         this.pages.put(page.getName(), page);

@@ -40,7 +40,7 @@ public class GUI {
     private LayoutInflater inflater;
 
     public GUI(String name) {
-        this(name, new GUIElement[] {});
+        this(name, new GUIElement[]{});
     }
 
     public GUI(String name, GUIElement... elements) {
@@ -325,7 +325,7 @@ public class GUI {
         if (callback instanceof GUICloseCallback c) {
             closeCallback = c;
         }
-        if (callback instanceof  GUIMouseMoveCallback c) {
+        if (callback instanceof GUIMouseMoveCallback c) {
             mouseMoveCallback = c;
         }
         if (callback instanceof GUIOpenCallback c) {

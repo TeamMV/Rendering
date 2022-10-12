@@ -86,7 +86,7 @@ public class GUIInputBox extends GUIElement implements Clickable, Typeable {
         label = new GUILabel(xPos + 20, yPos + (height / 2) - (layout.getHeight('e') / 2), height - height / 5, placeholder, font);
     }
 
-    public String getContent(){
+    public String getContent() {
         return text;
     }
 

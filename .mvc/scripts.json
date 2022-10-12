@@ -1,23 +1,23 @@
 {
-	"cliEditor": "nvim",
-	"scripts": [
-		{
-			"name": "commit",
-			"type": "sh",
-			"args": 1,
-			"script": "Z2l0IGFkZCAqCmdpdCBjb21taXQgLWEgLW0gInthcmdzLmluZGV4LjB9Igo="
-		},
-		{
-			"name": "push",
-			"type": "sh",
-			"args": 1,
-			"script": "Z2l0IGFkZCAqCmdpdCBjb21taXQgLWEgLW0gInthcmdzLmluZGV4LjB9IgpnaXQgcHVzaCAtdSBvcmlnaW4gbWFpbgo="
-		},
-		{
-			"name": "build",
-			"script": "cm0gLXJmIHRhcmdldC8KbXZuIHBhY2thZ2UKbXYgdGFyZ2V0L3ZyZW5kZXItMS4wLmphciAuLi9GYWN0b3J5SXNsYW5kL2xpYnMvamFyL3JlbmRlcmluZy5qYXIK",
-			"type": "sh",
-			"args": 0
-		}
-	]
+  "cliEditor": "nvim",
+  "scripts": [
+    {
+      "name": "commit",
+      "type": "sh",
+      "args": 1,
+      "script": "Z2l0IGFkZCAqCmdpdCBjb21taXQgLWEgLW0gInthcmdzLmluZGV4LjB9Igo="
+    },
+    {
+      "name": "push",
+      "type": "sh",
+      "args": 1,
+      "script": "Z2l0IGFkZCAqCmdpdCBjb21taXQgLWEgLW0gInthcmdzLmluZGV4LjB9IgpnaXQgcHVzaCAtdSBvcmlnaW4gbWFpbgo="
+    },
+    {
+      "name": "build",
+      "script": "cm0gLXJmIHRhcmdldC8KbXZuIHBhY2thZ2UKbXYgdGFyZ2V0L3ZyZW5kZXItMS4wLmphciAuLi9GYWN0b3J5SXNsYW5kL2xpYnMvamFyL3JlbmRlcmluZy5qYXIK",
+      "type": "sh",
+      "args": 0
+    }
+  ]
 }
